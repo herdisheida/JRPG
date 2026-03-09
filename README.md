@@ -42,7 +42,7 @@ README file satisfying these requirements will result in a 0.
 
 This program is a small turn-based battle game inspired by JRPGs such as Pokémon.
 
-<!-- TODO make the enemy randomized  and maybe stats randomised -->
+### Gameplay
 
 ### Battle Mechanics
 

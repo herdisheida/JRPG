@@ -24,28 +24,28 @@ namespace {
 }
 
 Battle::Battle(
-                std::unique_ptr<Creature> playerCreature,
-               std::unique_ptr<Creature> enemyCreature,
-               std::unique_ptr<Controller> playerController,
-               std::unique_ptr<Controller> enemyController)
-    : playerCreature_(std::move(playerCreature)),
-      enemyCreature_(std::move(enemyCreature)),
-      playerController_(std::move(playerController)),
-      enemyController_(std::move(enemyController)),
-      fled_(false) {}
+    Creature& playerCreature,
+    Creature& enemyCreature,
+    Controller& playerController,
+    Controller& enemyController)
+    : playerCreature_(playerCreature),
+        enemyCreature_(enemyCreature),
+        playerController_(playerController),
+        enemyController_(enemyController),
+        fled_(false) {}
 
 void Battle::printStatus() const {
     cout << "\n==================================\n";
 
     cout << left << setw(8)  << "Your:"
-         << setw(12) << playerCreature_->name()
-         << "HP " << playerCreature_->health().current()
-         << "/" << playerCreature_->health().max() << "\n";
+         << setw(12) << playerCreature_.name()
+         << "HP " << playerCreature_.health().current()
+         << "/" << playerCreature_.health().max() << "\n";
 
     cout << left << setw(8)  << "Enemy:"
-         << setw(12) << enemyCreature_->name()
-         << "HP " << enemyCreature_->health().current()
-         << "/" << enemyCreature_->health().max() << "\n";
+         << setw(12) << enemyCreature_.name()
+         << "HP " << enemyCreature_.health().current()
+         << "/" << enemyCreature_.health().max() << "\n";
 
     cout << "==================================\n";
 }
@@ -195,54 +195,54 @@ void Battle::applyStatusEffect(Creature& creature) {
 }
 
 void Battle::run() {
-    cout << "A wild " << enemyCreature_->name() << " appears!\n";
-    cout << "You send out " << playerCreature_->name() << "!\n";
+    cout << "A wild " << enemyCreature_.name() << " appears!\n";
+    cout << "You send out " << playerCreature_.name() << "!\n";
 
     printStatus();
     bool printedAfterRound = false;
     int round = 1;
 
 
-    while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
+    while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
 
         cout << "\n\n\n------------------ Round " << round++ << " ------------------\n\n";
 
         printedAfterRound = false;
-        bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
+        bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
 
         if (playerFirst) {
             // player goes first
-            if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
+            if (!takeTurn(playerCreature_, enemyCreature_, playerController_, true)) {
                 break;
             }
-            if (enemyCreature_->isFainted() || fled_) {
+            if (enemyCreature_.isFainted() || fled_) {
                 break;
             }
 
             // enemy goes second
-            if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
+            if (!takeTurn(enemyCreature_, playerCreature_, enemyController_, false)) {
                 break;
             }
-            if (playerCreature_->isFainted() || fled_) {
+            if (playerCreature_.isFainted() || fled_) {
                 break;
             }
         } else {
 
             // enemy goes first
-            if (round == 2) cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
+            if (round == 2) cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
             
-            if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
+            if (!takeTurn(enemyCreature_, playerCreature_, enemyController_, false)) {
                 break;
             }
-            if (playerCreature_->isFainted() || fled_) {
+            if (playerCreature_.isFainted() || fled_) {
                 break;
             }
 
             // player goes second
-            if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
+            if (!takeTurn(playerCreature_, enemyCreature_, playerController_, true)) {
                 break;
             }
-            if (enemyCreature_->isFainted() || fled_) {
+            if (enemyCreature_.isFainted() || fled_) {
                 break;
             }
         }
@@ -252,19 +252,19 @@ void Battle::run() {
         printedAfterRound = true;
 
         // reset defending state at end of round
-        playerCreature_->setDefending(false);
-        enemyCreature_->setDefending(false);
+        playerCreature_.setDefending(false);
+        enemyCreature_.setDefending(false);
     }
 
     if (!printedAfterRound && !fled_) { printStatus(); }
     
     if (fled_) {
         cout << "The battle is over.\n";
-    } else if (playerCreature_->isFainted()) {
+    } else if (playerCreature_.isFainted()) {
         // Enemy wins
-        cout << playerCreature_->name() << " has fainted! " << enemyCreature_->name() << " wins!\n";
-    } else if (enemyCreature_->isFainted()) {
+        cout << playerCreature_.name() << " has fainted! " << enemyCreature_.name() << " wins!\n";
+    } else if (enemyCreature_.isFainted()) {
         // Player wins
-        cout << enemyCreature_->name() << " has fainted! " << playerCreature_->name() << " wins!\n";
+        cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";
     }
 }

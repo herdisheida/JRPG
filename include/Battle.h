@@ -6,18 +6,32 @@
 #include "Creature.h"
 
 class Battle {
+    // doesn't work after adding overwolrd
+    // private:
+    //     std::unique_ptr<Creature> playerCreature_;
+    //     std::unique_ptr<Creature> enemyCreature_;
+    //     std::unique_ptr<Controller> playerController_;
+    //     std::unique_ptr<Controller> enemyController_;
+    //     bool fled_;
     private:
-        std::unique_ptr<Creature> playerCreature_;
-        std::unique_ptr<Creature> enemyCreature_;
-        std::unique_ptr<Controller> playerController_;
-        std::unique_ptr<Controller> enemyController_;
+        Creature& playerCreature_;
+        Creature& enemyCreature_;
+        Controller& playerController_;
+        Controller& enemyController_;
         bool fled_;
 
     public:
-        Battle(std::unique_ptr<Creature> playerCreature,
-            std::unique_ptr<Creature> enemyCreature,
-            std::unique_ptr<Controller> playerController,
-            std::unique_ptr<Controller> enemyController);
+        // Battle(
+        //     std::unique_ptr<Creature> playerCreature,
+        //     std::unique_ptr<Creature> enemyCreature,
+        //     std::unique_ptr<Controller> playerController,
+        //     std::unique_ptr<Controller> enemyController);
+        Battle(
+            Creature& playerCreature,
+            Creature& enemyCreature,
+            Controller& playerController,
+            Controller& enemyController
+        );
 
         void run();
 

@@ -2,11 +2,8 @@ CXX      := clang++
 CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic -Iinclude # newest version
 
 BUILD_NAME := JRPG
-SRC = main.cpp src/Battle.cpp
+SRC = main.cpp src/Battle.cpp src/OverworldMap.cpp
 OUT = game
-
-SRCS := main.cpp ast.cpp
-OBJS := $(SRCS:.cpp=.o)
 
 all: $(OUT) info
 

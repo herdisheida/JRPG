@@ -4,6 +4,8 @@
 #include "include/Battle.h"
 #include "include/Controller.h"
 #include "include/Creature.h"
+#include "include/OverworldMap.h"
+
 
 using namespace std;
 
@@ -42,19 +44,56 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     }
 }
 
+std::unique_ptr<Creature> createRandomWildCreature() {
+    int roll = std::rand() % 5;
+
+    switch (roll) {
+        case 0: return std::make_unique<Pikachu>();
+        case 1: return std::make_unique<Piplup>();
+        case 2: return std::make_unique<Charizard>();
+        case 3: return std::make_unique<Lucario>();
+        default: return std::make_unique<Gengar>();
+    }
+}
+
 int main() {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
     cout << "=== Mini JRPG Battle ===\n\n";
 
+    // get player creature
     auto playerCreature = chooseCreature("Choose your creature:");
-    auto enemyCreature = chooseCreature("Choose the enemy creature:");
+    PlayerController playerController;
+    EnemyController enemyController;
 
-    Battle battle(
-        std::move(playerCreature),
-        std::move(enemyCreature),
-        std::make_unique<PlayerController>(),
-        std::make_unique<EnemyController>());
+    // initalize overworld
+    OverworldMap map(5, 7);
+    map.initialize(6);
 
-    battle.run();
+    while (true) {
+        map.print();
 
-    return 0;
+        char input;
+        std::cout << "\nMove with W A S D, or Q to quit: ";
+        std::cin >> input;
+
+        if (input == 'q' || input == 'Q') {
+            break;
+        }
+
+        if (!map.movePlayer(input)) {
+            continue;
+        }
+
+        map.print();
+
+        if (map.hasEncounter()) {
+            auto enemyCreature = createRandomWildCreature();
+
+            Battle battle(*playerCreature, *enemyCreature, playerController, enemyController);
+            battle.run();
+
+            map.clearEncounter();
+        }
+    }
 }
