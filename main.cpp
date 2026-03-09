@@ -63,7 +63,7 @@ int main() {
 
     // get player creature
     auto playerCreature = chooseCreature("Choose your creature:");
-    cout << playerCreature->species() << "is ready for battle!\n\n";
+    cout << playerCreature->species() << " is ready for battle!\n\n";
     playerCreature->printAscii();
 
     PlayerController playerController;

@@ -281,12 +281,17 @@ public:
 
     // print ascii creature
     virtual void printAscii() override {
-        std::cout << "  oo`'._..---.___..-" << "\n";
-        std::cout << " (_,-.        ,..'`" << "\n";
-        std::cout << "      `'.    ;" << "\n";
-        std::cout << "         : :`" << "\n";
-        std::cout << "        _;_;    " << "\n";
+        std::cout << "               ,             " << "\n";
+        std::cout << "             .--')           " << "\n";
+        std::cout << "            /    /           " << "\n";
+        std::cout << "           |    /            " << "\n";
+        std::cout << "        /`.\\   (_.'\\       " << "\n";
+        std::cout << "        \\          /        " << "\n";
+        std::cout << "         '--. .---'          " << "\n";
+        std::cout << "           ( \" )            " << "\n";
+        std::cout << "            '-'              " << "\n";
     }
 };
+
 
 #endif
