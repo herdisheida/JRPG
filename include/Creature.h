@@ -96,17 +96,18 @@ public:
               110,
               {10, 5, 15},
               {
-                  Action("Thunderbolt",  ActionKind::Attack,  9, 95, 20, DamageType::Electric),
-                  Action("Quick Attack", ActionKind::Attack,  6, 100, 10, DamageType::Physical),
-                  Action("Iron Tail",    ActionKind::Attack, 12, 85, 15, DamageType::Physical)
+                Action("Thunderbolt",  ActionKind::Attack,  9, 95, 20, DamageType::Electric),
+                Action("Quick Attack", ActionKind::Attack,  6, 100, 10, DamageType::Physical),
+                Action("Iron Tail",    ActionKind::Attack, 12, 85, 15, DamageType::Physical),
+                Action("Defend",       ActionKind::Defend, 0, 100, 0, DamageType::Physical),
               },
               {
-                  {DamageType::Physical, 1.0f},
-                  {DamageType::Fire,     1.0f},
-                  {DamageType::Water,    1.0f},
-                  {DamageType::Grass,    1.0f},
-                  {DamageType::Electric, 0.5f},
-                  {DamageType::Flying,   1.0f}
+                {DamageType::Physical, 1.0f},
+                {DamageType::Fire,     1.0f},
+                {DamageType::Water,    1.0f},
+                {DamageType::Grass,    1.0f},
+                {DamageType::Electric, 0.5f},
+                {DamageType::Flying,   1.0f}
               }) {}
 
     std::string species() const override { return "Pikachu"; }
@@ -120,17 +121,17 @@ public:
               100,
               {30, 10, 5},
               {
-                  Action("Fire Fang",  ActionKind::Attack, 20, 70, 15, DamageType::Fire),
-                  Action("Slash",      ActionKind::Attack, 10, 60, 10, DamageType::Physical),
-                  Action("Fire Blitz", ActionKind::Attack, 60, 20, 25, DamageType::Fire)
+                Action("Fire Fang",  ActionKind::Attack, 20, 70, 15, DamageType::Fire),
+                Action("Slash",      ActionKind::Attack, 10, 60, 10, DamageType::Physical),
+                Action("Fire Blitz", ActionKind::Attack, 60, 20, 25, DamageType::Fire),
               },
               {
-                  {DamageType::Physical, 1.0f},
-                  {DamageType::Fire,     0.5f},
-                  {DamageType::Water,    1.5f},
-                  {DamageType::Grass,    0.5f},
-                  {DamageType::Electric, 1.0f},
-                  {DamageType::Flying,   0.5f}
+                {DamageType::Physical, 1.0f},
+                {DamageType::Fire,     0.5f},
+                {DamageType::Water,    1.5f},
+                {DamageType::Grass,    0.5f},
+                {DamageType::Electric, 1.0f},
+                {DamageType::Flying,   0.5f}
               }) {}
 
     std::string species() const override { return "Charizard"; }
@@ -144,17 +145,19 @@ public:
               120,
               {20, 10, 50},
               {
-                  Action("Swords Dance", ActionKind::Defend,  0, 100, 0, DamageType::Physical),
-                  Action("Ice Punch",    ActionKind::Attack, 20, 60, 15, DamageType::Physical),
-                  Action("Shadow Claw",  ActionKind::Attack, 10, 70, 20, DamageType::Physical)
+                Action("Swords Dance", ActionKind::Defend,  0, 100, 0, DamageType::Physical),
+                Action("Ice Punch",    ActionKind::Attack, 20, 60, 15, DamageType::Physical),
+                Action("Shadow Claw",  ActionKind::Attack, 10, 70, 20, DamageType::Physical),
+                Action("Defend",       ActionKind::Defend, 0, 100, 0, DamageType::Physical),
+
               },
               {
-                  {DamageType::Physical, 2.0f},
-                  {DamageType::Fire,     1.0f},
-                  {DamageType::Water,    1.0f},
-                  {DamageType::Grass,    0.5f},
-                  {DamageType::Electric, 0.5f},
-                  {DamageType::Flying,   1.0f}
+                {DamageType::Physical, 2.0f},
+                {DamageType::Fire,     1.0f},
+                {DamageType::Water,    1.0f},
+                {DamageType::Grass,    0.5f},
+                {DamageType::Electric, 0.5f},
+                {DamageType::Flying,   1.0f}
               }) {}
 
     std::string species() const override { return "Lucario"; }

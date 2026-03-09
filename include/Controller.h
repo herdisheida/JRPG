@@ -30,6 +30,7 @@ class PlayerController : public Controller {
                 std::cout << "\n";
             }
             // std::cout << "----------------------------------\n";
+            std::cout << actions.size() + 1 << ". Flee\n";
         }
 
     public:
@@ -41,10 +42,13 @@ class PlayerController : public Controller {
 
             int choice;
             while (true) {
-                std::cout << "\n> ";
+                std::cout << "> ";
                 std::cin >> choice;
+                std::cout << "\n";
+                
+                int maxChoice = self.actions().size() + 1;
 
-                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(self.actions().size())) {
+                if (std::cin.fail() || choice < 1 || choice > maxChoice) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << "Invalid choice. Try again.\n";

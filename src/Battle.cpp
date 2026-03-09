@@ -122,10 +122,10 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
                 if (isPlayer) {
                     cout << actor.name() << " successfully fled from battle!\n";
                 } else {
-                    cout << actor.name() << " ran away!\n";
+                    cout << actor.name() << " ran away safely\n";
                 }
             } else {
-                cout << actor.name() << " tries to flee, but fails!\n";
+                cout << actor.name() << " tried to flee, but couldn't escape!\n";
             }
             break;
         }
@@ -133,11 +133,21 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 }
 
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
-    actor.setDefending(false);
-
     int chosen = controller.chooseAction(actor, target);
-    const Action& action = actor.actions().at(chosen);
 
+    // player flee option
+    int actionCount = static_cast<int>(actor.actions().size());
+
+    if (isPlayer && chosen == actionCount) {
+        Action fleeAction("Flee", ActionKind::Flee, 0, 100, 0, DamageType::Physical);
+        executeAction(actor, target, fleeAction, true);
+
+        if (fled_) return false;
+            return true;
+    }
+
+    // player action
+    const Action& action = actor.actions().at(chosen);
     executeAction(actor, target, action, isPlayer);
 
     if (fled_ || actor.isFainted() || target.isFainted()) {
@@ -151,8 +161,9 @@ void Battle::run() {
     cout << "A wild " << enemyCreature_->name() << " appears!\n";
     cout << "You send out " << playerCreature_->name() << "!\n";
 
+    printStatus();   // inital status
+    
     while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
-        printStatus();
 
         bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
@@ -164,6 +175,8 @@ void Battle::run() {
                 break;
             }
         } else {
+            // Enemy goes first
+            cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
@@ -171,9 +184,12 @@ void Battle::run() {
                 break;
             }
         }
+
+        printStatus(); // after each round
     }
 
-    printStatus();
+    
+    // if (!fled_) { printStatus(); }
 
     if (fled_) {
         cout << "The battle is over.\n";

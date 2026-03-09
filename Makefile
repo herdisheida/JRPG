@@ -13,9 +13,6 @@ all: $(OUT) info
 $(OUT): $(SRC)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT)
 
-run: $(OUT)
-	./$(OUT)
-
 clean:
 	rm -f $(OUT)
 

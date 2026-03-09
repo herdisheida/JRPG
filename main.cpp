@@ -21,6 +21,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
         int choice;
         cin >> choice;
+        cout << "\n";
 
         if (cin.fail()) {
             cin.clear();
