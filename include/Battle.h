@@ -11,19 +11,20 @@ class Battle {
         std::unique_ptr<Creature> enemyCreature_;
         std::unique_ptr<Controller> playerController_;
         std::unique_ptr<Controller> enemyController_;
+        bool fled_;
 
     public:
-        Battle(
-            std::unique_ptr<Creature> playerCreature,
+        Battle(std::unique_ptr<Creature> playerCreature,
             std::unique_ptr<Creature> enemyCreature,
             std::unique_ptr<Controller> playerController,
             std::unique_ptr<Controller> enemyController);
 
-        void run(); // game loop
+        void run();
 
     private:
         void printStatus() const;
-        void doAttack(Creature& attacker, Creature& defender, int moveIndex);
+        bool takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
+        void executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer);
 };
 
 #endif

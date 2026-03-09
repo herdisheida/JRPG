@@ -6,6 +6,19 @@
 
 using namespace std;
 
+
+namespace {
+    std::mt19937& rng() {
+        static std::mt19937 gen(std::random_device{}());
+        return gen;
+    }
+
+    bool rollPercent(int chance) {
+        std::uniform_int_distribution<int> dist(1, 100);
+        return dist(rng()) <= chance;
+    }
+}
+
 Battle::Battle(
                 std::unique_ptr<Creature> playerCreature,
                std::unique_ptr<Creature> enemyCreature,
@@ -14,7 +27,8 @@ Battle::Battle(
     : playerCreature_(std::move(playerCreature)),
       enemyCreature_(std::move(enemyCreature)),
       playerController_(std::move(playerController)),
-      enemyController_(std::move(enemyController)) {}
+      enemyController_(std::move(enemyController)),
+      fled_(false) {}
 
 void Battle::printStatus() const {
     cout << "\n"
@@ -25,78 +39,138 @@ void Battle::printStatus() const {
               << "/" << enemyCreature_->health().max() << ")\n";
 }
 
-void Battle::doAttack(Creature& attacker, Creature& defender, int moveIndex) {
-    static std::mt19937 rng(std::random_device{}());
-
-    const Move& move = attacker.moves().at(moveIndex);
-
-    std::uniform_int_distribution<int> hitRoll(1, 100);
-    if (hitRoll(rng) > move.accuracy) {
-        cout << attacker.name() << " uses " << move.name << " but misses!\n";
+void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
+    if (!rollPercent(action.accuracy)) {
+        cout << actor.name() << " uses " << action.name << " but it misses!\n";
         return;
     }
 
-    std::uniform_int_distribution<int> variance(0, 2);
+    switch (action.kind) {
+        case ActionKind::Attack: {
+            int baseDamage = actor.stats().attack + action.power - target.stats().defense;
+            baseDamage = std::max(1, baseDamage);
 
-    int rawDamage = attacker.stats().attack + move.power - defender.stats().defense;
-    int damage = std::max(1, rawDamage + variance(rng));
+            std::uniform_int_distribution<int> variance(0, 2);
+            int damage = baseDamage + variance(rng());
 
-    defender.health().damage(damage);
+            float typeMultiplier = target.resistanceTo(action.damageType);
+            damage = static_cast<int>(damage * typeMultiplier);
 
-    cout << attacker.name() << " uses " << move.name
-              << " dealing " << damage << " damage!\n";
+            if (target.isDefending()) {
+                damage = std::max(1, damage / 2);
+            }
+
+            bool critical = rollPercent(action.critChance);
+            if (critical) {
+                damage *= 2;
+            }
+
+            damage = std::max(1, damage);
+            target.health().damage(damage);
+
+            cout << actor.name() << " uses " << action.name
+                      << " dealing " << damage << " " << toString(action.damageType)
+                      << " damage";
+
+            if (critical) {
+                cout << " - Critical hit!";
+            }
+
+            if (typeMultiplier < 1.0f) {
+                cout << " It's not very effective.";
+            } else if (typeMultiplier > 1.0f) {
+                cout << " It's super effective!";
+            }
+
+            if (target.isDefending()) {
+                cout << " The target was defending.";
+            }
+
+            cout << "\n";
+            break;
+        }
+
+        case ActionKind::Heal: {
+            actor.health().heal(action.power);
+            cout << actor.name() << " uses " << action.name
+                      << " and restores " << action.power << " HP!\n";
+            break;
+        }
+
+        case ActionKind::Defend: {
+            actor.setDefending(true);
+            cout << actor.name() << " uses " << action.name
+                      << " and braces for the next hit!\n";
+            break;
+        }
+
+        case ActionKind::Flee: {
+            int fleeChance = isPlayer ? 60 : 20;
+            if (rollPercent(fleeChance)) {
+                fled_ = true;
+                if (isPlayer) {
+                    cout << actor.name() << " successfully fled from battle!\n";
+                } else {
+                    cout << actor.name() << " ran away!\n";
+                }
+            } else {
+                cout << actor.name() << " tries to flee, but fails!\n";
+            }
+            break;
+        }
+    }
+}
+
+bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
+    actor.setDefending(false);
+
+    int chosen = controller.chooseAction(actor, target);
+    const Action& action = actor.actions().at(chosen);
+
+    executeAction(actor, target, action, isPlayer);
+
+    if (fled_ || actor.isFainted() || target.isFainted()) {
+        return false;
+    }
+
+    return true;
 }
 
 void Battle::run() {
     cout << "A wild " << enemyCreature_->name() << " appears!\n";
     cout << "You send out " << playerCreature_->name() << "!\n";
 
-    while (!playerCreature_->isFainted() && !enemyCreature_->isFainted()) {
+    while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
         printStatus();
 
-        bool playerGoesFirst =
-            playerCreature_->stats().speed >= enemyCreature_->stats().speed;
+        bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
-        if (playerGoesFirst) {
-            int playerMove = playerController_->chooseMove(*playerCreature_, *enemyCreature_);
-            doAttack(*playerCreature_, *enemyCreature_, playerMove);
-
-            if (enemyCreature_->isFainted()) {
-                cout << enemyCreature_->name() << " has fainted! "
-                          << playerCreature_->name() << " wins!\n";
+        if (playerFirst) {
+            if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
-
-            int enemyMove = enemyController_->chooseMove(*enemyCreature_, *playerCreature_);
-            cout << "\n" << enemyCreature_->name() << "'s turn!\n";
-            doAttack(*enemyCreature_, *playerCreature_, enemyMove);
-
-            if (playerCreature_->isFainted()) {
-                cout << playerCreature_->name() << " has fainted! "
-                          << enemyCreature_->name() << " wins!\n";
+            if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
         } else {
-            int enemyMove = enemyController_->chooseMove(*enemyCreature_, *playerCreature_);
-            cout << "\n" << enemyCreature_->name() << "'s turn!\n";
-            doAttack(*enemyCreature_, *playerCreature_, enemyMove);
-
-            if (playerCreature_->isFainted()) {
-                cout << playerCreature_->name() << " has fainted! "
-                          << enemyCreature_->name() << " wins!\n";
+            if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
-
-            int playerMove = playerController_->chooseMove(*playerCreature_, *enemyCreature_);
-            doAttack(*playerCreature_, *enemyCreature_, playerMove);
-
-            if (enemyCreature_->isFainted()) {
-                cout << enemyCreature_->name() << " has fainted! "
-                          << playerCreature_->name() << " wins!\n";
+            if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
         }
     }
 
     printStatus();
+
+    if (fled_) {
+        cout << "The battle is over.\n";
+    } else if (playerCreature_->isFainted()) {
+        cout << playerCreature_->name() << " has fainted! "
+                  << enemyCreature_->name() << " wins!\n";
+    } else if (enemyCreature_->isFainted()) {
+        cout << enemyCreature_->name() << " has fainted! "
+                  << playerCreature_->name() << " wins!\n";
+    }
 }

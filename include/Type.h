@@ -10,6 +10,7 @@ enum class DamageType {
 
     Electric,
     Flying,
+    Physical
 };
 
 inline std::string toString(DamageType type) {
@@ -20,6 +21,7 @@ inline std::string toString(DamageType type) {
 
         case DamageType::Electric: return "Electric";
         case DamageType::Flying:   return "Flying";
+        case DamageType::Physical: return "Physical";
 
         default:                   return "Unknown";
     }

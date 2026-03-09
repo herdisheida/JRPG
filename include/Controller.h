@@ -9,22 +9,31 @@
 class Controller {
     public:
         virtual ~Controller() = default;
-        virtual int chooseMove(const Creature& self, const Creature& opponent) = 0;
+        virtual int chooseAction(const Creature& self, const Creature& opponent) = 0;
 };
 
 class PlayerController : public Controller {
     public:
-        int chooseMove(const Creature& self, const Creature& opponent) override {
+        int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
             std::cout << "\n" << self.name() << "'s turn!\n";
             std::cout << "Choose an action:\n";
 
-            const auto& moves = self.moves();
-            for (size_t i = 0; i < moves.size(); ++i) {
-                std::cout << (i + 1) << ". " << moves[i].name
-                        << " (Power " << moves[i].power
-                        << ", Accuracy " << moves[i].accuracy << "%)\n";
+            const auto& actions = self.actions();
+            for (size_t i = 0; i < actions.size(); ++i) {
+                std::cout << (i + 1) << ". " << actions[i].name
+                        << " [" << actionKindToString(actions[i].kind) << "]";
+
+                if (actions[i].kind == ActionKind::Attack) {
+                    std::cout << " Power:" << actions[i].power
+                            << " Accuracy:" << actions[i].accuracy
+                            << "% Type:" << toString(actions[i].damageType);
+                } else if (actions[i].kind == ActionKind::Heal) {
+                    std::cout << " Heal:" << actions[i].power;
+                }
+
+                std::cout << "\n";
             }
 
             int choice;
@@ -32,7 +41,7 @@ class PlayerController : public Controller {
                 std::cout << "> ";
                 std::cin >> choice;
 
-                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(moves.size())) {
+                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(actions.size())) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << "Invalid choice. Try again.\n";
@@ -50,9 +59,9 @@ class EnemyController : public Controller {
     public:
         EnemyController() : rng_(std::random_device{}()) {}
 
-        int chooseMove(const Creature& self, const Creature& opponent) override {
+        int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
-            std::uniform_int_distribution<int> dist(0, static_cast<int>(self.moves().size()) - 1);
+            std::uniform_int_distribution<int> dist(0, static_cast<int>(self.actions().size()) - 1);
             return dist(rng_);
         }
 };
