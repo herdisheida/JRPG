@@ -194,9 +194,17 @@ void Battle::applyStatusEffect(Creature& creature) {
     }
 }
 
+
 void Battle::run() {
-    cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n";
-    cout << "You send out " << playerCreature_.name() << "!\n";
+    cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
+
+    cout << "  oo`'._..---.___..-" << "\n";
+    cout << " (_,-.        ,..'`" << "\n";
+    cout << "      `'.    ;" << "\n";
+    cout << "         : :`" << "\n";
+    cout << "        _;_;    " << "\n";
+
+    cout << "\nYou send out " << playerCreature_.name() << "!\n";
 
     printStatus();
     bool printedAfterRound = false;
