@@ -44,6 +44,10 @@ This program is a small turn-based battle game inspired by JRPGs such as Pokémo
 
 ### Gameplay
 
+- The player chooses a creature to battle with.
+- Name and ASCII art of the creature is displayed.
+- The player battles against a randomly generated enemy creature.
+
 ### Battle Mechanics
 
 Each creature has:
