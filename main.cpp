@@ -74,6 +74,19 @@ void customizeCreature(Creature& creature) {
     creature.printAscii();
 }
 
+void printVictoryMsg() {
+    cout << "\n\n\n=========================================\n";
+    cout << "\nCongratulations!\n";
+    cout <<" You've defeated all the wild creatures and won the game!\n";
+}
+
+void printLoseMsg() {
+    cout << "\n\n\n=========================================\n";
+    cout << "\nGame Over!\n";
+    cout << "Your creature has fainted and there are no healing items left.\n";
+    cout << "Better luck next time!\n";
+}
+
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
@@ -89,23 +102,43 @@ int main() {
     OverworldMap map(5, 7);
     map.initialize(6, 3); // 6 wilds, 3 hearts
 
+
+    // main game loop - player moves around map and encounters wild creatures
     while (true) {
         map.print();
 
+        // win or lose conditions
+        if (!map.hasWildsLeft()) {
+            printVictoryMsg();
+            break;
+        }
+        if (playerCreature->isFainted()) {
+            if (!map.hasHeartsLeft()) {
+                printLoseMsg();
+                break;
+            } else {
+                std::cout << "\n" << playerCreature->name() << " has fainted. Find a heart to recover!\n";
+            }
+        }
+
+
+        // move player
         char input;
         std::cout << "\nMove with W A S D, or Q to quit: ";
         std::cin >> input;
 
-        if (input == 'q' || input == 'Q') {
-            break;
+        if (input == 'q' || input == 'Q') { break; }
+        if (!map.movePlayer(input)) { continue; }
+
+        // heart encounter
+        if (map.hasHeart()) {
+            std::cout << "\n" << playerCreature->name() << " found a healing heart!\n";
+            playerCreature->healToFull();
+            map.clearHeart();
+            std::cout << playerCreature->name() << " was restored to full HP!\n";
         }
-
-        if (!map.movePlayer(input)) {
-            continue;
-        }
-
-        map.print();
-
+            
+        // wild battle encounter
         if (map.hasEncounter()) {
             if (playerCreature->isFainted()) {
                 cout << "\nYour creature has fainted and cannot battle.\n";

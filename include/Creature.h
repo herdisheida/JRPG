@@ -61,11 +61,12 @@ class Creature {
 
         const Health& health() const { return health_; }
         Health& health() { return health_; }
-
-        const Stats& stats() const { return stats_; }
-        const std::vector<Action>& actions() const { return actions_; }
+        void healToFull() { health_.healToFull(); }
 
         bool isFainted() const { return health_.isFainted(); }
+    
+        const Stats& stats() const { return stats_; }
+        const std::vector<Action>& actions() const { return actions_; }
 
         float resistanceTo(DamageType type) const {
             auto it = resistances_.find(type);

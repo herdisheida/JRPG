@@ -26,6 +26,10 @@ class Health {
             if (current_ > max_) current_ = max_;
         }
 
+        void healToFull() {
+            current_ = max_;
+        }
+
         void reset() {
             current_ = max_;
         }
