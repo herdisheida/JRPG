@@ -195,7 +195,7 @@ void Battle::applyStatusEffect(Creature& creature) {
 }
 
 void Battle::run() {
-    cout << "A wild " << enemyCreature_.name() << " appears!\n";
+    cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n";
     cout << "You send out " << playerCreature_.name() << "!\n";
 
     printStatus();
@@ -205,7 +205,7 @@ void Battle::run() {
 
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
 
-        cout << "\n\n\n------------------ Round " << round++ << " ------------------\n\n";
+        cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
 
         printedAfterRound = false;
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
