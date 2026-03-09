@@ -2,8 +2,10 @@
 #define CONTROLLER_H
 
 #include <iostream>
+#include <iomanip>
 #include <limits>
 #include <random>
+
 #include "Creature.h"
 
 class Controller {
@@ -13,35 +15,40 @@ class Controller {
 };
 
 class PlayerController : public Controller {
+    private:
+        void printActionOptions(const Creature& self) const {
+            const auto& actions = self.actions();
+
+            for (size_t i = 0; i < actions.size(); ++i) {
+                std::cout << std::left
+                        << std::setw(2) << (i + 1) << ". "
+                        << std::setw(16) << actions[i].name
+                        << " | "
+                        << std::setw(7) << actionKindToString(actions[i].kind);
+
+                if (actions[i].kind == ActionKind::Attack) {
+                    std::cout << " | Power: " << actions[i].power;
+                }
+
+                std::cout << "\n";
+            }
+        }
+
     public:
         int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
             std::cout << "\n" << self.name() << "'s turn!\n";
-            std::cout << "Choose an action:\n";
+            std::cout << "Choose an action:\n\n";
 
-            const auto& actions = self.actions();
-            for (size_t i = 0; i < actions.size(); ++i) {
-                std::cout << (i + 1) << ". " << actions[i].name
-                        << " [" << actionKindToString(actions[i].kind) << "]";
-
-                if (actions[i].kind == ActionKind::Attack) {
-                    std::cout << " Power:" << actions[i].power
-                            << " Accuracy:" << actions[i].accuracy
-                            << "% Type:" << toString(actions[i].damageType);
-                } else if (actions[i].kind == ActionKind::Heal) {
-                    std::cout << " Heal:" << actions[i].power;
-                }
-
-                std::cout << "\n";
-            }
+            printActionOptions(self);
 
             int choice;
             while (true) {
-                std::cout << "> ";
+                std::cout << "\n> ";
                 std::cin >> choice;
 
-                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(actions.size())) {
+                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(self.actions().size())) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << "Invalid choice. Try again.\n";
