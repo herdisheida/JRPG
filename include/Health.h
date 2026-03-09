@@ -32,13 +32,6 @@ class Health {
 
         void changeMax(int amount) {
             max_ += amount;
-
-            if (amount < 0) {
-                damage(-amount);
-            } else {
-                heal(amount);
-            }
-
             if (max_ < 1) { max_ = 1; }
             if (current_ > max_) { current_ = max_; }
         }

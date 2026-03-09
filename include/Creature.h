@@ -67,6 +67,8 @@ class Creature {
         bool isFainted() const { return health_.isFainted(); }
     
         const Stats& stats() const { return stats_; }
+        Stats& stats() { return stats_; }
+
         const std::vector<Action>& actions() const { return actions_; }
 
         float resistanceTo(DamageType type) const {

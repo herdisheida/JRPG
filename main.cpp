@@ -195,10 +195,16 @@ int main() {
                 // negative effect: decrease max HP
                 playerCreature->changeMaxHp(-10);
                 std::cout << playerCreature->name() << " lost 10 max HP...\n";
-            } else if (outcome == 3) {
+            } else if (outcome == 2) {
                 // DEATH EFFECT: faint immediately
                 playerCreature->health().damage(playerCreature->health().current());
                 std::cout << "Oh no! It was a trap! " << playerCreature->name() << " took massive damage and fainted!\n";
+            } else if (outcome == 3) {
+                // negative effect: decrease stats (attack, defense, speed)
+                playerCreature->stats().attack = std::max(1, playerCreature->stats().attack - 5);
+                playerCreature->stats().defense = std::max(1, playerCreature->stats().defense - 5);
+                playerCreature->stats().speed = std::max(1, playerCreature->stats().speed - 5);
+                std::cout << playerCreature->name() << "'s stats were reduced!\n";
             } else {
                 // no effect
                 std::cout << playerCreature->name() << " found nothing special.\n";
