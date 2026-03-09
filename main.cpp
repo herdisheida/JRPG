@@ -8,10 +8,15 @@
 using namespace std;
 
 std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
+
+    
     while (true) {
         cout << prompt << "\n";
         cout << "1. Pikachu\n";
         cout << "2. Piplup\n";
+        cout << "3. Charizard\n";
+        cout << "4. Lucario\n";
+
         cout << "> ";
 
         int choice;
@@ -27,6 +32,8 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
         switch (choice) {
             case 1: return std::make_unique<Pikachu>();
             case 2: return std::make_unique<Piplup>();
+            case 3: return std::make_unique<Charizard>();
+            case 4: return std::make_unique<Lucario>();
             default:
                 cout << "Invalid choice.\n\n";
         }

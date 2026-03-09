@@ -36,20 +36,22 @@ public:
     bool isFainted() const { return health_.isFainted(); }
 };
 
-class Sparkit : public Creature {
+
+// custom creatures
+class Charizard : public Creature {
 public:
-    Sparkit()
+    Charizard()
         : Creature(
-              "SPARKIT",
-              28,
-              {9, 4, 8},
+              "CHARIZARD",
+              100,
+              {20, 10, 2},
               {
-                  Move("Static Zap", 8, 95),
-                  Move("Quick Scratch", 6, 100),
-                  Move("Thunder Bite", 10, 85)
+                  Move("Fire Fang", 20, 70),
+                  Move("Slash", 10, 60),
+                  Move("Fire Blitz", 60, 20)
               }) {}
 
-    std::string species() const override { return "Sparkit"; }
+    std::string species() const override { return "Charizard"; }
 };
 
 
@@ -58,8 +60,8 @@ class Piplup : public Creature {
         Piplup()
             : Creature(
                 "PIPLUP",
-                28,
-                {9, 4, 8},
+                80,
+                {10, 4, 10},
                 {
                     Move("Bubble", 8, 95),
                     Move("Tacklee", 6, 100),
@@ -75,8 +77,8 @@ class Pikachu : public Creature {
         Pikachu()
             : Creature(
                 "PIKACHU",
-                35,
-                {10, 5, 9},
+                110,
+                {10, 5, 15},
                 {
                     Move("Thunderbolt", 9, 95),
                     Move("Quick Attack", 6, 100),
@@ -84,6 +86,22 @@ class Pikachu : public Creature {
                 }) {}
 
         std::string species() const override { return "Pikachu"; }
+};
+
+class Lucario : public Creature {
+public:
+    Lucario()
+        : Creature(
+              "LUCARIO",
+              120,
+              {20, 10, 50},
+              {
+                  Move("Swords Dance", 30, 80),
+                  Move("Ice Punch", 20, 60),
+                  Move("Shadow Claw", 10, 70)
+              }) {}
+
+    std::string species() const override { return "Lucario"; }
 };
 
 
