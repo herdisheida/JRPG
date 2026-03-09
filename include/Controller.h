@@ -6,8 +6,6 @@
 #include <random>
 #include "Creature.h"
 
-using namespace std;
-
 class Controller {
     public:
         virtual ~Controller() = default;
@@ -19,25 +17,25 @@ class PlayerController : public Controller {
         int chooseMove(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
-            cout << "\n" << self.name() << "'s turn!\n";
-            cout << "Choose an action:\n";
+            std::cout << "\n" << self.name() << "'s turn!\n";
+            std::cout << "Choose an action:\n";
 
             const auto& moves = self.moves();
             for (size_t i = 0; i < moves.size(); ++i) {
-                cout << (i + 1) << ". " << moves[i].name
+                std::cout << (i + 1) << ". " << moves[i].name
                         << " (Power " << moves[i].power
                         << ", Accuracy " << moves[i].accuracy << "%)\n";
             }
 
             int choice;
             while (true) {
-                cout << "> ";
-                cin >> choice;
+                std::cout << "> ";
+                std::cin >> choice;
 
-                if (cin.fail() || choice < 1 || choice > static_cast<int>(moves.size())) {
-                    cin.clear();
-                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    cout << "Invalid choice. Try again.\n";
+                if (std::cin.fail() || choice < 1 || choice > static_cast<int>(moves.size())) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid choice. Try again.\n";
                 } else {
                     return choice - 1;
                 }
