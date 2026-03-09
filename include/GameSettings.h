@@ -36,7 +36,7 @@ inline GameSettings settingsForDifficulty(Difficulty difficulty) {
         case Difficulty::Medium:
             return {5, 3, 4, 6, 8};   // balanced
         case Difficulty::Hard:
-            return {10, 1, 5, 6, 8};   // more wilds, fewer hearts
+            return {10, 1, 7, 6, 8};   // more wilds, fewer hearts
     }
     return {5, 3, 5, 6, 8}; // fallback (the OG)
 }
