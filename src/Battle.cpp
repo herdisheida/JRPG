@@ -208,6 +208,7 @@ void Battle::run() {
         bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
         if (playerFirst) {
+            // player goes first
             if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
@@ -215,6 +216,7 @@ void Battle::run() {
                 break;
             }
 
+            // enemy goes second
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
@@ -222,8 +224,9 @@ void Battle::run() {
                 break;
             }
         } else {
-            cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
 
+            // enemy goes first
+            cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
@@ -231,6 +234,7 @@ void Battle::run() {
                 break;
             }
 
+            // player goes second
             if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
@@ -239,16 +243,17 @@ void Battle::run() {
             }
         }
 
+        // print status after each round
         printStatus();
         printedAfterRound = true;
+
+        // reset defending state at end of round
+        playerCreature_->setDefending(false);
+        enemyCreature_->setDefending(false);
     }
 
-    if (!printedAfterRound && !fled_) {
-        printStatus();
-    }
+    if (!printedAfterRound && !fled_) { printStatus(); }
     
-    // if (!fled_) { printStatus(); }
-
     if (fled_) {
         cout << "The battle is over.\n";
     } else if (playerCreature_->isFainted()) {
