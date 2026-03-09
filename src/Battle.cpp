@@ -150,7 +150,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
     // creature is paralized
     if (actor.status() == StatusEffect::Paralyzed) {
-        std::cout << actor.name() << " is paralized and cannot act!\n";
+        std::cout << actor.name() << " is paralyzed and cannot act!\n";
 
         actor.reduceStatusTurns();
         if (!actor.hasStatus()) std::cout << actor.name() << " woke up!\n";
@@ -165,8 +165,10 @@ bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller,
         Action fleeAction("Flee", ActionKind::Flee, 0, 100, 0, DamageType::Physical);
         executeAction(actor, target, fleeAction, true);
 
-        if (fled_) return false;
-            return true;
+        if (fled_) {
+            return false;
+        }
+        return true;
     }
 
     // creature action
