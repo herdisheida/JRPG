@@ -25,6 +25,7 @@ class PlayerController : public Controller {
                 std::cout << (i + 1) << ". " << actions[i].name;
 
                 if (actions[i].kind == ActionKind::Attack) { std::cout << " (Power " << actions[i].power << ")"; }
+                if (actions[i].kind == ActionKind::Status) { std::cout << " (" << statusToString(actions[i].statusEffect) << " " << actions[i].statusDuration << " turn)"; }
                 if (actions[i].kind == ActionKind::Heal) { std::cout << " (Heal " << actions[i].power << ")"; }
 
                 std::cout << "\n";

@@ -150,8 +150,10 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
     // creature is paralized
     if (actor.status() == StatusEffect::Sleep) {
-        std::cout << actor.name() << " is asleep and cannot act!\n";
+        std::cout << actor.name() << " is paralized and cannot act!\n";
+
         actor.reduceStatusTurns();
+        if (!actor.hasStatus()) std::cout << actor.name() << " woke up!\n";
         return true;
     }
 
