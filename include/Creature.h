@@ -6,6 +6,8 @@
 #include <utility>
 #include <vector>
 
+#include <iostream>
+
 #include "Action.h"
 #include "Health.h"
 #include "Type.h"
@@ -50,6 +52,9 @@ class Creature {
 
         virtual ~Creature() = default;
         virtual std::string species() const = 0;
+        virtual void printAscii() {
+            std::cout << name_ << "\n";
+        };
 
         const std::string& name() const { return name_; }
         const Health& health() const { return health_; }
@@ -124,6 +129,15 @@ public:
             }) {}
 
     std::string species() const override { return "Piplup"; }
+
+    // print ascii creature
+    virtual void printAscii() override {
+        std::cout << "  oo`'._..---.___..-" << "\n";
+        std::cout << " (_,-.        ,..'`" << "\n";
+        std::cout << "      `'.    ;" << "\n";
+        std::cout << "         : :`" << "\n";
+        std::cout << "        _;_;    " << "\n";
+    }
 };
 
 
@@ -151,6 +165,15 @@ public:
             }) {}
 
     std::string species() const override { return "Pikachu"; }
+
+    // print ascii creature
+    virtual void printAscii() override {
+        std::cout << "  oo`'._..---.___..-" << "\n";
+        std::cout << " (_,-.        ,..'`" << "\n";
+        std::cout << "      `'.    ;" << "\n";
+        std::cout << "         : :`" << "\n";
+        std::cout << "        _;_;    " << "\n";
+    }
 };
 
 
@@ -178,6 +201,15 @@ public:
             }) {}
 
     std::string species() const override { return "Charizard"; }
+
+    // print ascii creature
+    virtual void printAscii() override {
+        std::cout << "  oo`'._..---.___..-" << "\n";
+        std::cout << " (_,-.        ,..'`" << "\n";
+        std::cout << "      `'.    ;" << "\n";
+        std::cout << "         : :`" << "\n";
+        std::cout << "        _;_;    " << "\n";
+    }
 };
 
 
@@ -204,6 +236,15 @@ public:
             }) {}
 
     std::string species() const override { return "Lucario"; }
+
+    // print ascii creature
+    virtual void printAscii() override {
+        std::cout << "  oo`'._..---.___..-" << "\n";
+        std::cout << " (_,-.        ,..'`" << "\n";
+        std::cout << "      `'.    ;" << "\n";
+        std::cout << "         : :`" << "\n";
+        std::cout << "        _;_;    " << "\n";
+    }
 };
 
 
@@ -232,6 +273,15 @@ public:
             }) {}
 
     std::string species() const override { return "Gengar"; }
+
+    // print ascii creature
+    virtual void printAscii() override {
+        std::cout << "  oo`'._..---.___..-" << "\n";
+        std::cout << " (_,-.        ,..'`" << "\n";
+        std::cout << "      `'.    ;" << "\n";
+        std::cout << "         : :`" << "\n";
+        std::cout << "        _;_;    " << "\n";
+    }
 };
 
 #endif
