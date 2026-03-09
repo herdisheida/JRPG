@@ -57,6 +57,8 @@ class Creature {
         };
 
         const std::string& name() const { return name_; }
+        void setName(const std::string& name) { name_ = name; }
+
         const Health& health() const { return health_; }
         Health& health() { return health_; }
 

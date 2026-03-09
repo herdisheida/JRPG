@@ -1,6 +1,9 @@
 #include <iostream>
 #include <memory>
 
+#include <algorithm> // for std::transform
+#include <cctype>    // for ::toupper
+
 #include "include/Battle.h"
 #include "include/Controller.h"
 #include "include/Creature.h"
@@ -56,15 +59,28 @@ std::unique_ptr<Creature> createRandomWildCreature() {
     }
 }
 
+// choose and set nickname for player creature
+void customizeCreature(Creature& creature) {
+    cout << "\nGive your creature a nickname: ";
+    std::string nickname;
+    cin >> nickname;
+
+    // convert nickname to uppercase
+    std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
+    creature.setName(nickname);
+
+    // display customized creature
+    cout << creature.name() << " is ready for battle!\n\n";
+    creature.printAscii();
+}
+
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
     cout << "=== Mini JRPG Battle ===\n\n";
-
-    // get player creature
     auto playerCreature = chooseCreature("Choose your creature:");
-    cout << playerCreature->species() << " is ready for battle!\n\n";
-    playerCreature->printAscii();
+    customizeCreature(*playerCreature);
+
 
     PlayerController playerController;
     EnemyController enemyController;
@@ -91,6 +107,18 @@ int main() {
         map.print();
 
         if (map.hasEncounter()) {
+            if (playerCreature->isFainted()) {
+                cout << "\nYour creature has fainted and cannot battle.\n";
+                // move player back to previous position to avoid repeated encounters
+                switch (input) {
+                    case 'w': case 'W': map.movePlayer('s'); break;
+                    case 's': case 'S': map.movePlayer('w'); break;
+                    case 'a': case 'A': map.movePlayer('d'); break;
+                    case 'd': case 'D': map.movePlayer('a'); break;
+                }
+                continue; // skip battle
+            }
+
             auto enemyCreature = createRandomWildCreature();
 
             Battle battle(*playerCreature, *enemyCreature, playerController, enemyController);

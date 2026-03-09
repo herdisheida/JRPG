@@ -58,7 +58,7 @@ void OverworldMap::clearEncounter() {
 }
 
 void OverworldMap::print() const {
-    std::cout << "\n======== OVERWORLD MAP =======\n";
+    std::cout << "\n\n======== OVERWORLD MAP =======\n";
     for (int r = 0; r < rows_; ++r) {
         for (int c = 0; c < cols_; ++c) {
             Position current{r, c};
@@ -66,12 +66,12 @@ void OverworldMap::print() const {
             if (current == playerPos_) {
                 std::cout << "P ";
             } else if (wildPositions_.count(current) > 0) {
-                std::cout << "W ";
+                std::cout << "w ";
             } else {
                 std::cout << ". ";
             }
         }
         std::cout << '\n';
     }
-    std::cout << "symbols: P = Player, W = Wild Creature, . = Empty\n";
+    std::cout << "symbols: P = Player, w = Wild Creature, . = Empty\n";
 }
