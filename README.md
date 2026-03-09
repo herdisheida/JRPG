@@ -122,7 +122,7 @@ For attacks, the game uses a formula based on:
 make
 ```
 
-2. Run:
+2. Run (for better experience -> large terminal window for ascii art and text):
 
 ```
 ./game
