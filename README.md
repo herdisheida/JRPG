@@ -44,15 +44,60 @@ This program is a small turn-based battle game inspired by JRPGs such as Pokémo
 
 <!-- TODO make the enemy randomized  and maybe stats randomised -->
 
-When the game starts, the player chooses a creature and then chooses an enemy creature to fight.  
-Each creature has its own stats:
+### Battle Mechanics
+
+Each creature has:
 
 - Health
 - Attack
 - Defense
 - Speed
+- A list of actions
+- Resistances to different damage types
 
-Each creature also has a set of moves with different power and accuracy values.
+### Action types
+
+The game supports four action types:
+
+- **Attack**: deals damage to the opponent
+- **Heal**: restores the user's health
+- **Defend**: reduces the damage of the next incoming attack
+- **Flee**: attempts to escape the battle
+
+### Critical hits
+
+Attack actions have a critical hit chance.  
+If a critical hit occurs, the final damage is doubled.
+
+### Damage types and resistances
+
+Attack actions have a damage type, such as:
+
+- Fire
+- Water
+- Grass
+- Electric
+- Flying
+
+Each creature has resistance multipliers against these types.
+
+FX:
+
+- `0.5` means the creature resists that type and takes half damage
+- `1.0` means normal damage
+- `1.5` means weakness and the creature takes extra damage
+
+### Damage formula
+
+For attacks, the game uses a formula based on:
+
+- attacker Attack
+- action Power
+- defender Defense
+- small random variation
+- type resistance multiplier
+- defending reduction
+- critical hit multiplier
 
 ### How battle works
 
