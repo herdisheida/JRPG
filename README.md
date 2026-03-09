@@ -52,7 +52,7 @@ Each creature has:
 - Attack
 - Defense
 - Speed
-- A list of actions
+- A list of actions (moves) they can perform
 - Resistances to different damage types
 
 ### Action types
@@ -60,6 +60,7 @@ Each creature has:
 The game supports four action types:
 
 - **Attack**: deals damage to the opponent
+- **Special**: a attack with a special effect, such as inflicting a status condition (e.g. burn, freeze, paralysis)
 - **Heal**: restores the user's health
 - **Defend**: reduces the damage of the next incoming attack
 - **Flee**: attempts to escape the battle

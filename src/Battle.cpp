@@ -129,15 +129,36 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             }
             break;
         }
+
+        case ActionKind::Status: {
+            if (target.hasStatus()) {
+                std::cout << target.name() << " already has a status effect!\n";
+                break;
+            }
+
+            target.setStatus(action.statusEffect, action.statusDuration);
+
+            std::cout << actor.name() << " uses " << action.name
+                    << "! " << target.name() << " is now "
+                    << statusToString(action.statusEffect) << " for "
+                    << action.statusDuration << " turn(s)!\n";
+            break;
+        }
     }
 }
 
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
+    // creature is paralized
+    if (actor.status() == StatusEffect::Sleep) {
+        std::cout << actor.name() << " is asleep and cannot act!\n";
+        actor.reduceStatusTurns();
+        return true;
+    }
+
     int chosen = controller.chooseAction(actor, target);
 
     // player flee option
     int actionCount = static_cast<int>(actor.actions().size());
-
     if (isPlayer && chosen == actionCount) {
         Action fleeAction("Flee", ActionKind::Flee, 0, 100, 0, DamageType::Physical);
         executeAction(actor, target, fleeAction, true);
@@ -146,15 +167,29 @@ bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller,
             return true;
     }
 
-    // player action
+    // creature action
     const Action& action = actor.actions().at(chosen);
     executeAction(actor, target, action, isPlayer);
+
+    applyStatusEffect(actor); // at end of turn
 
     if (fled_ || actor.isFainted() || target.isFainted()) {
         return false;
     }
 
     return true;
+}
+
+void Battle::applyStatusEffect(Creature& creature) {
+    if (creature.status() == StatusEffect::Poison) {
+        int poisonDamage = 5;
+        creature.health().damage(poisonDamage);
+
+        std::cout << creature.name() << " suffers " << poisonDamage << " poison damage!\n";
+
+        creature.reduceStatusTurns();
+        if (!creature.hasStatus()) std::cout << creature.name() << " is no longer poisoned.\n";
+    }
 }
 
 void Battle::run() {

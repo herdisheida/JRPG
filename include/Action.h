@@ -3,35 +3,46 @@
 
 #include <string>
 #include "Type.h"
+#include "Status.h"
+
 
 enum class ActionKind {
     Attack,
     Heal,
     Defend,
-    Flee
+    Flee,
+    Status
 };
 
 struct Action {
     std::string name;
     ActionKind kind;
+
     int power;          // attack damage or heal amount
     int accuracy;       // 0-100
     int critChance;     // 0-100, only relevant for attacks
     DamageType damageType;
 
+    StatusEffect statusEffect;
+    int statusDuration;
+
     // default is a basic attack
-    Action(const std::string& n = "Tackle",
+    Action(const std::string& n = "Strike",
            ActionKind k = ActionKind::Attack,
            int p = 5,
            int a = 100,
            int c = 5,
-           DamageType dt = DamageType::Physical)
+           DamageType dt = DamageType::Physical,
+           StatusEffect se = StatusEffect::None,
+           int sd = 0)
         : name(n),
           kind(k),
           power(p),
           accuracy(a),
           critChance(c),
-          damageType(dt) {}
+          damageType(dt),
+          statusEffect(se),
+          statusDuration(sd) {}
 };
 
 inline std::string actionKindToString(ActionKind kind) {

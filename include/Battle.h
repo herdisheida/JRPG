@@ -25,6 +25,7 @@ class Battle {
         void printStatus() const;
         bool takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
         void executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer);
+        void applyStatusEffect(Creature& target);
 };
 
 #endif
