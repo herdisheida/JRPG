@@ -30,11 +30,11 @@ inline std::string difficultyToString(Difficulty d) {
 inline GameSettings settingsForDifficulty(Difficulty difficulty) {
     switch (difficulty) {
         case Difficulty::Easy:
-            return {4, 5, 6, 8};   // fewer wilds, more hearts
+            return {2, 5, 6, 8};   // fewer wilds, more hearts
         case Difficulty::Medium:
-            return {6, 3, 6, 8};   // balanced
+            return {5, 3, 6, 8};   // balanced
         case Difficulty::Hard:
-            return {8, 1, 6, 8};   // more wilds, fewer hearts
+            return {10, 1, 6, 8};   // more wilds, fewer hearts
     }
     return {6, 3, 5, 7}; // fallback (the OG)
 }
