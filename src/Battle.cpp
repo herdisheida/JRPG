@@ -6,6 +6,10 @@
 
 using namespace std;
 
+using std::cout;
+using std::setw;
+using std::left;
+
 
 namespace {
     std::mt19937& rng() {
@@ -31,12 +35,23 @@ Battle::Battle(
       fled_(false) {}
 
 void Battle::printStatus() const {
-    cout << "\n"
-              << playerCreature_->name() << " (" << playerCreature_->health().current()
-              << "/" << playerCreature_->health().max() << ")"
-              << " | "
-              << enemyCreature_->name() << " (" << enemyCreature_->health().current()
-              << "/" << enemyCreature_->health().max() << ")\n";
+    cout << "\n==================================\n";
+
+    cout << left << setw(10) << playerCreature_->name()
+         << " HP: "
+         << playerCreature_->health().current()
+         << " / "
+         << playerCreature_->health().max()
+         << "\n";
+
+    cout << left << setw(10) << enemyCreature_->name()
+         << " HP: "
+         << enemyCreature_->health().current()
+         << " / "
+         << enemyCreature_->health().max()
+         << "\n";
+
+    cout << "==================================\n";
 }
 
 void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
