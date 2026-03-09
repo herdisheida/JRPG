@@ -10,6 +10,11 @@
 #include "Health.h"
 #include "Type.h"
 
+
+constexpr int HIGH_ACCURACY = 95;
+constexpr int MEDIUM_ACCURACY = 85;
+constexpr int LOW_ACCURACY = 70;
+
 struct Stats {
     int attack;
     int defense;
@@ -95,17 +100,19 @@ class Creature {
 
 
 // custom creatures :D
+
+// healer: lower attack, but can heal itself
 class Piplup : public Creature {
 public:
     Piplup()
         : Creature(
             "PIPLUP",
-            80,
-            {10, 4, 10},
+            105,
+            {8, 8, 10},  // attack, defense, speed
             {
-                Action("Bubble",      ActionKind::Attack,  8, 95, 10, DamageType::Water),
-                Action("Sleep Powder", ActionKind::Status, 0, 75, 0, DamageType::Physical, StatusEffect::Sleep, 1),
-                Action("Water Pulse", ActionKind::Attack, 10, 85, 15, DamageType::Water)
+                Action("Bubble",        ActionKind::Attack, 7, HIGH_ACCURACY,   5, DamageType::Water),
+                Action("Healing Beam",  ActionKind::Heal,  20, HIGH_ACCURACY,   0, DamageType::Physical),
+                Action("Water Pulse",   ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Water)
             },
             {
                 {DamageType::Physical, 1.0f},
@@ -119,18 +126,20 @@ public:
     std::string species() const override { return "Piplup"; }
 };
 
+
+// balanced: no big weakness, no extreme strength
 class Pikachu : public Creature {
 public:
     Pikachu()
         : Creature(
             "PIKACHU",
-            110,
-            {10, 5, 15},
+            100,
+            {12, 8, 15},  // attack, defense, speed
             {
-                Action("Thunderbolt",  ActionKind::Attack,  9, 95, 20, DamageType::Electric),
-                Action("Quick Attack", ActionKind::Attack,  6, 100, 10, DamageType::Physical),
-                Action("Iron Tail",    ActionKind::Attack, 12, 85, 15, DamageType::Physical),
-                Action("Defend",       ActionKind::Defend, 0, 100, 0, DamageType::Physical),
+                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Electric),
+                Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
+                Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15, DamageType::Physical),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
                 {DamageType::Physical, 1.0f},
@@ -144,17 +153,20 @@ public:
     std::string species() const override { return "Pikachu"; }
 };
 
+
+// tank: high HP, high defense, slower, lower accuracy
 class Charizard : public Creature {
 public:
     Charizard()
         : Creature(
             "CHARIZARD",
-            100,
-            {30, 10, 5},
+            160,
+            {14, 16, 6},  // attack, defense, speed
             {
-                Action("Fire Fang",  ActionKind::Attack, 20, 70, 15, DamageType::Fire),
-                Action("Slash",      ActionKind::Attack, 10, 60, 10, DamageType::Physical),
-                Action("Fire Blitz", ActionKind::Attack, 60, 20, 25, DamageType::Fire),
+                Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10, DamageType::Fire),
+                Action("Slash",         ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
+                Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20, DamageType::Fire),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
                 {DamageType::Physical, 1.0f},
@@ -168,27 +180,27 @@ public:
     std::string species() const override { return "Charizard"; }
 };
 
+
+// glass cannon: huge attack, fast, but fragile
 class Lucario : public Creature {
 public:
     Lucario()
-    : Creature(
+        : Creature(
             "LUCARIO",
-            120,
-            {20, 10, 50},
+            75,
+            {22, 4, 40},  // attack, defense, speed
             {
-                Action("Swords Dance", ActionKind::Defend,  0, 100, 0, DamageType::Physical),
-                Action("Ice Punch",    ActionKind::Attack, 20, 60, 15, DamageType::Physical),
-                Action("Shadow Claw",  ActionKind::Attack, 10, 70, 20, DamageType::Physical),
-                Action("Defend",       ActionKind::Defend, 0, 100, 0, DamageType::Physical),
-
+                Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5, DamageType::Physical),
+                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15, DamageType::Physical),
+                Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20, DamageType::Physical)
             },
             {
-                {DamageType::Physical, 2.0f},
+                {DamageType::Physical, 1.3f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
                 {DamageType::Grass,    0.5f},
                 {DamageType::Electric, 0.5f},
-                {DamageType::Flying,   1.0f}
+                {DamageType::Flying,   1.2f}
             }) {}
 
     std::string species() const override { return "Lucario"; }
@@ -196,5 +208,30 @@ public:
 
 
 
+// wizard: weaker direct damage, annoying status utility
+class Gengar : public Creature {
+public:
+    Gengar()
+        : Creature(
+            "GENGAR",
+            85,
+            {10, 5, 14},  // attack, defense, speed
+            {
+                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Physical),
+                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Sleep, 1),
+                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Poison, 3),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
+            },
+            {
+                {DamageType::Physical, 1.2f},
+                {DamageType::Fire,     1.0f},
+                {DamageType::Water,    1.0f},
+                {DamageType::Grass,    0.5f},
+                {DamageType::Electric, 1.0f},
+                {DamageType::Flying,   1.2f}
+            }) {}
+
+    std::string species() const override { return "Gengar"; }
+};
 
 #endif
