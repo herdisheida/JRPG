@@ -19,19 +19,20 @@ class PlayerController : public Controller {
         void printActionOptions(const Creature& self) const {
             const auto& actions = self.actions();
 
+            std::cout << "----------------------------------\n";
             for (size_t i = 0; i < actions.size(); ++i) {
-                std::cout << std::left
-                        << std::setw(2) << (i + 1) << ". "
-                        << std::setw(16) << actions[i].name
-                        << " | "
-                        << std::setw(7) << actionKindToString(actions[i].kind);
+                std::cout << (i + 1) << ". " << actions[i].name;
 
                 if (actions[i].kind == ActionKind::Attack) {
-                    std::cout << " | Power: " << actions[i].power;
+                    std::cout << " (Power " << actions[i].power << ")";
+                }
+                if (actions[i].kind == ActionKind::Heal) {
+                    std::cout << " (Heal " << actions[i].power << ")";
                 }
 
                 std::cout << "\n";
             }
+            std::cout << "----------------------------------\n";
         }
 
     public:
