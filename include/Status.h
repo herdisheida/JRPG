@@ -5,14 +5,14 @@
 
 enum class StatusEffect {
     None,
-    Sleep,   // Prevents action for a few turns
+    Paralyzed,   // Prevents action for a few turns
     Poison,  // Deals damage at the end of each turn
 };
 
 inline std::string statusToString(StatusEffect status) {
     switch (status) {
         case StatusEffect::None:   return "None";
-        case StatusEffect::Sleep:  return "Paralyzed";
+        case StatusEffect::Paralyzed:  return "Paralyzed";
         case StatusEffect::Poison: return "Poisoned";
         default:                   return "Unknown";
     }

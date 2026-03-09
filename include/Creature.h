@@ -218,7 +218,7 @@ public:
             {10, 5, 14},  // attack, defense, speed
             {
                 Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Physical),
-                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Sleep, 1),
+                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Paralyzed, 1),
                 Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Poison, 3),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },

@@ -149,7 +149,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
     // creature is paralized
-    if (actor.status() == StatusEffect::Sleep) {
+    if (actor.status() == StatusEffect::Paralyzed) {
         std::cout << actor.name() << " is paralized and cannot act!\n";
 
         actor.reduceStatusTurns();
@@ -197,10 +197,9 @@ void Battle::applyStatusEffect(Creature& creature) {
 void Battle::run() {
     cout << "A wild " << enemyCreature_->name() << " appears!\n";
     cout << "You send out " << playerCreature_->name() << "!\n";
-
-    printStatus();   // inital status
     
     while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
+        printStatus(); // beginning of each round
 
         bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
@@ -214,6 +213,7 @@ void Battle::run() {
         } else {
             // Enemy goes first
             cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
+        
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
@@ -221,8 +221,6 @@ void Battle::run() {
                 break;
             }
         }
-
-        printStatus(); // after each round
     }
 
     
