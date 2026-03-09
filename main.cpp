@@ -87,6 +87,15 @@ void printLoseMsg() {
     cout << "Better luck next time!\n";
 }
 
+void moveToPreviousPosition(OverworldMap& map, char input) {
+    switch (input) {
+        case 'w': case 'W': map.movePlayer('s'); break;
+        case 's': case 'S': map.movePlayer('w'); break;
+        case 'a': case 'A': map.movePlayer('d'); break;
+        case 'd': case 'D': map.movePlayer('a'); break;
+    }
+}
+
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
@@ -143,12 +152,7 @@ int main() {
             if (playerCreature->isFainted()) {
                 cout << "\nYour creature has fainted and cannot battle.\n";
                 // move player back to previous position to avoid repeated encounters
-                switch (input) {
-                    case 'w': case 'W': map.movePlayer('s'); break;
-                    case 's': case 'S': map.movePlayer('w'); break;
-                    case 'a': case 'A': map.movePlayer('d'); break;
-                    case 'd': case 'D': map.movePlayer('a'); break;
-                }
+                moveToPreviousPosition(map, input);
                 continue; // skip battle
             }
 
@@ -157,7 +161,12 @@ int main() {
             Battle battle(*playerCreature, *enemyCreature, playerController, enemyController);
             battle.run();
 
-            map.clearEncounter();
+            if (enemyCreature->isFainted()) {
+                // only remove enemy after vicory
+                map.clearEncounter();
+            } else {
+                moveToPreviousPosition(map, input);
+            }
         }
     }
 }
