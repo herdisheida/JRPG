@@ -12,6 +12,7 @@ enum class Difficulty {
 struct GameSettings {
     int wildCount;
     int heartCount;
+    int mysteryCount;
     int rows;
     int cols;
 };
@@ -28,15 +29,16 @@ inline std::string difficultyToString(Difficulty d) {
 
 // return settings depending on difficulty
 inline GameSettings settingsForDifficulty(Difficulty difficulty) {
+    // {wildCount, heartCount, mysteryCount, rows, cols}
     switch (difficulty) {
         case Difficulty::Easy:
-            return {2, 5, 6, 8};   // fewer wilds, more hearts
+            return {2, 5, 1, 6, 8};   // fewer wilds, more hearts
         case Difficulty::Medium:
-            return {5, 3, 6, 8};   // balanced
+            return {5, 3, 4, 6, 8};   // balanced
         case Difficulty::Hard:
-            return {10, 1, 6, 8};   // more wilds, fewer hearts
+            return {10, 1, 5, 6, 8};   // more wilds, fewer hearts
     }
-    return {6, 3, 5, 7}; // fallback (the OG)
+    return {5, 3, 5, 6, 8}; // fallback (the OG)
 }
 
 #endif

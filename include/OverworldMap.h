@@ -25,14 +25,15 @@ class OverworldMap {
         int rows_;
         int cols_;
         Position playerPos_;
-        std::set<Position> wildPositions_;  // enemy encounter pos
-        std::set<Position> heartPositions_; // healing item pos
+        std::set<Position> wildPositions_;    // enemy encounter pos
+        std::set<Position> heartPositions_;   // healing item pos
+        std::set<Position> mysteryPositions_;
         std::mt19937 rng_;
 
     public:
         OverworldMap(int rows, int cols);
 
-        void initialize(int wildCount, int heartCount);
+        void initialize(int wildCount, int heartCount, int mysteryCount);
         void print() const;
 
         // movement and encounter funcs
@@ -44,6 +45,11 @@ class OverworldMap {
         bool hasHeart() const;
         void clearHeart();
 
+        // mystery funcs
+        bool hasMystery() const;
+        void clearMystery();
+        bool hasMysteriesLeft() const;
+    
         // win or lose conditions
         bool hasWildsLeft() const;  // win condition: defeat all wild creatures
         bool hasHeartsLeft() const; // lose condition: run out of healing items and faint in battle

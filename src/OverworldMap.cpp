@@ -11,10 +11,11 @@ OverworldMap::OverworldMap(int rows, int cols)
       playerPos_{0, 0},
       rng_(std::random_device{}()) {}
 
-void OverworldMap::initialize(int wildCount, int heartCount) {
+void OverworldMap::initialize(int wildCount, int heartCount, int mysteryCount) {
     playerPos_ = {0, 0};
     wildPositions_.clear();
     heartPositions_.clear();
+    mysteryPositions_.clear();
 
     std::uniform_int_distribution<int> rowDist(0, rows_ - 1);
     std::uniform_int_distribution<int> colDist(0, cols_ - 1);
@@ -22,7 +23,6 @@ void OverworldMap::initialize(int wildCount, int heartCount) {
     // place wild creatures
     while (static_cast<int>(wildPositions_.size()) < wildCount) {
         Position p{rowDist(rng_), colDist(rng_)};
-
         if (!(p == playerPos_)) {
             wildPositions_.insert(p);
         }
@@ -31,10 +31,19 @@ void OverworldMap::initialize(int wildCount, int heartCount) {
     // place hearts
     while (static_cast<int>(heartPositions_.size()) < heartCount) {
         Position p{rowDist(rng_), colDist(rng_)};
-
         if (!(p == playerPos_) &&
             wildPositions_.count(p) == 0) {
             heartPositions_.insert(p);
+        }
+    }
+
+    // place mysteries
+    while (static_cast<int>(mysteryPositions_.size()) < mysteryCount) {
+        Position p{rowDist(rng_), colDist(rng_)};
+        if (!(p == playerPos_) &&
+            wildPositions_.count(p) == 0 &&
+            heartPositions_.count(p) == 0) {
+            mysteryPositions_.insert(p);
         }
     }
 }
@@ -83,6 +92,17 @@ void OverworldMap::clearHeart() {
     heartPositions_.erase(playerPos_);
 }
 
+// mystery funcs
+bool OverworldMap::hasMystery() const {
+    return mysteryPositions_.count(playerPos_) > 0;
+}
+void OverworldMap::clearMystery() {
+    mysteryPositions_.erase(playerPos_);
+}
+bool OverworldMap::hasMysteriesLeft() const {
+    return !mysteryPositions_.empty();
+}
+
 // win or lose conditions
 bool OverworldMap::hasWildsLeft() const {
     return !wildPositions_.empty();
@@ -103,6 +123,8 @@ void OverworldMap::print() const {
                 std::cout << "w ";
             } else if (heartPositions_.count(current) > 0) {
                 std::cout << "\u2665 "; // heart symbol
+            } else if (mysteryPositions_.count(current) > 0) {
+                std::cout << "? ";
             } else {
                 std::cout << ". ";
             }

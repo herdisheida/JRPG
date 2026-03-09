@@ -62,6 +62,7 @@ class Creature {
         const Health& health() const { return health_; }
         Health& health() { return health_; }
         void healToFull() { health_.healToFull(); }
+        void changeMaxHp(int amount) { health_.changeMax(amount); }
 
         bool isFainted() const { return health_.isFainted(); }
     

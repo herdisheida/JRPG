@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-
+#include <random>
 #include <algorithm> // for std::transform
 #include <cctype>    // for ::toupper
 
@@ -13,7 +13,7 @@
 
 using namespace std;
 
-
+std::mt19937 rng(std::random_device{}());
 
 Difficulty chooseDifficulty() {
     while (true) {
@@ -143,7 +143,7 @@ int main() {
 
     // initalize overworld
     OverworldMap map(settings.rows, settings.cols);
-    map.initialize(settings.wildCount, settings.heartCount); // 6 wilds, 3 hearts
+    map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
 
 
     // main game loop - player moves around map and encounters wild creatures
@@ -164,7 +164,6 @@ int main() {
             }
         }
 
-
         // move player
         char input;
         std::cout << "\nMove with W A S D, or Q to quit: ";
@@ -180,7 +179,38 @@ int main() {
             map.clearHeart();
             std::cout << playerCreature->name() << " was restored to full HP!\n";
         }
-            
+
+        // mystery encounter
+        if (map.hasMystery()) {
+            std::cout << "\n" << playerCreature->name() << " found a mystery box!\n";
+
+            std::uniform_int_distribution<int> dist(0, 3); // 4 possible outcomes
+            int outcome = dist(rng);
+
+            if (outcome == 0) {
+                // positive effect: increase max HP
+                playerCreature->changeMaxHp(10);
+                std::cout << playerCreature->name() << " gained +10 max HP!\n";
+            } else if (outcome == 1) {
+                // negative effect: decrease max HP
+                playerCreature->changeMaxHp(-10);
+                std::cout << playerCreature->name() << " lost 10 max HP...\n";
+            } else if (outcome == 3) {
+                // DEATH EFFECT: faint immediately
+                playerCreature->health().damage(playerCreature->health().current());
+                std::cout << "Oh no! It was a trap! " << playerCreature->name() << " took massive damage and fainted!\n";
+            } else {
+                // no effect
+                std::cout << playerCreature->name() << " found nothing special.\n";
+            }
+
+            std::cout << "New HP: "
+                    << playerCreature->health().current()
+                    << "/" << playerCreature->health().max() << "\n";
+
+            map.clearMystery();
+        }
+
         // wild battle encounter
         if (map.hasEncounter()) {
             if (playerCreature->isFainted()) {
@@ -196,7 +226,7 @@ int main() {
             battle.run();
 
             if (enemyCreature->isFainted()) {
-                // only remove enemy after vicory
+                // only remove enemy after victory
                 map.clearEncounter();
             } else {
                 moveToPreviousPosition(map, input);
