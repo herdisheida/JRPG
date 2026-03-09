@@ -17,3 +17,19 @@ that is, players of the game. The other section should describe the
 program to programmers that wish to read your code, understand
 the design and possibly extend your program. Failure to provide a
 README file satisfying these requirements will result in a 0.
+
+## glósur
+
+1. Health.h handles current/max HP
+
+2. Move.h describes an attack
+
+3. Creature.h is the base class for monsters different monster types inherit from Creature
+
+4. Controller.h is an abstract interface
+   - PlayerController.h asks the user what to do
+   - EnemyController.h, enemy moves (attacks etc)
+
+5. Battle.h runs the turn loop
+
+6. main.cpp creates the player and enemy, then starts the battle
