@@ -1,23 +1,40 @@
 #include "../include/OverworldMap.h"
 
+
+// #include <string>
+// const std::string heart_symbol = "\u2665";
+
+
 OverworldMap::OverworldMap(int rows, int cols)
     : rows_(rows),
       cols_(cols),
       playerPos_{0, 0},
       rng_(std::random_device{}()) {}
 
-void OverworldMap::initialize(int wildCount) {
+void OverworldMap::initialize(int wildCount, int heartCount) {
     playerPos_ = {0, 0};
     wildPositions_.clear();
+    heartPositions_.clear();
 
     std::uniform_int_distribution<int> rowDist(0, rows_ - 1);
     std::uniform_int_distribution<int> colDist(0, cols_ - 1);
 
+    // place wild creatures
     while (static_cast<int>(wildPositions_.size()) < wildCount) {
         Position p{rowDist(rng_), colDist(rng_)};
 
         if (!(p == playerPos_)) {
             wildPositions_.insert(p);
+        }
+    }
+
+    // place hearts
+    while (static_cast<int>(heartPositions_.size()) < heartCount) {
+        Position p{rowDist(rng_), colDist(rng_)};
+
+        if (!(p == playerPos_) &&
+            wildPositions_.count(p) == 0) {
+            heartPositions_.insert(p);
         }
     }
 }
@@ -49,12 +66,29 @@ bool OverworldMap::movePlayer(char input) {
     return true;
 }
 
+
+// wild enemy encounter funcs
 bool OverworldMap::hasEncounter() const {
     return wildPositions_.count(playerPos_) > 0;
 }
-
 void OverworldMap::clearEncounter() {
     wildPositions_.erase(playerPos_);
+}
+
+// heart funcs
+bool OverworldMap::hasHeart() const {
+    return heartPositions_.count(playerPos_) > 0;
+}
+void OverworldMap::clearHeart() {
+    heartPositions_.erase(playerPos_);
+}
+
+// win or lose conditions
+bool OverworldMap::hasWildsLeft() const {
+    return !wildPositions_.empty();
+}
+bool OverworldMap::hasHeartsLeft() const {
+    return !heartPositions_.empty();
 }
 
 void OverworldMap::print() const {
@@ -67,11 +101,13 @@ void OverworldMap::print() const {
                 std::cout << "P ";
             } else if (wildPositions_.count(current) > 0) {
                 std::cout << "w ";
+            } else if (heartPositions_.count(current) > 0) {
+                std::cout << "\u2665 "; // heart symbol
             } else {
                 std::cout << ". ";
             }
         }
         std::cout << '\n';
     }
-    std::cout << "symbols: P = Player, w = Wild Creature, . = Empty\n";
+    std::cout << "symbols: P = Player, w = Wild Creature, \u2665 = Heart, . = Empty\n";
 }

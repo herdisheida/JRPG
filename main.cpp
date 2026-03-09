@@ -87,7 +87,7 @@ int main() {
 
     // initalize overworld
     OverworldMap map(5, 7);
-    map.initialize(6);
+    map.initialize(6, 3); // 6 wilds, 3 hearts
 
     while (true) {
         map.print();
