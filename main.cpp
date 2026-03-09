@@ -8,12 +8,44 @@
 #include "include/Controller.h"
 #include "include/Creature.h"
 #include "include/OverworldMap.h"
+#include "include/GameSettings.h"
 
 
 using namespace std;
 
-std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
+
+Difficulty chooseDifficulty() {
+    while (true) {
+        std::cout << "Choose difficulty:\n";
+        std::cout << "1. Easy\n";
+        std::cout << "2. Medium\n";
+        std::cout << "3. Hard\n";
+        std::cout << "> ";
+
+        int choice;
+        std::cin >> choice;
+
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input.\n\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1: return Difficulty::Easy;
+            case 2: return Difficulty::Medium;
+            case 3: return Difficulty::Hard;
+            default:
+                std::cout << "Invalid choice.\n\n";
+        }
+    }
+}
+
+
+
+std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     while (true) {
         cout << prompt << "\n";
         cout << "1. Pikachu\n";
@@ -26,7 +58,6 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
         int choice;
         cin >> choice;
-        cout << "\n";
 
         if (cin.fail()) {
             cin.clear();
@@ -97,9 +128,12 @@ void moveToPreviousPosition(OverworldMap& map, char input) {
 }
 
 int main() {
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
-
     cout << "=== Mini JRPG Battle ===\n\n";
+
+    Difficulty difficulty = chooseDifficulty();
+    GameSettings settings = settingsForDifficulty(difficulty);
+    cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
+
     auto playerCreature = chooseCreature("Choose your creature:");
     customizeCreature(*playerCreature);
 
@@ -108,8 +142,8 @@ int main() {
     EnemyController enemyController;
 
     // initalize overworld
-    OverworldMap map(5, 7);
-    map.initialize(6, 3); // 6 wilds, 3 hearts
+    OverworldMap map(settings.rows, settings.cols);
+    map.initialize(settings.wildCount, settings.heartCount); // 6 wilds, 3 hearts
 
 
     // main game loop - player moves around map and encounters wild creatures

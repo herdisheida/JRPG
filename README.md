@@ -48,6 +48,7 @@ This program is a small turn-based battle game inspired by JRPGs such as Pokémo
 - Name and ASCII art of the creature is displayed.
 - The player battles against a randomly generated enemy creature.
 - Overworld map with player and wild creatures is displayed. (healing in overworld)
+- difficulty : easy, medium, hard (more wild creatures, less healing items) // player can choose difficulty at the start of the game
 
 ### Battle Mechanics
 
