@@ -37,19 +37,15 @@ Battle::Battle(
 void Battle::printStatus() const {
     cout << "\n==================================\n";
 
-    cout << left << setw(10) << playerCreature_->name()
-         << " HP: "
-         << playerCreature_->health().current()
-         << " / "
-         << playerCreature_->health().max()
-         << "\n";
+    cout << left << setw(8)  << "Your:"
+         << setw(12) << playerCreature_->name()
+         << "HP " << playerCreature_->health().current()
+         << "/" << playerCreature_->health().max() << "\n";
 
-    cout << left << setw(10) << enemyCreature_->name()
-         << " HP: "
-         << enemyCreature_->health().current()
-         << " / "
-         << enemyCreature_->health().max()
-         << "\n";
+    cout << left << setw(8)  << "Enemy:"
+         << setw(12) << enemyCreature_->name()
+         << "HP " << enemyCreature_->health().current()
+         << "/" << enemyCreature_->health().max() << "\n";
 
     cout << "==================================\n";
 }
@@ -182,10 +178,10 @@ void Battle::run() {
     if (fled_) {
         cout << "The battle is over.\n";
     } else if (playerCreature_->isFainted()) {
-        cout << playerCreature_->name() << " has fainted! "
-                  << enemyCreature_->name() << " wins!\n";
+        // Enemy wins
+        cout << playerCreature_->name() << " has fainted! " << enemyCreature_->name() << " wins!\n";
     } else if (enemyCreature_->isFainted()) {
-        cout << enemyCreature_->name() << " has fainted! "
-                  << playerCreature_->name() << " wins!\n";
+        // Player wins
+        cout << enemyCreature_->name() << " has fainted! " << playerCreature_->name() << " wins!\n";
     }
 }

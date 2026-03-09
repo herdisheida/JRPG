@@ -18,6 +18,7 @@ class PlayerController : public Controller {
     private:
         void printActionOptions(const Creature& self) const {
             const auto& actions = self.actions();
+            std::cout << "Choose an action:\n\n";
 
             // std::cout << "----------------------------------\n";
             for (size_t i = 0; i < actions.size(); ++i) {
@@ -36,8 +37,6 @@ class PlayerController : public Controller {
             (void)opponent;
 
             std::cout << "\n" << self.name() << "'s turn!\n";
-            std::cout << "Choose an action:\n\n";
-
             printActionOptions(self);
 
             int choice;
