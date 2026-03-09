@@ -37,7 +37,7 @@ public:
 };
 
 
-// custom creatures
+// custom creatures :D
 class Charizard : public Creature {
 public:
     Charizard()
