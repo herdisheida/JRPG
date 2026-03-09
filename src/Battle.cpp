@@ -199,12 +199,15 @@ void Battle::run() {
     cout << "You send out " << playerCreature_->name() << "!\n";
 
     printStatus();
-
     bool printedAfterRound = false;
+    int round = 1;
+
 
     while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
-        printedAfterRound = false;
 
+        cout << "\n\n\n------------------ Round " << round++ << " ------------------\n\n";
+
+        printedAfterRound = false;
         bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
         if (playerFirst) {
@@ -226,7 +229,8 @@ void Battle::run() {
         } else {
 
             // enemy goes first
-            cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
+            if (round == 2) cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
+            
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
