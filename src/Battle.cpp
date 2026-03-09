@@ -94,7 +94,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             }
 
             if (target.isDefending()) {
-                cout << " The target was defending.";
+                cout << " - The target was defending and took less damage!";
             }
 
             cout << "\n";
@@ -197,9 +197,13 @@ void Battle::applyStatusEffect(Creature& creature) {
 void Battle::run() {
     cout << "A wild " << enemyCreature_->name() << " appears!\n";
     cout << "You send out " << playerCreature_->name() << "!\n";
-    
+
+    printStatus();
+
+    bool printedAfterRound = false;
+
     while (!playerCreature_->isFainted() && !enemyCreature_->isFainted() && !fled_) {
-        printStatus(); // beginning of each round
+        printedAfterRound = false;
 
         bool playerFirst = playerCreature_->stats().speed >= enemyCreature_->stats().speed;
 
@@ -207,22 +211,41 @@ void Battle::run() {
             if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
+            if (enemyCreature_->isFainted() || fled_) {
+                break;
+            }
+
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
+                break;
+            }
+            if (playerCreature_->isFainted() || fled_) {
                 break;
             }
         } else {
-            // Enemy goes first
             cout << "\n" << enemyCreature_->name() << " is faster and takes the first move!\n";
-        
+
             if (!takeTurn(*enemyCreature_, *playerCreature_, *enemyController_, false)) {
                 break;
             }
+            if (playerCreature_->isFainted() || fled_) {
+                break;
+            }
+
             if (!takeTurn(*playerCreature_, *enemyCreature_, *playerController_, true)) {
                 break;
             }
+            if (enemyCreature_->isFainted() || fled_) {
+                break;
+            }
         }
+
+        printStatus();
+        printedAfterRound = true;
     }
 
+    if (!printedAfterRound && !fled_) {
+        printStatus();
+    }
     
     // if (!fled_) { printStatus(); }
 
