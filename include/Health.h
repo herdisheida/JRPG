@@ -12,7 +12,7 @@ class Health {
         int current() const { return current_; }
         int max() const { return max_; }
 
-        bool isFainted() const { return current_ <= 0; }
+        bool isFainted() const { return current_ <= 0; } // basically dead
 
         void damage(int amount) {
             if (amount < 0) amount = 0;
