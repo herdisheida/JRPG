@@ -33,3 +33,53 @@ README file satisfying these requirements will result in a 0.
 5. Battle.h runs the turn loop
 
 6. main.cpp creates the player and enemy, then starts the battle
+
+---
+
+---
+
+## Introduction
+
+This program is a small turn-based battle game inspired by JRPGs such as Pokémon.
+
+<!-- TODO make the enemy randomized  and maybe stats randomised -->
+
+When the game starts, the player chooses a creature and then chooses an enemy creature to fight.  
+Each creature has its own stats:
+
+- Health
+- Attack
+- Defense
+- Speed
+
+Each creature also has a set of moves with different power and accuracy values.
+
+### How battle works
+
+- The creature with the higher Speed acts first.
+- On your turn, you choose one move from a menu.
+- On the enemy turn, the enemy chooses a move automatically.
+- A move may miss depending on its accuracy.
+- Damage is calculated using the attacker’s Attack, the move’s Power, and the defender’s Defense.
+- A small random variation is added to damage to make battles less predictable.
+- When a creature’s Health reaches 0, it faints and the battle ends.
+
+## How to compile and run
+
+1. Compile:
+
+```
+make
+```
+
+2. Run:
+
+```
+./game
+```
+
+3. Clean build files:
+
+```
+make clean
+```

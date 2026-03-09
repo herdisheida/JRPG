@@ -1,25 +1,23 @@
 CXX      := clang++
-CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic # newest version
-TARGET   := program
+CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic -Iinclude # newest version
+
 BUILD_NAME := JRPG
+SRC = main.cpp src/Battle.cpp
+OUT = game
 
 SRCS := main.cpp ast.cpp
 OBJS := $(SRCS:.cpp=.o)
 
-all: $(TARGET) info
+all: $(OUT) info
 
-info:
-	@echo "======================================"
-	@echo "$(BUILD_NAME) build complete."
-	@echo "======================================"
+$(OUT): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT)
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+run: $(OUT)
+	./$(OUT)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OUT)
 
 .PHONY: all clean info
+

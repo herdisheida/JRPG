@@ -10,9 +10,8 @@ using namespace std;
 std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     while (true) {
         cout << prompt << "\n";
-        cout << "1. Sparkit\n";
-        cout << "2. Leafling\n";
-        cout << "3. Aquaff\n";
+        cout << "1. Pikachu\n";
+        cout << "2. Piplup\n";
         cout << "> ";
 
         int choice;
