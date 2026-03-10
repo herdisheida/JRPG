@@ -173,7 +173,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 
 bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
     // creature is paralized
-    if (actor.status() == StatusEffect::Paralyzed) {
+    if (actor.status() == StatusEffect::Paralyze) {
         std::cout << actor.name() << " is paralyzed and cannot act!\n";
 
         actor.reduceStatusTurns();
@@ -211,7 +211,14 @@ bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller,
 // Damage creature with status effect
 void Battle::applyStatusEffect(Creature& creature) {
     if (creature.status() != StatusEffect::None) {
-        int damage = creature.health().max() / 8; // poison damage is 1/8 of max HP
+
+        int damage;
+        if (creature.status() == StatusEffect::Poison) {
+            damage = creature.health().max() / 8; // poison damage is 1/8 of max HP
+        } else {
+            damage = 20; // default damage for other status effects
+        }
+
         creature.health().damage(damage);
 
         std::cout << creature.name() << " suffers " << damage << " " << takeDamageString(creature.status()) << "!\n";

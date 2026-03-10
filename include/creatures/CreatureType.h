@@ -59,8 +59,8 @@ public:
             {12, 8, 15},  // attack, defense, speed
             {
                 Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20         , DamageType::Magical),
-                Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical),
-                Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15         , DamageType::Physical),
+                Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical,   StatusEffect::Paralyze, 1),
+                Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15         , DamageType::Physical,   StatusEffect::Paralyze, 1),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
@@ -97,7 +97,7 @@ public:
             {
                 Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10         , DamageType::Fire),
                 Action("Slash",         ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical),
-                Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20         , DamageType::Fire),
+                Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20         , DamageType::Fire,       StatusEffect::Burn, 1),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
@@ -174,8 +174,8 @@ public:
             {15, 5, 14},  // attack, defense, speed
             {
                 Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10         , DamageType::Magical),
-                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical, StatusEffect::Paralyzed, 1),
-                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical, StatusEffect::Poison, 3),
+                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical,   StatusEffect::Paralyze, 2),
+                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical,   StatusEffect::Poison, 3),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
