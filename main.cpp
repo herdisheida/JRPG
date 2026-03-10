@@ -93,9 +93,31 @@ std::unique_ptr<Creature> createRandomWildCreature() {
 
 // choose and set nickname for player creature
 void customizeCreature(Creature& creature) {
-    cout << "\nGive your creature a nickname: ";
+    cout << "\nGive " << creature.species() << " a nickname: ";
     std::string nickname;
-    cin >> nickname;
+    std::getline(cin, nickname);
+    
+    while (std::getline(cin, nickname)) {
+        if (nickname.empty()) {
+            cout << "Nickname cannot be empty. Please enter a valid nickname: ";
+            continue;
+        }
+        if (nickname.length() > 15) {
+            cout << "Nickname too long. Please enter a nickname with 15 characters or fewer: ";
+            continue;
+        }
+        if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0_") != std::string::npos) {
+            cout << "Nickname contains invalid characters. Please use only letters or underscores: ";
+            continue;
+        }
+
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input.\n\n";
+            continue;
+        }
+        break;
+    }
 
     // convert nickname to uppercase
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
