@@ -9,10 +9,12 @@
 
 #include "include/overworld/EnemyField.h"
 #include "include/overworld/OverworldMap.h"
-#include "include/util/GameSettings.h"
 
-#include "include/util/Helpers.h"
 #include "include/game/Encounters.h"
+#include "include/game/Input.h"
+
+#include "include/util/GameSettings.h"
+#include "include/util/Helpers.h"
 
 
 

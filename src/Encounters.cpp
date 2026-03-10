@@ -5,6 +5,10 @@
 #include "../include/util/Helpers.h" // for getOrCreateRandomWildCreatureAt
 
 
+// void printHpStatus(const Creature& creature) {
+//     std::cout << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n";
+// }
+
 // main encounter handler
 void handleEncounters(
     OverworldMap& map,
@@ -32,9 +36,11 @@ void handleEncounters(
 
         if(outcome == 0) {
             playerCreature->changeMaxHp(10); std::cout << "+10 max HP!\n";
+            // printHpStatus(playerCreature);
         }
         else if(outcome == 1) {
             playerCreature->changeMaxHp(-10); std::cout << "-10 max HP...\n";
+            // printHpStatus(playerCreature);
         }
         else if(outcome == 2) { 
             playerCreature->health().damage(playerCreature->health().current()); std::cout << "Trap! Fainted!\n";

@@ -8,6 +8,9 @@
 #include "../controllers/EnemyController.h"
 #include "../battle/Battle.h"
 
+// HP <curr>/<max> display for mystery box outcomes
+// void printHpStatus(const Creature& creature);
+
 // wild enemies, hearts, and mystery encounters
 void handleEncounters(
     OverworldMap& map,

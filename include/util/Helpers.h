@@ -25,8 +25,6 @@ Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
 void printVictoryMsg();
 void printLoseMsg();
 
-// get user input for move (has to be a single char in a line)
-char getPlayerMove();
 
 // check if game is lost/won -> print msg
 bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature);
