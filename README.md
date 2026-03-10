@@ -38,7 +38,9 @@ README file satisfying these requirements will result in a 0.
 
 ---
 
-## Introduction
+## For Programmers // TODO
+
+## For Players // TODO
 
 This program is a small turn-based battle game inspired by JRPGs such as Pokémon.
 
