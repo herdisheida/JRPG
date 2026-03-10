@@ -37,13 +37,15 @@ public:
     std::string Roles() const override { return "Healer Class: low attack and many weaknesses, but powerful healing abilities"; }
 
     // print ascii creature
-    virtual void printAscii() const override {
-        std::cout << "         __          " << "\n";
-        std::cout << "      -=(o '.        " << "\n";
-        std::cout << "         '.-.\\      " << "\n";
-        std::cout << "         /|  \\\\    " << "\n";
-        std::cout << "         '|  ||      " <<  "\n";
-        std::cout << "         _\\_):,_.   " << "\n";
+    std::vector<std::string> asciiArt() const override {
+        return {
+            "   __        ",
+            "-=(o '.      ",
+            "   '.-.\\    ",
+            "   /|  \\\\  ",
+            "   '|  ||    ",
+            "   _\\_):,_. "
+        };
                 
     }
 };
@@ -76,11 +78,13 @@ public:
     std::string Roles() const override { return "Balanced: all rounder"; }
 
     // print ascii creature
-    virtual void printAscii() const override {
-        std::cout << "       _._     _,-'""`-._           " << "\n";
-        std::cout << "      (,-.`._,'(       |\\`-/|      " << "\n";
-        std::cout << "          `-.-' \\ )-`( , o o)      " << "\n";
-        std::cout << "                `-    \\`_`\"'-\\   " << "\n";
+    virtual std::vector<std::string> asciiArt() const override {
+        return {
+            " _._     _,-'""`-._         ",
+            "(,-.`._,'(       |\\`-/|    ",
+            "    `-.-' \\ )-`( , o o)    ",
+            "         `-    \\`_`\"'-\\  "
+        };
     }
 
 };
@@ -113,12 +117,14 @@ public:
     std::string Roles() const override { return "Tank: High HP and Defense"; }
 
     // print ascii creature
-    virtual void printAscii() const override {
-        std::cout << "       oo`'._..---.___..-   " << "\n";
-        std::cout << "      (_,-.        ,..'`    " << "\n";
-        std::cout << "           `'.    ;         " << "\n";
-        std::cout << "              : :`          " << "\n";
-        std::cout << "             _;_;           " << "\n";
+    virtual std::vector<std::string> asciiArt() const override {
+        return {
+            " oo`'._..---.___..- ",
+            "(_,-.        ,..'`  ",
+            "     `'.    ;       ",
+            "        : :`        ",
+            "       _;_;         "
+        };
     }
 
 };
@@ -150,15 +156,17 @@ public:
     std::string Roles() const override { return "Glass Cannon: High Attack, but Low HP"; }
 
     // print ascii creature
-    virtual void printAscii() const override {
-        std::cout << "                  /)-_-(\\  " << "\n";
-        std::cout << "                   (o o)    " << "\n";
-        std::cout << "           .-----__/\\o/    " << "\n";
-        std::cout << "          /  __      /      " << "\n";
-        std::cout << "      \\__/\\ /  \\_\\ |/   " << "\n";
-        std::cout << "           \\     ||        " << "\n";
-        std::cout << "           //     ||        " << "\n";
-        std::cout << "           |\\     |\\      " << "\n";
+    virtual std::vector<std::string> asciiArt() const override {
+        return {
+            "            /)-_-(\\  ",
+            "             (o o)    ",
+            "     .-----__/\\o/    ",
+            "    /  __      /      ",
+            "\\__/\\ /  \\_\\ |/   ",
+            "     \\     ||        ",
+            "     //     ||        ",
+            "     |\\     |\\      "
+        };
     }
 };
 
@@ -192,16 +200,18 @@ public:
     std::string Roles() const override { return "Wizard: High utility with status effects, but lower direct damage"; }
     
     // print ascii creature
-    virtual void printAscii() const override {
-        std::cout << "               ,             " << "\n";
-        std::cout << "             .--')           " << "\n";
-        std::cout << "            /    /           " << "\n";
-        std::cout << "           |    /            " << "\n";
-        std::cout << "        /`.\\   (_.'\\       " << "\n";
-        std::cout << "        \\          /        " << "\n";
-        std::cout << "         '--. .---'          " << "\n";
-        std::cout << "           ( \" )            " << "\n";
-        std::cout << "            '-'              " << "\n";
+    std::vector<std::string> asciiArt() const override {
+        return {
+            "               ,             ",
+            "             .--')           ",
+            "            /    /           ",
+            "           |    /            ",
+            "        /`.\\   (_.'\\       ",
+            "        \\          /        ",
+            "         '--. .---'          ",
+            "           ( \" )            ",
+            "            '-'              "
+        };
     }
 };
 

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <iostream>
+#include <iomanip>
 
 #include "../battle/Action.h"
 #include "../util/Health.h" 
@@ -49,9 +50,14 @@ class Creature {
         virtual ~Creature() = default;
         
         virtual std::string species() const = 0;
-        virtual void printAscii() const { std::cout << name_; };
         virtual std::string Roles() const { return name_; };
-        
+
+        virtual std::vector<std::string> asciiArt() const { return { name_ }; }
+        void printAscii(const Creature& c, int offset = 0) {
+            for (const auto& line : c.asciiArt()) {
+                std::cout << std::setw(offset) << "" << line << "\n";
+            }
+        }
 
         const std::string& name() const { return name_; }
         void setName(const std::string& name) { name_ = name; }
