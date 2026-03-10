@@ -1,6 +1,7 @@
 #include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"
 #include "../include/util/Random.h"
+#include "../include/game/Input.h"
 
 #include <iostream>
 #include <iomanip> // for std::setw
@@ -39,6 +40,23 @@ void Battle::printHealthBar(const Creature& creature) const {
     for (int i = 0; i < redBars; i++)
         bar += "🟥";
     std::cout << std::string(LABEL_W + NAME_W, ' ') << "[" << bar << "]\n";
+}
+
+void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg) const {
+    // print enemy top right 
+    printHealthBar(enemy);
+
+
+    // print player bottom left
+    printHealthBar(player);
+
+
+    // print previous action (enemy and player moves) message
+    if (!p_msg.empty()) std::cout << "\n" << p_msg;
+    if (!e_msg.empty()) std::cout << "\n" << e_msg;
+    waitForEnter("Enter to continue...");
+
+    
 }
 
 // print battle status: names, HP, status effects
@@ -217,34 +235,34 @@ std::string Battle::applyStatusEffect(Creature& creature) {
 
 void Battle::run() {
     std::cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
-    enemyCreature_.printAscii();
+    enemyCreature_.printAscii(enemyCreature_, 5);
     std::cout << "\nYou send out " << playerCreature_.name() << "!\n";
 
     int round = 1;
 
     // first print (init status)
     std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
-    printStatus();
+    // printStatus(); // DELETE
     
-    std::string msg1, msg2;
+    std::string p_msg, e_msg;
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
 
         if (playerFirst) {
-            msg1 = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player goes first
-            msg2 = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes second
+            p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player goes first
+            e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes second
         } else {
             if (round == 2) std::cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n";
-            msg1 = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes first
-            msg2 = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player second
+            e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes first
+            p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player second
         }
 
         // print status after each round
         std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
-        printStatus();
+        // printStatus(); // DELETE
+        printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg); // print status with health bars
 
-        if (!msg1.empty()) std::cout << "\n" << msg1;
-        if (!msg2.empty()) std::cout << "\n" << msg2;
+
         if (enemyCreature_.isFainted() || playerCreature_.isFainted() || fled_) return;
 
         // reset defending state at end of round
