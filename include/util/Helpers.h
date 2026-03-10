@@ -17,17 +17,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt);
 // nickname customization
 void customizeCreature(Creature& creature);
 
-
 // get or create wild enemies (persisteent)
 Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
-
-// print victory/lose messages
-void printVictoryMsg();
-void printLoseMsg();
-
-
-// check if game is lost/won -> print msg
-bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature);
-
 
 #endif
