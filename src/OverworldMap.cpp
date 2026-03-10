@@ -1,5 +1,7 @@
-#include "../include/overworld/OverworldMap.h"
 #include <string>
+#include <iostream>
+
+#include "../include/overworld/OverworldMap.h"
 
 
 const std::string PLAYER_SYMBOL = "P";
