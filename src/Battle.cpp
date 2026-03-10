@@ -53,9 +53,10 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
     printHealthBar(player, PLAYER_OFFSET);
     player.printAscii(PLAYER_OFFSET);
 
+    std::cout << "\n";
     // print previous action (enemy and player moves) message
-    if (!p_msg.empty()) std::cout << "\n" << p_msg;
-    if (!e_msg.empty()) std::cout << "\n" << e_msg;
+    if (!p_msg.empty()) std::cout << "\n" << p_msg << "\n";
+    if (!e_msg.empty()) std::cout << "\n" << e_msg << "\n";
 }
 
 
