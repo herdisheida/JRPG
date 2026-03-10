@@ -6,7 +6,6 @@
 
 #include "include/Battle.h"
 
-#include "include/controllers/Controller.h"
 #include "include/controllers/EnemyController.h"
 #include "include/controllers/PlayerController.h"
 
