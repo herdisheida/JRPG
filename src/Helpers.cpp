@@ -142,12 +142,3 @@ void printLoseMsg() {
     std::cout << "Your creature has fainted and there are no healing items left.\n";
     std::cout << "Better luck next time!\n";
 }
-
-void moveToPreviousPosition(OverworldMap& map, char input) {
-    switch (input) {
-        case 'w': case 'W': map.movePlayer('s'); break;
-        case 's': case 'S': map.movePlayer('w'); break;
-        case 'a': case 'A': map.movePlayer('d'); break;
-        case 'd': case 'D': map.movePlayer('a'); break;
-    }
-}

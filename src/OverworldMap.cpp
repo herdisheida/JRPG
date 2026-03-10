@@ -80,6 +80,24 @@ bool OverworldMap::movePlayer(char input) {
     return true;
 }
 
+void OverworldMap::movePlayerBack(char input) {
+    int newRow = playerPos_.row;
+    int newCol = playerPos_.col;
+
+    switch(input) {
+        case 'w': case 'W': ++newRow; break;  // up    : move back down
+        case 's': case 'S': --newRow; break;  // down  : move back up
+        case 'a': case 'A': ++newCol; break;  // left  : move back right
+        case 'd': case 'D': --newCol; break;  // right : move back left
+        default: return; // invalid input, do nothing
+    }
+
+    if (isInside(newRow, newCol)) {
+        playerPos_ = {newRow, newCol};
+    }
+}
+
+
 
 // wild enemy encounter funcs
 bool OverworldMap::hasEncounter() const {

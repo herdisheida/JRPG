@@ -133,7 +133,7 @@ int main() {
             if (playerCreature->isFainted()) {
                 cout << "\nYour creature has fainted and cannot battle.\n";
                 // move player back to previous position to avoid repeated encounters
-                moveToPreviousPosition(map, input);
+                map.movePlayerBack(input);
                 continue; // skip battle
             }
 
@@ -148,7 +148,7 @@ int main() {
                 enemyField.removeFainted(); // remove from field
                 map.clearEncounter(); // remove from map
             } else {
-                moveToPreviousPosition(map, input);
+                map.movePlayerBack(input); // player is right wher he was before encounter
             }
         }
     }

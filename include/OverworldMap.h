@@ -39,6 +39,7 @@ class OverworldMap {
         void printInstructions() const;
 
         Position getPlayerPos() const { return playerPos_; }
+        void movePlayerBack(char input); // to previous position -> move player opposite direction of input
 
         // movement and encounter funcs
         bool movePlayer(char input);

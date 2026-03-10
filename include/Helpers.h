@@ -24,7 +24,5 @@ void customizeCreature(Creature& creature);
 void printVictoryMsg();
 void printLoseMsg();
 
-// move back to previous position if encounter failed/flee
-void moveToPreviousPosition(OverworldMap& map, char input);
 
 #endif
