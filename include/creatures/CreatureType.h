@@ -5,8 +5,8 @@
 
 
 constexpr int HIGH_ACCURACY = 95;
-constexpr int MEDIUM_ACCURACY = 85;
-constexpr int LOW_ACCURACY = 70;
+constexpr int MEDIUM_ACCURACY = 60;
+constexpr int LOW_ACCURACY = 30;
 
 
 // custom creatures :D
@@ -34,6 +34,7 @@ public:
             }) {}
 
     std::string species() const override { return "Piplup"; }
+    std::string Roles() override { return "Healer Class: low attack and many weaknesses, but powerful healing abilities"; }
 
     // print ascii creature
     virtual void printAscii() override {
@@ -72,6 +73,7 @@ public:
             }) {}
 
     std::string species() const override { return "Pikachu"; }
+    std::string Roles() override { return "Balanced: he's an all rounder"; }
 
     // print ascii creature
     virtual void printAscii() override {
@@ -80,6 +82,7 @@ public:
         std::cout << "          `-.-' \\ )-`( , o o)      " << "\n";
         std::cout << "                `-    \\`_`\"'-\\   " << "\n";
     }
+
 };
 
 
@@ -107,6 +110,7 @@ public:
             }) {}
 
     std::string species() const override { return "Charizard"; }
+    std::string Roles() override { return "Tank: High HP and Defense"; }
 
     // print ascii creature
     virtual void printAscii() override {
@@ -116,6 +120,7 @@ public:
         std::cout << "              : :`          " << "\n";
         std::cout << "             _;_;           " << "\n";
     }
+
 };
 
 
@@ -142,6 +147,7 @@ public:
             }) {}
 
     std::string species() const override { return "Lucario"; }
+    std::string Roles() override { return "Glass Cannon: High Attack, but Low HP"; }
 
     // print ascii creature
     virtual void printAscii() override {
@@ -183,7 +189,8 @@ public:
             }) {}
 
     std::string species() const override { return "Gengar"; }
-
+    std::string Roles() override { return "Wizard: High utility with status effects, but lower direct damage"; }
+    
     // print ascii creature
     virtual void printAscii() override {
         std::cout << "               ,             " << "\n";

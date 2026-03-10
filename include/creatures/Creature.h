@@ -48,9 +48,9 @@ class Creature {
 
         virtual ~Creature() = default;
         virtual std::string species() const = 0;
-        virtual void printAscii() {
-            std::cout << name_ << "\n";
-        };
+        virtual void printAscii() { std::cout << name_; };
+        virtual std::string Roles() { return name_; };
+        
 
         const std::string& name() const { return name_; }
         void setName(const std::string& name) { name_ = name; }
@@ -103,6 +103,9 @@ class Creature {
                 clearStatus();
             }
         }
+
+
+        
 };
 
 

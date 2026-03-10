@@ -7,11 +7,11 @@
 std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     while (true) {
         std::cout << prompt << "\n";
-        std::cout << "1. Pikachu\n";
-        std::cout << "2. Piplup\n";
-        std::cout << "3. Charizard\n";
-        std::cout << "4. Lucario\n";
-        std::cout << "5. Gengar\n";
+        std::cout << "1. Pikachu"   << " - " << Pikachu().Roles()   << "\n";
+        std::cout << "2. Piplup"    << " - " << Piplup().Roles()    << "\n";
+        std::cout << "3. Charizard" << " - " << Charizard().Roles() << "\n";
+        std::cout << "4. Lucario"   << " - " << Lucario().Roles()   << "\n";
+        std::cout << "5. Gengar"    << " - " << Gengar().Roles()    << "\n";
 
         std::cout << "> ";
 
