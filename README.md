@@ -170,17 +170,17 @@ File structure:
 - `main.cpp`: entry point of the program, sets up the game and starts the battle loop
 
 - `src/`: contains the implementation files
-  - `Battle.cpp`:
-  - `Overworld.cpp`:
+  - `Battle.cpp`: implementation of the battle system
+  - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
 
 - `include/`: contains the header files
-  - `Action.h`:
-  - `Battle.h`:
-  - `Controller.h`:
-  - `Creature.h`:
-  - `GameSettings.h`:
-  - `Health.h`:
-  - `OverworldMap.h`:
-  - `Random.h`:
-  - `Status.h`:
-  - `Type.h`:
+  - `Action.h`: defines **actions** that creatures use in battle
+  - `Battle.h`: declare Battle class
+  - `Controller.h`: controller
+  - `Creature.h`: base class for all creatures
+  - `GameSettings.h`: declares game settings and configurations
+  - `Health.h`: handles health value
+  - `OverworldMap.h`: declare OverworldMap class
+  - `Random.h`: utility for random number generation
+  - `Status.h`: defines status effects like paralysis, poison, etc
+  - `Type.h`: defines damage types like fire, water, etc

@@ -17,9 +17,7 @@ inline std::string toString(DamageType type) {
     switch (type) {
         case DamageType::Fire:     return "Fire";
         case DamageType::Water:    return "Water";
-        // case DamageType::Grass:    return "Grass";
 
-        // case DamageType::Electric: return "Electric";
         case DamageType::Magical:   return "Magical";
         case DamageType::Physical: return "Physical";
 

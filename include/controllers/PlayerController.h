@@ -1,18 +1,9 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef PLAYERCONTROLLER_H
+#define PLAYERCONTROLLER_H
 
-#include <iostream>
-#include <iomanip>
-#include <limits>
-#include <random>
+#include "Controller.h"
 
-#include "Creature.h"
 
-class Controller {
-    public:
-        virtual ~Controller() = default;
-        virtual int chooseAction(const Creature& self, const Creature& opponent) = 0;
-};
 
 class PlayerController : public Controller {
     private:
@@ -57,20 +48,6 @@ class PlayerController : public Controller {
                     return choice - 1;
                 }
             }
-        }
-};
-
-class EnemyController : public Controller {
-    private:
-        std::mt19937 rng_;
-
-    public:
-        EnemyController() : rng_(std::random_device{}()) {}
-
-        int chooseAction(const Creature& self, const Creature& opponent) override {
-            (void)opponent;
-            std::uniform_int_distribution<int> dist(0, static_cast<int>(self.actions().size()) - 1);
-            return dist(rng_);
         }
 };
 

@@ -5,8 +5,14 @@
 #include <cctype>    // for ::toupper
 
 #include "include/Battle.h"
-#include "include/Controller.h"
-#include "include/Creature.h"
+
+#include "include/controllers/Controller.h"
+#include "include/controllers/EnemyController.h"
+#include "include/controllers/PlayerController.h"
+
+#include "include/creatures/Creature.h"
+#include "include/creatures/CreatureType.h"
+
 #include "include/OverworldMap.h"
 #include "include/GameSettings.h"
 #include "include/Random.h"

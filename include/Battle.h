@@ -2,8 +2,8 @@
 #define BATTLE_H
 
 #include <memory>
-#include "Controller.h"
-#include "Creature.h"
+#include "controllers/Controller.h"
+#include "creatures/Creature.h"
 
 class Battle {
     // doesn't work after adding overwolrd

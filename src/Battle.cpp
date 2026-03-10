@@ -1,5 +1,5 @@
 #include "../include/Battle.h"
-#include "../include/Controller.h"
+#include "../include/controllers/Controller.h"
 #include "../include/Random.h"
 
 #include <algorithm>
