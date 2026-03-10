@@ -6,14 +6,13 @@
 #include "include/controllers/EnemyController.h"
 #include "include/controllers/PlayerController.h"
 
-#include "include/creatures/Creature.h"
 
 #include "include/EnemyField.h"
 #include "include/OverworldMap.h"
 #include "include/GameSettings.h"
 
 #include "include/Helpers.h"
-#include "include/Encounters.h"
+#include "include/game/Encounters.h"
 
 
 
