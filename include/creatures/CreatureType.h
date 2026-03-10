@@ -126,11 +126,11 @@ public:
         : Creature(
             "LUCARIO",
             120,
-            {30, 4, 40},  // attack, defense, speed
+            {25, 2, 4},  // attack, defense, speed
             {
                 Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5         , DamageType::Physical),
-                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15         , DamageType::Water),
-                Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20         , DamageType::Physical)
+                Action("Ice Punch",     ActionKind::Attack, 18, LOW_ACCURACY, 15         , DamageType::Water),
+                Action("Shadow Claw",   ActionKind::Attack, 22, LOW_ACCURACY, 20         , DamageType::Physical)
             },
             {
                 // resistance
