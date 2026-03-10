@@ -88,13 +88,13 @@ The game has a small overworld map.
 
 The map shows:
 
-| Symbol                 | Meaning               | Effect when encountering             |
-| ---------------------- | --------------------- | ------------------------------------ |
-| P                      | Player                |                                      |
-| w                      | Wild Creature (enemy) | A battle starts (player vs enemy)    |
-| `\u2665` : ascii heart | Healing locations     | Heal Player                          |
-| ?                      | Mystery locations     | Mystery Effect                       |
-| .                      | Path                  | Player can move on these (no effect) |
+| Symbol         | Meaning               | Effect when encountering             |
+| -------------- | --------------------- | ------------------------------------ |
+| P              | Player                |                                      |
+| w              | Wild Creature (enemy) | A battle starts (player vs enemy)    |
+| ♥ : (`\u2665`) | Healing locations     | Heal Player                          |
+| ?              | Mystery locations     | Mystery Effect                       |
+| .              | Path                  | Player can move on these (no effect) |
 
 ### Battle System
 
