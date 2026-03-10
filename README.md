@@ -82,21 +82,19 @@ At the start of the game you choose a difficulty level.
 | Medium |
 | Hard   |
 
-Higher difficulties have more wild enemies and fewer healing items.
-
 ### Overworld
 
 The game has a small overworld map.
 
 The map shows:
 
-| Symbol  | Meaning              | Effect when encountering             |
-| ------- | -------------------- | ------------------------------------ |
-| P       | Player               |                                      |
-| M       | Wild enemy creatures | Battle (enemy vs player)             |
-| \u2665; | Healing locations    | Heal Player                          |
-| ?       | Mystery locations    | Mystery Effect                       |
-| .       | Path                 | Player can move on these (no effect) |
+| Symbol                 | Meaning               | Effect when encountering             |
+| ---------------------- | --------------------- | ------------------------------------ |
+| P                      | Player                |                                      |
+| w                      | Wild Creature (enemy) | A battle starts (player vs enemy)    |
+| `\u2665` : ascii heart | Healing locations     | Heal Player                          |
+| ?                      | Mystery locations     | Mystery Effect                       |
+| .                      | Path                  | Player can move on these (no effect) |
 
 ### Battle System
 
@@ -118,7 +116,7 @@ Each creature has the following stats:
 - **Defense**: reduces incoming damage
 - **Speed**: decides who moves first in a turn
 - **Action**: list of moves the creature can use (attack, heal, etc)
-- **Resistances**: how much damage it takes from certain types (effective, normal, resistant)
+- **Resistances**: how much damage it takes from certain Damage Types (effective, normal, resistant)
 
 ### Action Types
 
@@ -132,20 +130,14 @@ Creatures can perform different types of actions during battle:
 
 ### Damage Types
 
-Moves can have different damage types, for example:
+Attack (actions) can have different damage types, for example:
 
 - Fire
 - Water
 - Physical
 - Magical
 
-Creatures can have resistances to these types.
-
-Example multipliers:
-
-- 0.5 → takes half damage (resistant)
-- 1.0 → normal damage
-- 1.5 → takes extra damage (weak)
+Creatures can have resistances to these types or be weak to them, which affects the damage they take.
 
 ### Damage Calculation
 
@@ -154,10 +146,10 @@ Damage depends on several things:
 1.  Attacker's **Attack stats**
 2.  **Action Power scale**
 3.  Defender's **Defense stats**
-4.  A small random variation
-5.  Damage type **resistance**
-6.  Enemies **Defence stats** or **Defend Action**
-7.  Critical hits
+4.  Damage type **resistance**
+5.  Enemies **Defence stats** or **Defend Action**
+6.  Critical hits
+7.  A small random variation
 
 This makes battles less predictable and more interesting
 
