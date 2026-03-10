@@ -90,7 +90,7 @@ void customizeCreature(Creature& creature) {
 void printCreatureSummary(const Creature& creature) {
     std::cout << "\n================= " << creature.name() << " is ready for battle!" << " =================\n\n";
 
-    creature.printAscii(creature, 5); // print ascii art with offset
+    creature.printAscii(); // print ascii art with offset
     std::cout << "\n";
 
     // health

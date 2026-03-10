@@ -9,10 +9,14 @@
 
 
 // column widths for status display
-const int LABEL_W = 8;
-const int NAME_W  = 15;
-const int HP_W    = 14;
-const int STATUS_W= 14;
+// const int LABEL_W = 8;
+// const int NAME_W  = 15;
+// const int HP_W    = 14;
+// const int STATUS_W= 14;
+
+
+constexpr int ENEMY_OFFSET = 100; // where enemy info appears (top right)
+constexpr int PLAYER_OFFSET = 3; // where player info appears (bottom left)
 
 
 Battle::Battle(
@@ -28,7 +32,8 @@ Battle::Battle(
 
 
 // print a simple text-based health bar
-void Battle::printHealthBar(const Creature& creature) const {
+void Battle::printHealthBar(const Creature& creature, int offset) const {
+    // calculate green and red ratio
     int barWidth = 15;
     float hpRatio = static_cast<float>(creature.health().current()) / creature.health().max();
     int greenBars = static_cast<int>(hpRatio * barWidth);
@@ -39,58 +44,28 @@ void Battle::printHealthBar(const Creature& creature) const {
         bar += "🟩";
     for (int i = 0; i < redBars; i++)
         bar += "🟥";
-    std::cout << std::string(LABEL_W + NAME_W, ' ') << "[" << bar << "]\n";
+
+    std::cout << std::string(offset, ' ') << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n";
+    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n";
 }
 
-void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg) const {
-    // print enemy top right 
-    printHealthBar(enemy);
+void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
+    std::cout << "\n\n================================================ Round " << round++ << " ================================================\n\n";
 
+    // print enemy top right 
+    printHealthBar(enemy, ENEMY_OFFSET);
+    enemy.printAscii(ENEMY_OFFSET);
 
     // print player bottom left
-    printHealthBar(player);
-
+    printHealthBar(player, PLAYER_OFFSET);
+    player.printAscii(PLAYER_OFFSET);
 
     // print previous action (enemy and player moves) message
     if (!p_msg.empty()) std::cout << "\n" << p_msg;
     if (!e_msg.empty()) std::cout << "\n" << e_msg;
-    waitForEnter("Enter to continue...");
-
-    
+    waitForEnter("Enter to continue...");    
 }
 
-// print battle status: names, HP, status effects
-void Battle::printStatus() const {
-    std::cout << "\n==========================================================\n";
-    
-    std::cout << std::left
-            // name
-         << std::setw(LABEL_W)  << " Your:"
-         << std::setw(NAME_W) << playerCreature_.name()
-            // hp
-         << std::setw(HP_W) << ("HP " + std::to_string(playerCreature_.health().current()) + "/" + std::to_string(playerCreature_.health().max()))
-            // status
-         << std::setw(STATUS_W) << statusToString(playerCreature_.status()) << "\n";
-
-        // health bar
-        printHealthBar(playerCreature_);
-
-    std::cout << "\n";        
-
-    std::cout << std::left
-            // name
-         << std::setw(LABEL_W)  << " Enemy:"
-         << std::setw(NAME_W) << enemyCreature_.name()
-            // hp
-         << std::setw(HP_W) << ("HP " + std::to_string(enemyCreature_.health().current()) + "/" + std::to_string(enemyCreature_.health().max()))
-            // status
-         << std::setw(STATUS_W) << statusToString(enemyCreature_.status()) << "\n";
-
-        // health bar
-        printHealthBar(enemyCreature_);
-
-    std::cout << "==========================================================\n";
-}
 
 std::string Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
     if (!Random::rollPercent(action.accuracy)) {
@@ -235,15 +210,11 @@ std::string Battle::applyStatusEffect(Creature& creature) {
 
 void Battle::run() {
     std::cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
-    enemyCreature_.printAscii(enemyCreature_, 5);
-    std::cout << "\nYou send out " << playerCreature_.name() << "!\n";
-
-    int round = 1;
 
     // first print (init status)
-    std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
-    // printStatus(); // DELETE
-    
+    int round = 1;
+    printBattleScreen(playerCreature_, enemyCreature_, "", "", round); // initial status
+
     std::string p_msg, e_msg;
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
@@ -257,11 +228,8 @@ void Battle::run() {
             p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player second
         }
 
-        // print status after each round
-        std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
-        // printStatus(); // DELETE
-        printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg); // print status with health bars
-
+        // print battle each round
+        printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg, round); // print status with health bars
 
         if (enemyCreature_.isFainted() || playerCreature_.isFainted() || fled_) return;
 
