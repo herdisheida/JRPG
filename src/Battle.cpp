@@ -7,7 +7,7 @@
 #include <iomanip> // for std::setw
 
 
-constexpr int ENEMY_OFFSET = 90; // where enemy info appears  (top right)
+constexpr int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
 constexpr int PLAYER_OFFSET = 3; // where player info appears (bottom left)
 
 

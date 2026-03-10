@@ -58,7 +58,7 @@ class PlayerController : public Controller {
     
         void printActionOptions(const Creature& self) const {
             const auto& actions = self.actions();
-            std::cout << "Choose an action:\n\n";
+            std::cout << "\nChoose an action:\n\n";
             printActionsTable(actions);
         }
 
