@@ -95,17 +95,17 @@ int main() {
         if (map.hasMystery()) {
             std::cout << "\n" << playerCreature->name() << " found a mystery box!\n";
 
-            std::uniform_int_distribution<int> dist(0, 3); // 4 possible outcomes
+            std::uniform_int_distribution<int> dist(0, 3); // 0-3 for 4 outcomes
             int outcome = dist(Random::rng());
 
             if (outcome == 0) {
                 // positive effect: increase max HP
-                playerCreature->changeMaxHp(10);
-                std::cout << playerCreature->name() << " gained +10 max HP!\n";
+                playerCreature->changeMaxHp(100);
+                std::cout << playerCreature->name() << " gained +100 max HP!\n";
             } else if (outcome == 1) {
                 // negative effect: decrease max HP
-                playerCreature->changeMaxHp(-10);
-                std::cout << playerCreature->name() << " lost 10 max HP...\n";
+                playerCreature->changeMaxHp(-30);
+                std::cout << playerCreature->name() << " lost 30 max HP...\n";
             } else if (outcome == 2) {
                 // DEATH EFFECT: faint immediately
                 playerCreature->health().damage(playerCreature->health().current());
