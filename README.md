@@ -155,30 +155,30 @@ This makes battles less predictable and more interesting
 
 ## For Programmers (Code Structure) // TODO
 
-The program uses inheritance to create different types of creatures and controllers.
+The program uses **inheritance** to create different types of creatures and controllers.
 
 File structure:
 
-- `main.cpp`: entry point of the program, sets up the game and starts the battle loop
+- `main.cpp`: entry point of the program; sets up the game and starts the battle loop
 
-- `src/`: contains the implementation files
+- `src/`: implementation files:
   - `Battle.cpp`: implementation of the battle system
   - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
 
-- `include/`: contains the header files
-  - `controllers/`: contains controller classes
+- `include/`: header files:
+  - `controllers/`: controller classes:
     - `Controller.h`: base class for controllers
-    - `PlayerController.h`: handles player input and actions
-    - `EnemyController.h`: handles enemy AI and actions
-  - `creatures/`: contains creature classes
-    - `Creature.h`: base class for all creatures
-    - `CreatureType.h`: defines different creature types (pikachu, piplup, etc)
+    - `PlayerController.h`: handles player input
+    - `EnemyController.h`: handles enemy actions (auto)
+  - `creatures/`: creature classes
+    - `Creature.h`: base class for creatures
+    - `CreatureType.h`: specific creature types (pikachu, piplup, etc)
 
-  - `Action.h`: defines **actions** that creatures use in battle
-  - `Battle.h`: declare Battle class
-  - `GameSettings.h`: declares game settings and configurations
-  - `Health.h`: handles health value
-  - `OverworldMap.h`: declare OverworldMap class
-  - `Random.h`: utility for random number generation
-  - `Status.h`: defines statuses effects like paralysis, poison, etc
-  - `Type.h`: defines damage types like fire, water, etc
+  - `Action.h`: defines actions creatures can perform in battle
+  - `Battle.h`: declares the Battle class
+  - `GameSettings.h`: game configuration and settings
+  - `Health.h`: handles health values
+  - `OverworldMap.h`: declares the OverworldMap class
+  - `Random.h`: random number utilities
+  - `Status.h`: defines status effects (poison, paralysis, etc)
+  - `Type.h`: defines damage types (fire, water, etc)
