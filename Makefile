@@ -1,9 +1,17 @@
 CXX      := clang++
-CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic -Iinclude # newest version
+CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic # newest version
 
-BUILD_NAME := JRPG
-SRC = main.cpp src/Battle.cpp src/OverworldMap.cpp src/EnemyField.cpp src/Helpers.cpp src/Encounters.cpp
-OUT = run
+SRC = main.cpp \
+	src/Battle.cpp \
+	src/CreatureSelection.cpp \
+	src/Encounters.cpp \
+	src/EnemyField.cpp \
+	src/GameEnd.cpp \
+	src/GameSettings.cpp \
+	src/Input.cpp \
+	src/OverworldMap.cpp
+
+OUT:= run
 
 all: $(OUT) info
 

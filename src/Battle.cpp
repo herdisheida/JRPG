@@ -48,11 +48,11 @@ void Battle::printHealthBar(const Creature& creature) const {
 
 // print battle status: names, HP, status effects
 void Battle::printStatus() const {
-    cout << "\n==================================\n";
+    cout << "\n==========================================================\n";
     
     cout << left
             // name
-         << setw(LABEL_W)  << "Your:"
+         << setw(LABEL_W)  << " Your:"
          << setw(NAME_W) << playerCreature_.name()
             // hp
          << setw(HP_W) << ("HP " + std::to_string(playerCreature_.health().current()) + "/" + std::to_string(playerCreature_.health().max()))
@@ -66,7 +66,7 @@ void Battle::printStatus() const {
 
     cout << left
             // name
-         << setw(LABEL_W)  << "Enemy:"
+         << setw(LABEL_W)  << " Enemy:"
          << setw(NAME_W) << enemyCreature_.name()
             // hp
          << setw(HP_W) << ("HP " + std::to_string(enemyCreature_.health().current()) + "/" + std::to_string(enemyCreature_.health().max()))
@@ -76,7 +76,7 @@ void Battle::printStatus() const {
         // health bar
         printHealthBar(enemyCreature_);
 
-    cout << "==================================\n";
+    cout << "==========================================================\n";
 }
 
 void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
