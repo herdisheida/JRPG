@@ -1,10 +1,6 @@
 #ifndef ENEMYFIELD_H
 #define ENEMYFIELD_H
 
-#include <vector>
-#include <memory>
-#include <string>
-#include <utility> // std::pair
 
 #include "../creatures/Creature.h"
 #include "OverworldMap.h"

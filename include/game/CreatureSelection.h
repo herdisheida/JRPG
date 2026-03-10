@@ -1,8 +1,6 @@
 #ifndef CREATURESELECTION_H
 #define CREATURESELECTION_H
 
-#include <memory>
-#include <string>
 #include "../creatures/Creature.h"
 
 

@@ -1,8 +1,6 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#include <memory>
-#include <string>
 #include "../overworld/OverworldMap.h"
 #include "../overworld/EnemyField.h"
 #include "../creatures/Creature.h"

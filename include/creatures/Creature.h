@@ -2,10 +2,6 @@
 #define CREATURE_H
 
 #include <map>
-#include <string>
-#include <utility>
-#include <vector>
-
 #include <iostream>
 
 #include "../battle/Action.h"
