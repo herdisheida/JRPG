@@ -11,6 +11,13 @@ using std::setw;
 using std::left;
 
 
+// column widths for status display
+const int LABEL_W = 8;
+const int NAME_W  = 15;
+const int HP_W    = 14;
+const int STATUS_W= 14;
+
+
 namespace {
     // random number generator
     std::mt19937& rng() {
@@ -35,18 +42,51 @@ Battle::Battle(
         enemyController_(enemyController),
         fled_(false) {}
 
+
+// print a simple text-based health bar
+void Battle::printHealthBar(const Creature& creature) const {
+    int barWidth = 15;
+    float hpRatio = static_cast<float>(creature.health().current()) / creature.health().max();
+    int greenBars = static_cast<int>(hpRatio * barWidth);
+    int redBars = barWidth - greenBars;
+
+    std::string bar;
+    for (int i = 0; i < greenBars; i++)
+        bar += "🟩";
+    for (int i = 0; i < redBars; i++)
+        bar += "🟥";
+    cout << std::string(LABEL_W + NAME_W, ' ') << "[" << bar << "]\n";
+}
+
+// print battle status: names, HP, status effects
 void Battle::printStatus() const {
     cout << "\n==================================\n";
+    
+    cout << left
+            // name
+         << setw(LABEL_W)  << "Your:"
+         << setw(NAME_W) << playerCreature_.name()
+            // hp
+         << setw(HP_W) << ("HP " + std::to_string(playerCreature_.health().current()) + "/" + std::to_string(playerCreature_.health().max()))
+            // status
+         << setw(STATUS_W) << statusToString(playerCreature_.status()) << "\n";
 
-    cout << left << setw(8)  << "Your:"
-         << setw(12) << playerCreature_.name()
-         << "HP " << playerCreature_.health().current()
-         << "/" << playerCreature_.health().max() << "\n";
+        // health bar
+        printHealthBar(playerCreature_);
 
-    cout << left << setw(8)  << "Enemy:"
-         << setw(12) << enemyCreature_.name()
-         << "HP " << enemyCreature_.health().current()
-         << "/" << enemyCreature_.health().max() << "\n";
+    cout << "\n";        
+
+    cout << left
+            // name
+         << setw(LABEL_W)  << "Enemy:"
+         << setw(NAME_W) << enemyCreature_.name()
+            // hp
+         << setw(HP_W) << ("HP " + std::to_string(enemyCreature_.health().current()) + "/" + std::to_string(enemyCreature_.health().max()))
+            // status
+         << setw(STATUS_W) << statusToString(enemyCreature_.status()) << "\n";
+
+        // health bar
+        printHealthBar(enemyCreature_);
 
     cout << "==================================\n";
 }

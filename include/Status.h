@@ -11,10 +11,10 @@ enum class StatusEffect {
 
 inline std::string statusToString(StatusEffect status) {
     switch (status) {
-        case StatusEffect::None:   return "None";
+        case StatusEffect::None:       return "";
         case StatusEffect::Paralyzed:  return "Paralyzed";
-        case StatusEffect::Poison: return "Poisoned";
-        default:                   return "Unknown";
+        case StatusEffect::Poison:     return "Poisoned";
+        default:                       return "Unknown";
     }
 }
 

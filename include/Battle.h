@@ -37,6 +37,8 @@ class Battle {
 
     private:
         void printStatus() const;
+        void printHealthBar(const Creature& creature) const; // health bar with 🟩 and 🟥 colors
+
         bool takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
         void executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer);
         void applyStatusEffect(Creature& target);
