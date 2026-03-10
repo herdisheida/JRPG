@@ -6,6 +6,7 @@
 #include <random>
 #include <iostream>
 
+
 struct Position {
     int row;
     int col;
@@ -37,6 +38,8 @@ class OverworldMap {
         void print() const;
         void printInstructions() const;
 
+        Position getPlayerPos() const { return playerPos_; }
+
         // movement and encounter funcs
         bool movePlayer(char input);
         bool hasEncounter() const;
@@ -57,6 +60,8 @@ class OverworldMap {
 
     private:
         bool isInside(int row, int col) const;
+
+
 };
 
 #endif

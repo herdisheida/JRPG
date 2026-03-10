@@ -73,6 +73,7 @@ make clean
 
 In this game you control a creature and fight against enemy creatures.
 The battles are turn-based, so each side takes turns performing actions.
+The goal of the game is to defeat all the enemies on the map!
 
 At the start of the game you choose a difficulty level.
 
@@ -106,6 +107,7 @@ During battle:
 - Both creatures take turns performing actions (attacks, heal, etc.)
 - The creature with the higher Speed goes first
 - The battle continues until one creature’s health reaches 0 or the player flees
+- After the battle, you return to the overworld map (if the wild lives -> you can encounter it again)
 
 ### Creature Stats
 

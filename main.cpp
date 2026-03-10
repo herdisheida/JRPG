@@ -12,6 +12,7 @@
 #include "include/creatures/Creature.h"
 #include "include/creatures/CreatureType.h"
 
+#include "include/EnemyField.h"
 #include "include/OverworldMap.h"
 #include "include/GameSettings.h"
 #include "include/Random.h"
@@ -84,16 +85,25 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     }
 }
 
-std::unique_ptr<Creature> createRandomWildCreature() {
-    int roll = std::rand() % 5;
+Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos) {
+    Creature* enemy = field.getEnemyAt(pos);
+    if (enemy) return enemy; // enemy already exists here
+
+    // create new random enemy
+    int roll = Random::range(0, 4); // 5 possible creatures
+    std::unique_ptr<Creature> newEnemy;
 
     switch (roll) {
-        case 0: return std::make_unique<Pikachu>();
-        case 1: return std::make_unique<Piplup>();
-        case 2: return std::make_unique<Charizard>();
-        case 3: return std::make_unique<Lucario>();
-        default: return std::make_unique<Gengar>();
+        case 0: newEnemy  = std::make_unique<Pikachu>(); break;
+        case 1: newEnemy  = std::make_unique<Piplup>(); break;
+        case 2: newEnemy  = std::make_unique<Charizard>(); break;
+        case 3: newEnemy  = std::make_unique<Lucario>(); break;
+        default: newEnemy = std::make_unique<Gengar>(); break;
     }
+
+    enemy = newEnemy.get();
+    field.addEnemyAt(pos, std::move(newEnemy));
+    return enemy;
 }
 
 // choose and set nickname for player creature
@@ -172,6 +182,7 @@ int main() {
 
     // initalize overworld
     OverworldMap map(settings.rows, settings.cols);
+    EnemyField enemyField;
     map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
 
 
@@ -268,14 +279,16 @@ int main() {
                 continue; // skip battle
             }
 
-            auto enemyCreature = createRandomWildCreature();
+            Position playerPos = map.getPlayerPos();
+            Creature* enemyCreature = getOrCreateRandomWildCreatureAt(enemyField, playerPos);
 
             Battle battle(*playerCreature, *enemyCreature, playerController, enemyController);
             battle.run();
 
             if (enemyCreature->isFainted()) {
                 // only remove enemy after victory
-                map.clearEncounter();
+                enemyField.removeFainted(); // remove from field
+                map.clearEncounter(); // remove from map
             } else {
                 moveToPreviousPosition(map, input);
             }
