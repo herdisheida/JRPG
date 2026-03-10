@@ -1,7 +1,5 @@
 # JRPG
 
-This program is a small turn-based battle game inspired by classic JRPG games such as Pokémon.
-
 ---
 
 DELETE LATER
@@ -12,39 +10,6 @@ TODO: programming requirements
 
 - You must use at least one of the following: inheritance, templates, variants. Failure to do so will result in a 0.
 - MAkefile
-
-TODO: readme requeriemtns
-A required part of the assignment is to provide a README file
-describing what you have implemented. The README should be
-rich in information, enough that we can read it to know what to
-expect from playing the game and reading your code. Make two
-main sections. One section should describe the program for users,
-that is, players of the game. The other section should describe the
-program to programmers that wish to read your code, understand
-the design and possibly extend your program. Failure to provide a
-README file satisfying these requirements will result in a 0.
-
-## glósur
-
-1. Health.h handles current/max HP
-
-2. Move.h describes an attack
-
-3. Creature.h is the base class for monsters different monster types inherit from Creature
-
-4. Controller.h is an abstract interface
-   - PlayerController.h asks the user what to do
-   - EnemyController.h, enemy moves (attacks etc)
-
-5. Battle.h runs the turn loop
-
-6. main.cpp creates the player and enemy, then starts the battle
-
----
-
-DELETE LATER
-
----
 
 ## How to compile and run
 
@@ -164,11 +129,15 @@ File structure:
 - `main.cpp`: entry point of the program; sets up the game and starts the battle loop
 
 - `src/`: implementation files:
-  - `Battle.cpp`: implementation of the battle system
-  - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
+  - `Battle.cpp`: battle system loop
+  - `CreatureSelection.cpp`: user creature selection screen
   - `Encounters.cpp`: map interactions
   - `EnemyField.cpp`: stores enemies on map if player re-encounters them
+  - `GameEnd.cpp`: handles win/lose conditions
+  - `GameSettings.cpp`:
   - `Helpers.cpp`: helper functions for `main.cpp`
+  - `Input.cpp`: handles player input (moving player on map)
+  - `Overworld.cpp`: the overworld map (movement, encounters, etc)
 
 - `include/`: header files:
   - `controllers/`: controller classes:
