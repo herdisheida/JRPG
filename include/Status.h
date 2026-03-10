@@ -26,4 +26,14 @@ inline std::string statusToString(StatusEffect status) {
     }
 }
 
+inline std::string takeDamageString(StatusEffect status) {
+    switch (status) {
+        case StatusEffect::None:       return "";
+        case StatusEffect::Poison:     return "poison damage";
+        case StatusEffect::Burn:       return "burn damage";
+        case StatusEffect::Freeze:     return "freeze damage";
+        default:                       return "unknown damage";
+    }
+}
+
 #endif

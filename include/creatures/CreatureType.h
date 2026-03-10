@@ -17,7 +17,7 @@ public:
     Piplup()
         : Creature(
             "PIPLUP",
-            110, // HP
+            160, // HP
             {8, 12, 10},  // attack, defense, speed
             {                                                // power, accuracy, crit chance
                 Action("Bubble",         ActionKind::Attack,  7, MEDIUM_ACCURACY,   5         , DamageType::Water),
@@ -54,7 +54,7 @@ public:
     Pikachu()
         : Creature(
             "PIKACHU",
-            100,
+            150,
             {12, 8, 15},  // attack, defense, speed
             {
                 Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20         , DamageType::Magical),
@@ -89,7 +89,7 @@ public:
     Charizard()
         : Creature(
             "CHARIZARD",
-            160,
+            200,
             {14, 16, 6},  // attack, defense, speed
             {
                 Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10         , DamageType::Fire),
@@ -125,7 +125,7 @@ public:
     Lucario()
         : Creature(
             "LUCARIO",
-            100,
+            120,
             {30, 4, 40},  // attack, defense, speed
             {
                 Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5         , DamageType::Physical),
@@ -164,7 +164,7 @@ public:
     Gengar()
         : Creature(
             "GENGAR",
-            100,
+            150,
             {15, 5, 14},  // attack, defense, speed
             {
                 Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10         , DamageType::Magical),

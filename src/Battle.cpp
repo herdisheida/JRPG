@@ -213,15 +213,17 @@ bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller,
     return true;
 }
 
-// for now same damage from all effects
+// Damage creature with status effect
 void Battle::applyStatusEffect(Creature& creature) {
-    int damage = creature.health().max() / 8; // poison damage is 1/8 of max HP
-    creature.health().damage(damage);
+    if (creature.status() != StatusEffect::None) {
+        int damage = creature.health().max() / 8; // poison damage is 1/8 of max HP
+        creature.health().damage(damage);
 
-    std::cout << creature.name() << " suffers " << damage << " poison damage!\n";
+        std::cout << creature.name() << " suffers " << damage << " " << takeDamageString(creature.status()) << "!\n";
 
-    creature.reduceStatusTurns();
-    if (!creature.hasStatus()) std::cout << creature.name() << " is no longer poisoned.\n";
+        creature.reduceStatusTurns();
+        if (!creature.hasStatus()) std::cout << creature.name() << " is no longer " << statusToString(creature.status()) << ".\n";
+    }
 }
 
 
