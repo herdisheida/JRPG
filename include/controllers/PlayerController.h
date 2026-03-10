@@ -66,7 +66,6 @@ class PlayerController : public Controller {
         int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
-            std::cout << "\n" << self.name() << "'s turn!\n\n";
             printActionOptions(self);
 
             int choice;
