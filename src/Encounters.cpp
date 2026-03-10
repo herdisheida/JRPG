@@ -60,7 +60,7 @@ void handleEncounters(
     // wild
     if(map.hasEncounter()) {
         if(playerCreature->isFainted()) {
-            std::cout << "\nYour creature has fainted and cannot battle.\n";
+            std::cout << "\n" << playerCreature->name() << " is fainted and cannot battle.\n";
             // move player back to prev pos to prevent repeated encounters
             map.movePlayerBack(lastMove);
             return; // skip battle
