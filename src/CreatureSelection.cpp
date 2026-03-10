@@ -107,7 +107,7 @@ void printCreatureSummary(const Creature& creature) {
     std::cout << "    Speed   : " << stats.speed   << "\n";
 
     // resistances
-    std::cout << "\nType Resistances\n";
+    std::cout << "\nType Weakness\n";
 
     for (const auto& [type, multiplier] : creature.resistances()) {
 
