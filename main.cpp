@@ -111,6 +111,7 @@ void customizeCreature(Creature& creature) {
             continue;
         }
 
+        if (cin.fail()) {
             cin.clear();
             cin.ignore(10000, '\n');
             cout << "Invalid input.\n\n";
@@ -190,8 +191,15 @@ int main() {
         // move player
         char input;
         std::cout << "\nMove with W A S D, or Q to quit: ";
-        std::cin >> input;
 
+        std::string line;
+        getline(cin, line);
+        if (line.length() > 1) {
+            cout << "\nInvalid input. Please enter a single character.\n";
+            continue;
+        }
+        input = line[0];
+        
         if (input == 'q' || input == 'Q') { break; }
         if (!map.movePlayer(input)) { continue; }
 
