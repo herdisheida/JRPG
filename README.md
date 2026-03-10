@@ -161,4 +161,26 @@ Damage depends on several things:
 
 This makes battles less predictable and more interesting
 
-## For Programmers // TODO
+## For Programmers (Code Structure) // TODO
+
+The program uses inheritance to create different types of creatures and controllers.
+
+File structure:
+
+- `main.cpp`
+
+- `src/`:
+  - `Battle.cpp`:
+  - `Overworld.cpp`:
+
+- `include/`: contains the header files
+  - `Action.h`:
+  - `Battle.h`:
+  - `Controller.h`:
+  - `Creature.h`:
+  - `GameSettings.h`:
+  - `Health.h`:
+  - `Move.h`: // TODO held ég eyddi þessu
+  - `OverworldMap.h`:
+  - `Status.h`:
+  - `Type.h`:
