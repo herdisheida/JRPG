@@ -2,7 +2,7 @@
 #define ENEMYCONTROLLER_H
 
 #include "Controller.h"
-#include "../Random.h"
+#include "../util/Random.h"
 
 
 class EnemyController : public Controller {

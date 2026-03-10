@@ -6,7 +6,7 @@
 #include <string>
 #include <utility> // std::pair
 
-#include "creatures/Creature.h"
+#include "../creatures/Creature.h"
 #include "OverworldMap.h"
 
 

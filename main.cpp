@@ -7,11 +7,11 @@
 #include "include/controllers/PlayerController.h"
 
 
-#include "include/EnemyField.h"
-#include "include/OverworldMap.h"
-#include "include/GameSettings.h"
+#include "include/overworld/EnemyField.h"
+#include "include/overworld/OverworldMap.h"
+#include "include/util/GameSettings.h"
 
-#include "include/Helpers.h"
+#include "include/util/Helpers.h"
 #include "include/game/Encounters.h"
 
 

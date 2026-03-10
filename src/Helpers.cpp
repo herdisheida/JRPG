@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <cctype>
 
-#include "../include/Helpers.h"
-#include "../include/Random.h"
+#include "../include/util/Helpers.h"
+#include "../include/util/Random.h"
 #include "../include/creatures/CreatureType.h"
 
 

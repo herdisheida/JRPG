@@ -1,8 +1,8 @@
 #ifndef ENCOUNTERS_H
 #define ENCOUNTERS_H
 
-#include "../OverworldMap.h"
-#include "../EnemyField.h"
+#include "../overworld/OverworldMap.h"
+#include "../overworld/EnemyField.h"
 #include "../creatures/Creature.h"
 #include "../controllers/PlayerController.h"
 #include "../controllers/EnemyController.h"
