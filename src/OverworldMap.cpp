@@ -1,4 +1,13 @@
 #include "../include/OverworldMap.h"
+#include <string>
+
+
+const std::string PLAYER_SYMBOL = "P";
+const std::string WILD_SYMBOL = "w";
+const std::string HEART_SYMBOL = "\u2665";
+const std::string MYSTERY_SYMBOL = "?";
+const std::string EMPTY_SYMBOL = ".";
+
 
 
 OverworldMap::OverworldMap(int rows, int cols)
@@ -112,11 +121,11 @@ void OverworldMap::printInstructions() const {
     std::cout << "(Q) to quit\n";
     std::cout << "(W A S D) to move\n\n";
     std::cout << "Map encounters:\n";
-    std::cout << "    P = Player (you)\n";
-    std::cout << "    w = Wild Creature (enemy)\n";
-    std::cout << "    \u2665 = Heart (heal effect)\n";
-    std::cout << "    ? = Mystery... (unknown effect)\n";
-    std::cout << "    . = Empty\n";
+    std::cout << "    " << PLAYER_SYMBOL  << " = Player (you)\n";
+    std::cout << "    " << WILD_SYMBOL    << " = Wild Creature (enemy)\n";
+    std::cout << "    " << HEART_SYMBOL   << " = Heart (heal effect)\n";
+    std::cout << "    " << MYSTERY_SYMBOL << " = Mystery... (unknown effect)\n";
+    std::cout << "    " << EMPTY_SYMBOL   << " = Empty\n";
     std::cout << "=======================================\n";
 }
 
@@ -128,15 +137,15 @@ void OverworldMap::print() const {
             Position current{r, c};
 
             if (current == playerPos_) {
-                std::cout << "P ";
+                std::cout << PLAYER_SYMBOL << " ";
             } else if (wildPositions_.count(current) > 0) {
-                std::cout << "w ";
+                std::cout << WILD_SYMBOL << " ";
             } else if (heartPositions_.count(current) > 0) {
-                std::cout << "\u2665 "; // heart symbol
+                std::cout << HEART_SYMBOL << " "; // heart symbol
             } else if (mysteryPositions_.count(current) > 0) {
-                std::cout << "? ";
+                std::cout << MYSTERY_SYMBOL << " ";
             } else {
-                std::cout << ". ";
+                std::cout << EMPTY_SYMBOL << " ";
             }
         }
         std::cout << '\n';
