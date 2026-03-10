@@ -190,10 +190,12 @@ int main() {
 
         // move player
         char input;
-        std::cout << "\nMove with W A S D, or Q to quit: ";
+        std::cout << "\nEnter move: (I for instructions)\n";
+        std::cout << "> ";
 
         std::string line;
         getline(cin, line);
+        std::cout << "\n\n"; // add spacing after input
         if (line.length() > 1) {
             cout << "\nInvalid input. Please enter a single character.\n";
             continue;
@@ -201,6 +203,10 @@ int main() {
         input = line[0];
         
         if (input == 'q' || input == 'Q') { break; }
+        if (input == 'i' || input == 'I') {
+            map.printInstructions();
+            continue;
+        }
         if (!map.movePlayer(input)) { continue; }
 
         // heart encounter

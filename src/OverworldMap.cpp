@@ -1,10 +1,6 @@
 #include "../include/OverworldMap.h"
 
 
-// #include <string>
-// const std::string heart_symbol = "\u2665";
-
-
 OverworldMap::OverworldMap(int rows, int cols)
     : rows_(rows),
       cols_(cols),
@@ -62,12 +58,12 @@ bool OverworldMap::movePlayer(char input) {
         case 'a': case 'A': --newCol; break;
         case 'd': case 'D': ++newCol; break;
         default:
-            std::cout << "Invalid input. Use W A S D.\n";
+            std::cout << "\nInvalid input. Use W A S D.\n";
             return false;
     }
 
     if (!isInside(newRow, newCol)) {
-        std::cout << "You cannot move outside the map!\n";
+        std::cout << "\nYou cannot move outside the map!\n";
         return false;
     }
 
@@ -111,8 +107,22 @@ bool OverworldMap::hasHeartsLeft() const {
     return !heartPositions_.empty();
 }
 
+void OverworldMap::printInstructions() const {
+    std::cout << "\n\n============ Instructions ============\n";
+    std::cout << "(Q) to quit\n";
+    std::cout << "(W A S D) to move\n\n";
+    std::cout << "Map encounters:\n";
+    std::cout << "    P = Player (you)\n";
+    std::cout << "    w = Wild Creature (enemy)\n";
+    std::cout << "    \u2665 = Heart (heal effect)\n";
+    std::cout << "    ? = Mystery... (unknown effect)\n";
+    std::cout << "    . = Empty\n";
+    std::cout << "=======================================\n";
+}
+
 void OverworldMap::print() const {
     std::cout << "\n\n======== OVERWORLD MAP =======\n";
+
     for (int r = 0; r < rows_; ++r) {
         for (int c = 0; c < cols_; ++c) {
             Position current{r, c};
@@ -131,5 +141,4 @@ void OverworldMap::print() const {
         }
         std::cout << '\n';
     }
-    std::cout << "symbols: P = Player, w = Wild Creature, \u2665 = Heart, . = Empty\n";
 }

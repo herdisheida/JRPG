@@ -35,6 +35,7 @@ class OverworldMap {
 
         void initialize(int wildCount, int heartCount, int mysteryCount);
         void print() const;
+        void printInstructions() const;
 
         // movement and encounter funcs
         bool movePlayer(char input);
