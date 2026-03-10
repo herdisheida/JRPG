@@ -58,7 +58,7 @@ make
    _(for better experience -> large terminal window for ascii art and text)_
 
 ```
-./game
+./run
 ```
 
 3. Clean build files:
