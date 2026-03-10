@@ -2,6 +2,8 @@
 #define BATTLE_H
 
 #include <memory>
+#include <string>
+
 #include "../controllers/Controller.h"
 #include "../creatures/Creature.h"
 
@@ -39,9 +41,12 @@ class Battle {
         void printStatus() const;
         void printHealthBar(const Creature& creature) const; // health bar with 🟩 and 🟥 colors
 
-        bool takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
-        void executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer);
-        void applyStatusEffect(Creature& target);
+        // returns the action result message
+        std::string takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
+
+        // returns the action result message
+        std::string executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer);
+        std::string applyStatusEffect(Creature& target);
 };
 
 #endif

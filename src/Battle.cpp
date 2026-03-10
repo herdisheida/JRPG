@@ -74,21 +74,22 @@ void Battle::printStatus() const {
     std::cout << "==========================================================\n";
 }
 
-void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
+std::string Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
     if (!Random::rollPercent(action.accuracy)) {
-        std::cout << actor.name() << " uses " << action.name << " but it misses!\n";
-        return;
+        return actor.name() + " uses " + action.name + " but it misses!";
     }
+
+    std::string msg;
 
     switch (action.kind) {
         case ActionKind::Attack: {
-            int baseDamage = actor.stats().attack + action.power - target.stats().defense;
+            int baseDamage = actor.stats().attack + action.power - target.stats().defense; // attack + move power - target defense
             baseDamage = std::max(1, baseDamage);
 
-            std::uniform_int_distribution<int> variance(0, 2);
+            std::uniform_int_distribution<int> variance(-5, 5); // random variance -5 to 5
             int damage = baseDamage + variance(Random::rng());
 
-            float typeMultiplier = target.resistanceTo(action.damageType);
+            float typeMultiplier = target.resistanceTo(action.damageType); // type effectiveness
             damage = static_cast<int>(damage * typeMultiplier);
 
             if (target.isDefending()) {
@@ -103,39 +104,26 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             damage = std::max(1, damage);
             target.health().damage(damage);
 
-            std::cout << actor.name() << " uses " << action.name
-                      << " dealing " << damage << " " << toString(action.damageType)
-                      << " damage";
+            // build msg
+            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage";
 
-            if (critical) {
-                std::cout << " - Critical hit!";
-            }
+            if (critical) msg += " - Critical hit!";
 
-            if (typeMultiplier < 1.0f) {
-                std::cout << " It's not very effective.";
-            } else if (typeMultiplier > 1.0f) {
-                std::cout << " It's super effective!";
-            }
-
-            if (target.isDefending()) {
-                std::cout << " - The target was defending and took less damage!";
-            }
-
-            std::cout << "\n";
+            if (typeMultiplier < 1.0f) msg += " Not very effective.";
+            if (typeMultiplier > 1.0f) msg += " Super effective!";
+            if (target.isDefending()) msg += " - Enemy defended and took less damage!";
             break;
         }
 
         case ActionKind::Heal: {
             actor.health().heal(action.power);
-            std::cout << actor.name() << " uses " << action.name
-                      << " and restores " << action.power << " HP!\n";
+            msg = actor.name() + " uses " + action.name + " and restores " + std::to_string(action.power) + " HP!";
             break;
         }
 
         case ActionKind::Defend: {
             actor.setDefending(true);
-            std::cout << actor.name() << " uses " << action.name
-                      << " and braces for the next hit!\n";
+            msg = actor.name() + " uses " + action.name + " and braces for the next hit!";
             break;
         }
 
@@ -143,42 +131,41 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             int fleeChance = isPlayer ? 60 : 20;
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
-                if (isPlayer) {
-                    std::cout << actor.name() << " successfully fled from battle!\n";
-                } else {
-                    std::cout << actor.name() << " ran away safely\n";
-                }
+                msg = isPlayer ? actor.name() + " successfully fled from battle!" : actor.name() + " ran away safely";
             } else {
-                std::cout << actor.name() << " tried to flee, but couldn't escape!\n";
+                msg = actor.name() + " tried to flee, but couldn't escape!";
             }
             break;
         }
 
         case ActionKind::Status: {
             if (target.hasStatus()) {
-                std::cout << target.name() << " already has a status effect!\n";
+                msg =  target.name() + " already has a status effect!\n";
                 break;
             }
 
             target.setStatus(action.statusEffect, action.statusDuration);
 
-            std::cout << actor.name() << " uses " << action.name
-                    << "! " << target.name() << " is now "
-                    << statusToString(action.statusEffect) << " for "
-                    << action.statusDuration << " turn(s)!\n";
+            msg = actor.name() + " uses " + action.name + "! "
+                    + target.name() + " is now "
+                    + statusToString(action.statusEffect) + " for "
+                    + std::to_string(action.statusDuration) + " turn(s)!\n";
             break;
         }
     }
+    return msg;
 }
 
-bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
+std::string Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
+    std::string msg;
+
     // creature is paralized
     if (actor.status() == StatusEffect::Paralyze) {
-        std::cout << actor.name() << " is paralyzed and cannot act!\n";
+        msg = actor.name() + " is paralyzed and cannot act!\n";
 
         actor.reduceStatusTurns();
-        if (!actor.hasStatus()) std::cout << actor.name() << " woke up!\n";
-        return true;
+        if (!actor.hasStatus()) msg += actor.name() + " woke up!\n";
+        return msg;
     }
 
     int chosen = controller.chooseAction(actor, target);
@@ -187,29 +174,27 @@ bool Battle::takeTurn(Creature& actor, Creature& target, Controller& controller,
     int actionCount = static_cast<int>(actor.actions().size());
     if (isPlayer && chosen == actionCount) {
         Action fleeAction("Flee", ActionKind::Flee, 0, 100, 0, DamageType::Physical);
-        executeAction(actor, target, fleeAction, true);
-
-        if (fled_) {
-            return false;
-        }
-        return true;
+        msg += executeAction(actor, target, fleeAction, true);
+        return msg;
     }
 
     // creature action
     const Action& action = actor.actions().at(chosen);
-    executeAction(actor, target, action, isPlayer);
+    msg += executeAction(actor, target, action, isPlayer);
 
-    applyStatusEffect(actor); // at end of turn
+    msg += applyStatusEffect(actor); // at end of turn
 
     if (fled_ || actor.isFainted() || target.isFainted()) {
-        return false;
+        return msg;
     }
 
-    return true;
+    return msg;
 }
 
 // Damage creature with status effect
-void Battle::applyStatusEffect(Creature& creature) {
+std::string Battle::applyStatusEffect(Creature& creature) {
+    std::string msg;
+
     if (creature.status() != StatusEffect::None) {
 
         int damage;
@@ -220,12 +205,13 @@ void Battle::applyStatusEffect(Creature& creature) {
         }
 
         creature.health().damage(damage);
-
-        std::cout << creature.name() << " suffers " << damage << " " << takeDamageString(creature.status()) << "!\n";
+        msg +=  creature.name() + " suffers " + std::to_string(damage) + " " + takeDamageString(creature.status()) + "!\n";
 
         creature.reduceStatusTurns();
-        if (!creature.hasStatus()) std::cout << creature.name() << " is no longer " << statusToString(creature.status()) << ".\n";
+        if (!creature.hasStatus()) msg += creature.name() + " is no longer " + statusToString(creature.status()) + ".\n";
     }
+
+    return msg;
 }
 
 
@@ -234,65 +220,38 @@ void Battle::run() {
     enemyCreature_.printAscii();
     std::cout << "\nYou send out " << playerCreature_.name() << "!\n";
 
-    printStatus();
-    bool printedAfterRound = false;
     int round = 1;
 
-
+    // first print (init status)
+    std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
+    printStatus();
+    
+    std::string msg1, msg2;
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
-
-        std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
-
-        printedAfterRound = false;
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
 
         if (playerFirst) {
-            // player goes first
-            if (!takeTurn(playerCreature_, enemyCreature_, playerController_, true)) {
-                break;
-            }
-            if (enemyCreature_.isFainted() || fled_) {
-                break;
-            }
-
-            // enemy goes second
-            if (!takeTurn(enemyCreature_, playerCreature_, enemyController_, false)) {
-                break;
-            }
-            if (playerCreature_.isFainted() || fled_) {
-                break;
-            }
+            msg1 = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player goes first
+            msg2 = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes second
         } else {
-
-            // enemy goes first
-            if (round == 2) std::cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
-            
-            if (!takeTurn(enemyCreature_, playerCreature_, enemyController_, false)) {
-                break;
-            }
-            if (playerCreature_.isFainted() || fled_) {
-                break;
-            }
-
-            // player goes second
-            if (!takeTurn(playerCreature_, enemyCreature_, playerController_, true)) {
-                break;
-            }
-            if (enemyCreature_.isFainted() || fled_) {
-                break;
-            }
+            if (round == 2) std::cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n";
+            msg1 = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes first
+            msg2 = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player second
         }
 
         // print status after each round
+        std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
         printStatus();
-        printedAfterRound = true;
+
+        if (!msg1.empty()) std::cout << "\n" << msg1;
+        if (!msg2.empty()) std::cout << "\n" << msg2;
+        if (enemyCreature_.isFainted() || playerCreature_.isFainted() || fled_) return;
 
         // reset defending state at end of round
         playerCreature_.setDefending(false);
         enemyCreature_.setDefending(false);
     }
 
-    if (!printedAfterRound && !fled_) { printStatus(); }
     
     if (fled_) {
         std::cout << "The battle is over.\n";
