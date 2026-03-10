@@ -42,10 +42,8 @@ int main() {
         map.print();
         
         // win or lose conditions
-        if (!map.hasWildsLeft()) {
-            printVictoryMsg();
-            break;
-        }
+        if (!map.hasWildsLeft()) { printVictoryMsg(); break; }
+        
         if (playerCreature->isFainted()) {
             if (!map.hasHeartsLeft()) {
                 printLoseMsg();
@@ -55,26 +53,13 @@ int main() {
             }
         }
 
-        // get player input (move on map)
-        char input;
-        std::cout << "\nEnter move: (I for instructions)\n";
-        std::cout << "> ";
-
-        std::string line;
-        getline(std::cin, line);
-        std::cout << "\n\n\n\n\n\n\n\n"; // add spacing after input
-        if (line.length() > 1) {
-            std::cout << "\nInvalid input. Please enter a single character.\n";
-            continue;
-        }
-        input = line[0];
-        
+        char input = getPlayerMove();
+        if (input == '\0') continue;
+    
         if (input == 'q' || input == 'Q') { break; }
-        if (input == 'i' || input == 'I') {
-            map.printInstructions();
-            continue;
-        }
-        if (!map.movePlayer(input)) { continue; } // ask for input again if move == invalid
+        if (input == 'i' || input == 'I') { map.printInstructions(); continue; }
+
+        if (!map.movePlayer(input)) { continue; } // if player can move he moves
         handleEncounters(map, enemyField, playerCreature.get(), playerController, enemyController, input);
 
     }

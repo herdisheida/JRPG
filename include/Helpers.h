@@ -14,15 +14,19 @@ Difficulty chooseDifficulty();
 // player creature selection
 std::unique_ptr<Creature> chooseCreature(const std::string& prompt);
 
-// get or create wild enemies (persisteent)
-Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
-
 // nickname customization
 void customizeCreature(Creature& creature);
+
+
+// get or create wild enemies (persisteent)
+Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
 
 // print victory/lose messages
 void printVictoryMsg();
 void printLoseMsg();
+
+// get user input for move (has to be a single char in a line)
+char getPlayerMove();
 
 
 #endif
