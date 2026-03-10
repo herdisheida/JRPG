@@ -22,8 +22,9 @@
 
 
 int main() {
-    std::cout << "=== Welcome to Miniiees by Herdis ===\n\n";
+    startGameIntro(); // prints intro and waits for Enter
 
+    // game setup
     Difficulty difficulty = chooseDifficulty();
     GameSettings settings = settingsForDifficulty(difficulty);
     std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";

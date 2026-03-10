@@ -136,7 +136,7 @@ File structure:
   - `GameEnd.cpp`: handles win/lose conditions
   - `GameSettings.cpp`:
   - `Helpers.cpp`: helper functions for `main.cpp`
-  - `Input.cpp`: handles player input (moving player on map)
+  - `Input.cpp`: handles player input
   - `Overworld.cpp`: the overworld map (movement, encounters, etc)
 
 - `include/`: header files:
