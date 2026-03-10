@@ -71,7 +71,42 @@ void customizeCreature(Creature& creature) {
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
     creature.setName(nickname);
 
-    // display customized creature
-    std::cout << creature.name() << " is ready for battle!\n\n";
+    // display chosen creature
+    printCreatureSummary(creature);
+}
+
+void printCreatureSummary(const Creature& creature) {
+    std::cout << "\n================= " << creature.name() << " is ready for battle!" << " =================\n\n";
+
     creature.printAscii();
+    std::cout << "\n";
+
+    // health
+    std::cout << "Health: "
+              << creature.health().max()
+              << " HP\n";
+
+    // stats
+    const Stats& stats = creature.stats();
+
+    std::cout << "\nStats\n";
+    std::cout << "    Attack  : " << stats.attack  << "\n";
+    std::cout << "    Defense : " << stats.defense << "\n";
+    std::cout << "    Speed   : " << stats.speed   << "\n";
+
+    // resistances
+    std::cout << "\nType Resistances\n";
+
+    for (const auto& [type, multiplier] : creature.resistances()) {
+
+        std::cout << "  " << toString(type) << ": ";
+        if (multiplier > 1.0f)
+            std::cout << "Weak (" << multiplier << "x)";
+        else if (multiplier < 1.0f)
+            std::cout << "Resistant (" << multiplier << "x)";
+        else
+            std::cout << "Normal";
+        std::cout << "\n";
+    }
+    std::cout << "=====================================\n\n";
 }

@@ -12,4 +12,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt);
 // nickname customization
 void customizeCreature(Creature& creature);
 
+// display creature summary after selection and customization
+void printCreatureSummary(const Creature& creature);
+
 #endif

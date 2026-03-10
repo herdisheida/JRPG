@@ -47,9 +47,10 @@ class Creature {
             statusTurns_(0) {}
 
         virtual ~Creature() = default;
+        
         virtual std::string species() const = 0;
-        virtual void printAscii() { std::cout << name_; };
-        virtual std::string Roles() { return name_; };
+        virtual void printAscii() const { std::cout << name_; };
+        virtual std::string Roles() const { return name_; };
         
 
         const std::string& name() const { return name_; }
@@ -73,6 +74,10 @@ class Creature {
                 return it->second;
             }
             return 1.0f;
+        }
+
+        const std::map<DamageType, float>& resistances() const {
+            return resistances_;
         }
 
         bool isDefending() const { return defending_; }
@@ -102,10 +107,7 @@ class Creature {
             if (statusTurns_ <= 0) {
                 clearStatus();
             }
-        }
-
-
-        
+        }        
 };
 
 

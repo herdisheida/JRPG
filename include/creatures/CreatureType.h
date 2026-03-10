@@ -34,10 +34,10 @@ public:
             }) {}
 
     std::string species() const override { return "Piplup"; }
-    std::string Roles() override { return "Healer Class: low attack and many weaknesses, but powerful healing abilities"; }
+    std::string Roles() const override { return "Healer Class: low attack and many weaknesses, but powerful healing abilities"; }
 
     // print ascii creature
-    virtual void printAscii() override {
+    virtual void printAscii() const override {
         std::cout << "         __          " << "\n";
         std::cout << "      -=(o '.        " << "\n";
         std::cout << "         '.-.\\      " << "\n";
@@ -73,10 +73,10 @@ public:
             }) {}
 
     std::string species() const override { return "Pikachu"; }
-    std::string Roles() override { return "Balanced: he's an all rounder"; }
+    std::string Roles() const override { return "Balanced: he's an all rounder"; }
 
     // print ascii creature
-    virtual void printAscii() override {
+    virtual void printAscii() const override {
         std::cout << "       _._     _,-'""`-._           " << "\n";
         std::cout << "      (,-.`._,'(       |\\`-/|      " << "\n";
         std::cout << "          `-.-' \\ )-`( , o o)      " << "\n";
@@ -110,10 +110,10 @@ public:
             }) {}
 
     std::string species() const override { return "Charizard"; }
-    std::string Roles() override { return "Tank: High HP and Defense"; }
+    std::string Roles() const override { return "Tank: High HP and Defense"; }
 
     // print ascii creature
-    virtual void printAscii() override {
+    virtual void printAscii() const override {
         std::cout << "       oo`'._..---.___..-   " << "\n";
         std::cout << "      (_,-.        ,..'`    " << "\n";
         std::cout << "           `'.    ;         " << "\n";
@@ -147,10 +147,10 @@ public:
             }) {}
 
     std::string species() const override { return "Lucario"; }
-    std::string Roles() override { return "Glass Cannon: High Attack, but Low HP"; }
+    std::string Roles() const override { return "Glass Cannon: High Attack, but Low HP"; }
 
     // print ascii creature
-    virtual void printAscii() override {
+    virtual void printAscii() const override {
         std::cout << "                  /)-_-(\\  " << "\n";
         std::cout << "                   (o o)    " << "\n";
         std::cout << "           .-----__/\\o/    " << "\n";
@@ -180,19 +180,19 @@ public:
             },
             {
                 // resistance
-                {DamageType::Physical, 1.2f},
+                {DamageType::Physical, 1.5f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
                 // {DamageType::Grass,    0.5f},
                 // {DamageType::Electric, 1.0f},
-                {DamageType::Magical,   1.2f}
+                {DamageType::Magical,   1.5f}
             }) {}
 
     std::string species() const override { return "Gengar"; }
-    std::string Roles() override { return "Wizard: High utility with status effects, but lower direct damage"; }
+    std::string Roles() const override { return "Wizard: High utility with status effects, but lower direct damage"; }
     
     // print ascii creature
-    virtual void printAscii() override {
+    virtual void printAscii() const override {
         std::cout << "               ,             " << "\n";
         std::cout << "             .--')           " << "\n";
         std::cout << "            /    /           " << "\n";
