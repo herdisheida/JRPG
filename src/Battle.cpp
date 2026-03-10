@@ -1,8 +1,9 @@
 #include "../include/Battle.h"
+#include "../include/Controller.h"
+#include "../include/Random.h"
 
 #include <algorithm>
 #include <iostream>
-#include <random>
 
 using std::cout;
 
@@ -17,19 +18,6 @@ const int NAME_W  = 15;
 const int HP_W    = 14;
 const int STATUS_W= 14;
 
-
-namespace {
-    // random number generator
-    std::mt19937& rng() {
-        static std::mt19937 gen(std::random_device{}());
-        return gen;
-    }
-
-    bool rollPercent(int chance) {
-        std::uniform_int_distribution<int> dist(1, 100);
-        return dist(rng()) <= chance;
-    }
-}
 
 Battle::Battle(
     Creature& playerCreature,
@@ -92,7 +80,7 @@ void Battle::printStatus() const {
 }
 
 void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
-    if (!rollPercent(action.accuracy)) {
+    if (!Random::rollPercent(action.accuracy)) {
         cout << actor.name() << " uses " << action.name << " but it misses!\n";
         return;
     }
@@ -103,7 +91,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             baseDamage = std::max(1, baseDamage);
 
             std::uniform_int_distribution<int> variance(0, 2);
-            int damage = baseDamage + variance(rng());
+            int damage = baseDamage + variance(Random::rng());
 
             float typeMultiplier = target.resistanceTo(action.damageType);
             damage = static_cast<int>(damage * typeMultiplier);
@@ -112,7 +100,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
                 damage = std::max(1, damage / 2);
             }
 
-            bool critical = rollPercent(action.critChance);
+            bool critical = Random::rollPercent(action.critChance);
             if (critical) {
                 damage *= 2;
             }
@@ -158,7 +146,7 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
 
         case ActionKind::Flee: {
             int fleeChance = isPlayer ? 60 : 20;
-            if (rollPercent(fleeChance)) {
+            if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
                 if (isPlayer) {
                     cout << actor.name() << " successfully fled from battle!\n";

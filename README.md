@@ -167,9 +167,9 @@ The program uses inheritance to create different types of creatures and controll
 
 File structure:
 
-- `main.cpp`
+- `main.cpp`: entry point of the program, sets up the game and starts the battle loop
 
-- `src/`:
+- `src/`: contains the implementation files
   - `Battle.cpp`:
   - `Overworld.cpp`:
 
@@ -180,7 +180,7 @@ File structure:
   - `Creature.h`:
   - `GameSettings.h`:
   - `Health.h`:
-  - `Move.h`: // TODO held ég eyddi þessu
   - `OverworldMap.h`:
+  - `Random.h`:
   - `Status.h`:
   - `Type.h`:

@@ -9,12 +9,12 @@
 #include "include/Creature.h"
 #include "include/OverworldMap.h"
 #include "include/GameSettings.h"
+#include "include/Random.h"
 
 
 using std::cout;
 using std::cin;
 
-std::mt19937 rng(std::random_device{}());
 
 Difficulty chooseDifficulty() {
     while (true) {
@@ -222,7 +222,7 @@ int main() {
             std::cout << "\n" << playerCreature->name() << " found a mystery box!\n";
 
             std::uniform_int_distribution<int> dist(0, 3); // 4 possible outcomes
-            int outcome = dist(rng);
+            int outcome = dist(Random::rng());
 
             if (outcome == 0) {
                 // positive effect: increase max HP
