@@ -7,15 +7,7 @@
 #include <iomanip> // for std::setw
 
 
-
-// column widths for status display
-// const int LABEL_W = 8;
-// const int NAME_W  = 15;
-// const int HP_W    = 14;
-// const int STATUS_W= 14;
-
-
-constexpr int ENEMY_OFFSET = 100; // where enemy info appears (top right)
+constexpr int ENEMY_OFFSET = 90; // where enemy info appears  (top right)
 constexpr int PLAYER_OFFSET = 3; // where player info appears (bottom left)
 
 
@@ -50,11 +42,12 @@ void Battle::printHealthBar(const Creature& creature, int offset) const {
 }
 
 void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
-    std::cout << "\n\n================================================ Round " << round++ << " ================================================\n\n";
+    std::cout << "\n\n========================================================= Round " << round++ << " =========================================================\n\n";
 
     // print enemy top right 
     printHealthBar(enemy, ENEMY_OFFSET);
     enemy.printAscii(ENEMY_OFFSET);
+
 
     // print player bottom left
     printHealthBar(player, PLAYER_OFFSET);
@@ -63,7 +56,6 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
     // print previous action (enemy and player moves) message
     if (!p_msg.empty()) std::cout << "\n" << p_msg;
     if (!e_msg.empty()) std::cout << "\n" << e_msg;
-    waitForEnter("Enter to continue...");    
 }
 
 
