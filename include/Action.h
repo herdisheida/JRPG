@@ -51,6 +51,7 @@ inline std::string actionKindToString(ActionKind kind) {
         case ActionKind::Heal:   return "Heal";
         case ActionKind::Defend: return "Defend";
         case ActionKind::Flee:   return "Flee";
+        case ActionKind::Status: return "Status";
         default:                 return "Unknown";
     }
 }

@@ -1,6 +1,12 @@
 # JRPG
 
-PA4 - JRPG
+This program is a small turn-based battle game inspired by classic JRPG games such as Pokémon.
+
+---
+
+DELETE LATER
+
+---
 
 TODO: programming requirements
 
@@ -36,11 +42,107 @@ README file satisfying these requirements will result in a 0.
 
 ---
 
+DELETE LATER
+
 ---
 
-## For Programmers // TODO
+## User guide for Players // TODO
 
-## For Players // TODO
+### Introduction
+
+In this game you control a creature and fight against enemy creatures.
+The battles are turn-based, so each side takes turns performing actions.
+
+At the start of the game you choose a difficulty level.
+
+| lvl    |
+| ------ |
+| Easy   |
+| Medium |
+| Hard   |
+
+Higher difficulties have more wild enemies and fewer healing items.
+
+### Overworld
+
+The game has a small overworld map.
+
+The map shows:
+
+| Symbol  | Meaning              | Effect when encountering             |
+| ------- | -------------------- | ------------------------------------ |
+| P       | Player               |                                      |
+| M       | Wild enemy creatures | Battle (enemy vs player)             |
+| \u2665; | Healing locations    | Heal Player                          |
+| ?       | Mystery locations    | Mystery Effect                       |
+| .       | Path                 | Player can move on these (no effect) |
+
+### Battle System
+
+When you encounter an enemy creature, a battle starts.
+
+During battle:
+
+- The name and ASCII art of the enemy creature are shown
+- Both creatures take turns performing actions (attacks, heal, etc.)
+- The creature with the higher Speed goes first
+- The battle continues until one creature’s health reaches 0 or the player flees
+
+### Creature Stats
+
+Each creature has the following stats:
+
+- **Health**: how much damage they can take before fainting (hp = 0)
+- **Attack**: increases damage dealt (critical hit chance)
+- **Defense**: reduces incoming damage
+- **Speed**: decides who moves first in a turn
+- **Action**: list of moves the creature can use (attack, heal, etc)
+- **Resistances**: how much damage it takes from certain types (effective, normal, resistant)
+
+### Action Types
+
+Creatures can perform different types of actions during battle:
+
+- **Attack**: deals damage to the opponent
+- **Special**: a attack with a special effect, such as inflicting a status condition (e.g. burn, freeze, paralysis)
+- **Heal**: restores the user's health
+- **Defend**: reduces the damage of the next incoming attack
+- **Flee**: attempts to escape the battle
+
+### Damage Types
+
+Moves can have different damage types, for example:
+
+- Fire
+- Water
+- Physical
+- Magical
+
+Creatures can have resistances to these types.
+
+Example multipliers:
+
+- 0.5 → takes half damage (resistant)
+- 1.0 → normal damage
+- 1.5 → takes extra damage (weak)
+
+### Damage Calculation
+
+Damage depends on several things:
+
+1.  Attacker's **Attack stats**
+2.  **Action Power scale**
+3.  Defender's **Defense stats**
+4.  A small random variation
+5.  Damage type **resistance**
+6.  Enemies **Defence stats** or **Defend Action**
+7.  Critical hits
+
+This makes battles less predictable and more interesting
+
+#####
+
+## For Programmers // TODO
 
 This program is a small turn-based battle game inspired by JRPGs such as Pokémon.
 
@@ -55,13 +157,6 @@ This program is a small turn-based battle game inspired by JRPGs such as Pokémo
 ### Battle Mechanics
 
 Each creature has:
-
-- Health
-- Attack
-- Defense
-- Speed
-- A list of actions (moves) they can perform
-- Resistances to different damage types
 
 ### Action types
 
