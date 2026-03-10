@@ -28,10 +28,9 @@ int main() {
     auto playerCreature = chooseCreature("Choose your creature:");
     customizeCreature(*playerCreature);
 
-
+    // initalize game
     PlayerController playerController;
     EnemyController enemyController;
-
     // initalize overworld
     OverworldMap map(settings.rows, settings.cols);
     EnemyField enemyField;
