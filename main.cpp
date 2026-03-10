@@ -41,17 +41,7 @@ int main() {
     while (true) {
         map.print();
         
-        // win or lose conditions
-        if (!map.hasWildsLeft()) { printVictoryMsg(); break; }
-        
-        if (playerCreature->isFainted()) {
-            if (!map.hasHeartsLeft()) {
-                printLoseMsg();
-                break;
-            } else {
-                std::cout << "\n" << playerCreature->name() << " has fainted. Find a heart to recover!\n";
-            }
-        }
+        if (handleGameEnd(map, *playerCreature)) { break; }
 
         char input = getPlayerMove();
         if (input == '\0') continue;

@@ -158,3 +158,26 @@ char getPlayerMove() {
     }
     return line[0];
 }
+
+bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature) {
+
+    // win condition
+    if (!map.hasWildsLeft()) {
+        printVictoryMsg();
+        return true;
+    }
+
+    // lose condition
+    if (playerCreature.isFainted() && !map.hasHeartsLeft()) {
+        printLoseMsg();
+        return true;
+    }
+
+    // player fainted but hearts still exist
+    if (playerCreature.isFainted()) {
+        std::cout << "\n" << playerCreature.name()
+                  << " has fainted. Find a heart to recover!\n";
+    }
+
+    return false;
+}
