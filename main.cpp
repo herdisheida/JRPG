@@ -24,12 +24,8 @@ using std::cout;
 using std::cin;
 
 
-
-
-
-
 int main() {
-    cout << "=== Mini JRPG Battle ===\n\n";
+    cout << "=== Welcome to Miniiees by Herdis ===\n\n";
 
     Difficulty difficulty = chooseDifficulty();
     GameSettings settings = settingsForDifficulty(difficulty);
