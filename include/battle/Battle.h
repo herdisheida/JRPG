@@ -1,7 +1,7 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
-// #include <memory>
+#include <memory>
 #include "../controllers/Controller.h"
 #include "../creatures/Creature.h"
 
