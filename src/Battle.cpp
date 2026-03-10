@@ -2,14 +2,9 @@
 #include "../include/controllers/Controller.h"
 #include "../include/util/Random.h"
 
-#include <algorithm>
 #include <iostream>
+#include <iomanip> // for std::setw
 
-using std::cout;
-
-using std::cout;
-using std::setw;
-using std::left;
 
 
 // column widths for status display
@@ -43,45 +38,45 @@ void Battle::printHealthBar(const Creature& creature) const {
         bar += "🟩";
     for (int i = 0; i < redBars; i++)
         bar += "🟥";
-    cout << std::string(LABEL_W + NAME_W, ' ') << "[" << bar << "]\n";
+    std::cout << std::string(LABEL_W + NAME_W, ' ') << "[" << bar << "]\n";
 }
 
 // print battle status: names, HP, status effects
 void Battle::printStatus() const {
-    cout << "\n==========================================================\n";
+    std::cout << "\n==========================================================\n";
     
-    cout << left
+    std::cout << std::left
             // name
-         << setw(LABEL_W)  << " Your:"
-         << setw(NAME_W) << playerCreature_.name()
+         << std::setw(LABEL_W)  << " Your:"
+         << std::setw(NAME_W) << playerCreature_.name()
             // hp
-         << setw(HP_W) << ("HP " + std::to_string(playerCreature_.health().current()) + "/" + std::to_string(playerCreature_.health().max()))
+         << std::setw(HP_W) << ("HP " + std::to_string(playerCreature_.health().current()) + "/" + std::to_string(playerCreature_.health().max()))
             // status
-         << setw(STATUS_W) << statusToString(playerCreature_.status()) << "\n";
+         << std::setw(STATUS_W) << statusToString(playerCreature_.status()) << "\n";
 
         // health bar
         printHealthBar(playerCreature_);
 
-    cout << "\n";        
+    std::cout << "\n";        
 
-    cout << left
+    std::cout << std::left
             // name
-         << setw(LABEL_W)  << " Enemy:"
-         << setw(NAME_W) << enemyCreature_.name()
+         << std::setw(LABEL_W)  << " Enemy:"
+         << std::setw(NAME_W) << enemyCreature_.name()
             // hp
-         << setw(HP_W) << ("HP " + std::to_string(enemyCreature_.health().current()) + "/" + std::to_string(enemyCreature_.health().max()))
+         << std::setw(HP_W) << ("HP " + std::to_string(enemyCreature_.health().current()) + "/" + std::to_string(enemyCreature_.health().max()))
             // status
-         << setw(STATUS_W) << statusToString(enemyCreature_.status()) << "\n";
+         << std::setw(STATUS_W) << statusToString(enemyCreature_.status()) << "\n";
 
         // health bar
         printHealthBar(enemyCreature_);
 
-    cout << "==========================================================\n";
+    std::cout << "==========================================================\n";
 }
 
 void Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
     if (!Random::rollPercent(action.accuracy)) {
-        cout << actor.name() << " uses " << action.name << " but it misses!\n";
+        std::cout << actor.name() << " uses " << action.name << " but it misses!\n";
         return;
     }
 
@@ -108,38 +103,38 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             damage = std::max(1, damage);
             target.health().damage(damage);
 
-            cout << actor.name() << " uses " << action.name
+            std::cout << actor.name() << " uses " << action.name
                       << " dealing " << damage << " " << toString(action.damageType)
                       << " damage";
 
             if (critical) {
-                cout << " - Critical hit!";
+                std::cout << " - Critical hit!";
             }
 
             if (typeMultiplier < 1.0f) {
-                cout << " It's not very effective.";
+                std::cout << " It's not very effective.";
             } else if (typeMultiplier > 1.0f) {
-                cout << " It's super effective!";
+                std::cout << " It's super effective!";
             }
 
             if (target.isDefending()) {
-                cout << " - The target was defending and took less damage!";
+                std::cout << " - The target was defending and took less damage!";
             }
 
-            cout << "\n";
+            std::cout << "\n";
             break;
         }
 
         case ActionKind::Heal: {
             actor.health().heal(action.power);
-            cout << actor.name() << " uses " << action.name
+            std::cout << actor.name() << " uses " << action.name
                       << " and restores " << action.power << " HP!\n";
             break;
         }
 
         case ActionKind::Defend: {
             actor.setDefending(true);
-            cout << actor.name() << " uses " << action.name
+            std::cout << actor.name() << " uses " << action.name
                       << " and braces for the next hit!\n";
             break;
         }
@@ -149,12 +144,12 @@ void Battle::executeAction(Creature& actor, Creature& target, const Action& acti
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
                 if (isPlayer) {
-                    cout << actor.name() << " successfully fled from battle!\n";
+                    std::cout << actor.name() << " successfully fled from battle!\n";
                 } else {
-                    cout << actor.name() << " ran away safely\n";
+                    std::cout << actor.name() << " ran away safely\n";
                 }
             } else {
-                cout << actor.name() << " tried to flee, but couldn't escape!\n";
+                std::cout << actor.name() << " tried to flee, but couldn't escape!\n";
             }
             break;
         }
@@ -228,9 +223,9 @@ void Battle::applyStatusEffect(Creature& creature) {
 
 
 void Battle::run() {
-    cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
+    std::cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
     enemyCreature_.printAscii();
-    cout << "\nYou send out " << playerCreature_.name() << "!\n";
+    std::cout << "\nYou send out " << playerCreature_.name() << "!\n";
 
     printStatus();
     bool printedAfterRound = false;
@@ -239,7 +234,7 @@ void Battle::run() {
 
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
 
-        cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
+        std::cout << "\n\n------------------ Round " << round++ << " ------------------\n\n";
 
         printedAfterRound = false;
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
@@ -263,7 +258,7 @@ void Battle::run() {
         } else {
 
             // enemy goes first
-            if (round == 2) cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
+            if (round == 2) std::cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n"; // only print this message once at the start of battle
             
             if (!takeTurn(enemyCreature_, playerCreature_, enemyController_, false)) {
                 break;
@@ -293,12 +288,12 @@ void Battle::run() {
     if (!printedAfterRound && !fled_) { printStatus(); }
     
     if (fled_) {
-        cout << "The battle is over.\n";
+        std::cout << "The battle is over.\n";
     } else if (playerCreature_.isFainted()) {
         // Enemy wins
-        cout << playerCreature_.name() << " has fainted! " << enemyCreature_.name() << " wins!\n";
+        std::cout << playerCreature_.name() << " has fainted! " << enemyCreature_.name() << " wins!\n";
     } else if (enemyCreature_.isFainted()) {
         // Player wins
-        cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";
+        std::cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";
     }
 }

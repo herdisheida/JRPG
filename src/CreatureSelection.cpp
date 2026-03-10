@@ -1,17 +1,29 @@
 #include <iostream>
+#include <iomanip> // for std::setw
+
 
 #include "../include/game/CreatureSelection.h"
 #include "../include/creatures/CreatureType.h"
 
 
+
+
 std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
     while (true) {
-        std::cout << prompt << "\n";
-        std::cout << "1. Pikachu"   << " - " << Pikachu().Roles()   << "\n";
-        std::cout << "2. Piplup"    << " - " << Piplup().Roles()    << "\n";
-        std::cout << "3. Charizard" << " - " << Charizard().Roles() << "\n";
-        std::cout << "4. Lucario"   << " - " << Lucario().Roles()   << "\n";
-        std::cout << "5. Gengar"    << " - " << Gengar().Roles()    << "\n";
+        std::cout << prompt << "\n\n";
+
+        // column width for names
+        constexpr int nameWidth = 12;
+
+        std::cout << std::left; // left-align the first column
+
+        std::cout << "1. " << std::setw(nameWidth) << "Pikachu"   << " - " << Pikachu().Roles()   << "\n";
+        std::cout << "2. " << std::setw(nameWidth) << "Piplup"    << " - " << Piplup().Roles()    << "\n";
+        std::cout << "3. " << std::setw(nameWidth) << "Charizard" << " - " << Charizard().Roles() << "\n";
+        std::cout << "4. " << std::setw(nameWidth) << "Lucario"   << " - " << Lucario().Roles()   << "\n";
+        std::cout << "5. " << std::setw(nameWidth) << "Gengar"    << " - " << Gengar().Roles()    << "\n";
+
+        std::cout << std::right; // reset alignment to default
 
         std::cout << "> ";
 

@@ -1,10 +1,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <iostream>
-#include <iomanip>
-#include <limits>
-#include <random>
 
 #include "../creatures/Creature.h"
 

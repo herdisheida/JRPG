@@ -73,7 +73,7 @@ public:
             }) {}
 
     std::string species() const override { return "Pikachu"; }
-    std::string Roles() const override { return "Balanced: he's an all rounder"; }
+    std::string Roles() const override { return "Balanced: all rounder"; }
 
     // print ascii creature
     virtual void printAscii() const override {
