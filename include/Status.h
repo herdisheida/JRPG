@@ -14,6 +14,7 @@ enum class StatusEffect {
 
 };
 
+
 inline std::string statusToString(StatusEffect status) {
     switch (status) {
         case StatusEffect::None:       return "";

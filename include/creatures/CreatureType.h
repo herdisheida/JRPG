@@ -17,13 +17,13 @@ public:
     Piplup()
         : Creature(
             "PIPLUP",
-            105,
-            {8, 8, 10},  // attack, defense, speed
-            {
-                Action("Bubble",        ActionKind::Attack, 7, MEDIUM_ACCURACY,   5, DamageType::Water),
-                Action("Healing Beam",  ActionKind::Heal,  10, LOW_ACCURACY,   0, DamageType::Magical),
-                Action("Slack Off",  ActionKind::Heal,  40, MEDIUM_ACCURACY,   0, DamageType::Physical),
-                Action("Water Pulse",   ActionKind::Attack, 8, LOW_ACCURACY, 10, DamageType::Water)
+            110, // HP
+            {8, 12, 10},  // attack, defense, speed
+            {                                                // power, accuracy, crit chance
+                Action("Bubble",         ActionKind::Attack,  7, MEDIUM_ACCURACY,   5         , DamageType::Water),
+                Action("Healing Beam",   ActionKind::Heal,   10, LOW_ACCURACY,      0         , DamageType::Magical),
+                Action("Slack Off",      ActionKind::Heal,   40, MEDIUM_ACCURACY,   0         , DamageType::Physical),
+                Action("Water Pulse",    ActionKind::Attack, 20, LOW_ACCURACY,     10         , DamageType::Water)
             },
             {
                 {DamageType::Physical, 1.5f},
@@ -57,10 +57,10 @@ public:
             100,
             {12, 8, 15},  // attack, defense, speed
             {
-                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Magical),
-                Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
-                Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15, DamageType::Physical),
-                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
+                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20         , DamageType::Magical),
+                Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical),
+                Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15         , DamageType::Physical),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
@@ -92,10 +92,10 @@ public:
             160,
             {14, 16, 6},  // attack, defense, speed
             {
-                Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10, DamageType::Fire),
-                Action("Slash",         ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
-                Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20, DamageType::Fire),
-                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
+                Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10         , DamageType::Fire),
+                Action("Slash",         ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical),
+                Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20         , DamageType::Fire),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
@@ -125,12 +125,12 @@ public:
     Lucario()
         : Creature(
             "LUCARIO",
-            75,
-            {22, 4, 40},  // attack, defense, speed
+            100,
+            {30, 4, 40},  // attack, defense, speed
             {
-                Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5, DamageType::Physical),
-                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15, DamageType::Water),
-                Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20, DamageType::Physical)
+                Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5         , DamageType::Physical),
+                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15         , DamageType::Water),
+                Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20         , DamageType::Physical)
             },
             {
                 // resistance
@@ -164,13 +164,13 @@ public:
     Gengar()
         : Creature(
             "GENGAR",
-            85,
-            {10, 5, 14},  // attack, defense, speed
+            100,
+            {15, 5, 14},  // attack, defense, speed
             {
-                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Magical),
-                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Magical, StatusEffect::Paralyzed, 1),
-                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Magical, StatusEffect::Poison, 3),
-                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
+                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10         , DamageType::Magical),
+                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical, StatusEffect::Paralyzed, 1),
+                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical, StatusEffect::Poison, 3),
+                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
