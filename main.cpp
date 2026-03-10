@@ -195,7 +195,7 @@ int main() {
 
         std::string line;
         getline(cin, line);
-        std::cout << "\n\n"; // add spacing after input
+        std::cout << "\n\n\n\n\n\n\n\n"; // add spacing after input
         if (line.length() > 1) {
             cout << "\nInvalid input. Please enter a single character.\n";
             continue;
