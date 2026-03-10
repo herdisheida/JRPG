@@ -4,9 +4,9 @@
 #include "Creature.h"
 
 
-constexpr int HIGH_ACCURACY = 95;
-constexpr int MEDIUM_ACCURACY = 60;
-constexpr int LOW_ACCURACY = 30;
+constexpr int HIGH_ACCURACY = 90;
+constexpr int MEDIUM_ACCURACY = 50;
+constexpr int LOW_ACCURACY = 15;
 
 
 // custom creatures :D

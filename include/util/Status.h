@@ -18,7 +18,7 @@ enum class StatusEffect {
 inline std::string statusToString(StatusEffect status) {
     switch (status) {
         case StatusEffect::None:       return "";
-        case StatusEffect::Paralyze:  return "Paralyzed";
+        case StatusEffect::Paralyze:  return  "Paralyzed";
         case StatusEffect::Poison:     return "Poisoned";
         case StatusEffect::Burn:       return "Burned";
         case StatusEffect::Freeze:     return "Frozen";
