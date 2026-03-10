@@ -166,6 +166,9 @@ File structure:
 - `src/`: implementation files:
   - `Battle.cpp`: implementation of the battle system
   - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
+  - `Encounters.cpp`: handles encounters between the player and symbols on the map
+  - `EnemyField.cpp`: stores enemies on map if player re-encounters them
+  - `Helpers.cpp`: helper functions for `main.cpp`
 
 - `include/`: header files:
   - `controllers/`: controller classes:
@@ -178,6 +181,8 @@ File structure:
 
   - `Action.h`: defines actions creatures can perform in battle
   - `Battle.h`: declares the Battle class
+  - `Encounters.h`: declares the helper functions for encounters
+  - `EnemyField.h`: declares the EnemyField class
   - `GameSettings.h`: game configuration and settings
   - `Health.h`: handles health values
   - `OverworldMap.h`: declares the OverworldMap class
