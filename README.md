@@ -166,26 +166,37 @@ File structure:
 - `src/`: implementation files:
   - `Battle.cpp`: implementation of the battle system
   - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
-  - `Encounters.cpp`: handles encounters between the player and symbols on the map
+  - `Encounters.cpp`: map interactions
   - `EnemyField.cpp`: stores enemies on map if player re-encounters them
   - `Helpers.cpp`: helper functions for `main.cpp`
 
 - `include/`: header files:
   - `controllers/`: controller classes:
     - `Controller.h`: base class for controllers
-    - `PlayerController.h`: handles player input
+    - `PlayerController.h`: handles player actions (input)
     - `EnemyController.h`: handles enemy actions (auto)
   - `creatures/`: creature classes
     - `Creature.h`: base class for creatures
     - `CreatureType.h`: specific creature types (pikachu, piplup, etc)
 
-  - `Action.h`: defines actions creatures can perform in battle
-  - `Battle.h`: declares the Battle class
-  - `Encounters.h`: declares the helper functions for encounters
-  - `EnemyField.h`: declares the EnemyField class
-  - `GameSettings.h`: game configuration and settings
-  - `Health.h`: handles health values
-  - `OverworldMap.h`: declares the OverworldMap class
-  - `Random.h`: random number utilities
-  - `Status.h`: defines status effects (poison, paralysis, etc)
-  - `Type.h`: defines damage types (fire, water, etc)
+  - `battle/`:
+    - `Action.h`: actions creatures can perform in battle
+    - `Battle.h`: declares the Battle class
+
+  - `game/`:
+    - `CreatureSelection.h`: player setup (creature selection, nickname)
+    - `Encounters.h`: map interactions
+    - `GameEnd.h`: win/lose logic
+    - `Input.h`: player input
+
+  - `overworld/`:
+    - `OverworldMap.h`: map system
+    - `EnemyField.h`: persistent enemies
+
+  - `util/`:
+    - `GameSettings.h`: game configuration and settings
+    - `Helpers.h`: extra helper
+    - `Health.h`: handles health values
+    - `Random.h`: random number utilities
+    - `Status.h`: defines status effects (poison, paralysis, etc)
+    - `Type.h`: defines damage types (fire, water, etc)
