@@ -1,16 +1,5 @@
 # JRPG
 
----
-
-DELETE LATER
-
----
-
-TODO: programming requirements
-
-- You must use at least one of the following: inheritance, templates, variants. Failure to do so will result in a 0.
-- MAkefile
-
 ## How to compile and run
 
 1. Compile:
@@ -32,7 +21,7 @@ make
 make clean
 ```
 
-## User guide for Players // TODO
+## User guide for Players
 
 ### Introduction
 
@@ -120,7 +109,7 @@ Damage depends on several things:
 
 This makes battles less predictable and more interesting
 
-## For Programmers (Code Structure) // TODO
+## For Programmers (Code Structure)
 
 The program uses **inheritance** to create different types of creatures and controllers.
 
