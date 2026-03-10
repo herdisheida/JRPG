@@ -82,9 +82,8 @@ Attack actions have a damage type, such as:
 
 - Fire
 - Water
-- Grass
-- Electric
-- Flying
+- Physical
+- Magical
 
 Each creature has resistance multipliers against these types.
 

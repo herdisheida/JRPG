@@ -112,7 +112,7 @@ class Creature {
 
 // custom creatures :D
 
-// healer: lower attack, but can heal itself
+// healer: lower attack and many weakness, but can heal itself
 class Piplup : public Creature {
 public:
     Piplup()
@@ -121,17 +121,17 @@ public:
             105,
             {8, 8, 10},  // attack, defense, speed
             {
-                Action("Bubble",        ActionKind::Attack, 7, HIGH_ACCURACY,   5, DamageType::Water),
-                Action("Healing Beam",  ActionKind::Heal,  20, HIGH_ACCURACY,   0, DamageType::Physical),
-                Action("Water Pulse",   ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Water)
+                Action("Bubble",        ActionKind::Attack, 7, MEDIUM_ACCURACY,   5, DamageType::Water),
+                Action("Healing Beam",  ActionKind::Heal,  10, LOW_ACCURACY,   0, DamageType::Magical),
+                Action("Slack Off",  ActionKind::Heal,  40, MEDIUM_ACCURACY,   0, DamageType::Physical),
+                Action("Water Pulse",   ActionKind::Attack, 8, LOW_ACCURACY, 10, DamageType::Water)
             },
             {
-                {DamageType::Physical, 1.0f},
-                {DamageType::Fire,     0.5f},
-                {DamageType::Water,    0.5f},
-                {DamageType::Grass,    1.5f},
-                // {DamageType::Electric, 1.5f},
-                {DamageType::Magical,   1.0f}
+                {DamageType::Physical, 1.5f},
+                {DamageType::Fire,     1.0f},
+                {DamageType::Water,    1.5f},
+                // {DamageType::Grass,    1.5f},
+                {DamageType::Magical,  1.0f}
             }) {}
 
     std::string species() const override { return "Piplup"; }
@@ -158,7 +158,7 @@ public:
             100,
             {12, 8, 15},  // attack, defense, speed
             {
-                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Physical),
+                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Magical),
                 Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
                 Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15, DamageType::Physical),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
@@ -168,9 +168,8 @@ public:
                 {DamageType::Physical, 1.0f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
-                {DamageType::Grass,    1.0f},
-                // {DamageType::Electric, 0.5f},
-                {DamageType::Magical,   1.0f}
+                // {DamageType::Grass,    1.0f},
+                {DamageType::Magical,  1.0f}
             }) {}
 
     std::string species() const override { return "Pikachu"; }
@@ -201,12 +200,11 @@ public:
             },
             {
                 // resistance
-                {DamageType::Physical, 1.0f},
+                {DamageType::Physical, 0.5f},
                 {DamageType::Fire,     0.5f},
-                {DamageType::Water,    1.5f},
-                {DamageType::Grass,    0.5f},
-                // {DamageType::Electric, 1.0f},
-                {DamageType::Magical,   0.5f}
+                {DamageType::Water,    1.0f},
+                // {DamageType::Grass,    0.5f},
+                {DamageType::Magical,  1.5f}
             }) {}
 
     std::string species() const override { return "Charizard"; }
@@ -232,17 +230,16 @@ public:
             {22, 4, 40},  // attack, defense, speed
             {
                 Action("Swords Dance",  ActionKind::Attack, 12, HIGH_ACCURACY,   5, DamageType::Physical),
-                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15, DamageType::Physical),
+                Action("Ice Punch",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 15, DamageType::Water),
                 Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20, DamageType::Physical)
             },
             {
                 // resistance
-                {DamageType::Physical, 1.3f},
-                {DamageType::Fire,     1.0f},
-                {DamageType::Water,    1.0f},
-                {DamageType::Grass,    0.5f},
-                // {DamageType::Electric, 0.5f},
-                {DamageType::Magical,   1.2f}
+                {DamageType::Physical, 1.5f},
+                {DamageType::Fire,     1.5f},
+                {DamageType::Water,    1.5f},
+                // {DamageType::Grass,    1.5f},
+                {DamageType::Magical,  1.0f}
             }) {}
 
     std::string species() const override { return "Lucario"; }
@@ -271,9 +268,9 @@ public:
             85,
             {10, 5, 14},  // attack, defense, speed
             {
-                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Physical),
-                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Paralyzed, 1),
-                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Physical, StatusEffect::Poison, 3),
+                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10, DamageType::Magical),
+                Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Magical, StatusEffect::Paralyzed, 1),
+                Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0, DamageType::Magical, StatusEffect::Poison, 3),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
@@ -281,7 +278,7 @@ public:
                 {DamageType::Physical, 1.2f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
-                {DamageType::Grass,    0.5f},
+                // {DamageType::Grass,    0.5f},
                 // {DamageType::Electric, 1.0f},
                 {DamageType::Magical,   1.2f}
             }) {}
