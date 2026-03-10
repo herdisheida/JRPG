@@ -16,7 +16,7 @@ namespace Random {
         return dist(rng()) <= chance;
     }
 
-    // roll a random integer in the range [min, max]
+    // roll a random integer in the range [min, max] (inclusive)
     inline int range(int min, int max) {
         std::uniform_int_distribution<int> dist(min, max);
         return dist(rng());
