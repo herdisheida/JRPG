@@ -130,20 +130,20 @@ public:
                 {DamageType::Fire,     0.5f},
                 {DamageType::Water,    0.5f},
                 {DamageType::Grass,    1.5f},
-                {DamageType::Electric, 1.5f},
-                {DamageType::Flying,   1.0f}
+                // {DamageType::Electric, 1.5f},
+                {DamageType::Magical,   1.0f}
             }) {}
 
     std::string species() const override { return "Piplup"; }
 
     // print ascii creature
     virtual void printAscii() override {
-        std::cout << "         __" << "\n";
-        std::cout << "      -=(o '." << "\n";
-        std::cout << "         '.-.\\" << "\n";
-        std::cout << "         /|  \\\\" << "\n";
-        std::cout << "         '|  ||" << "\n";
-        std::cout << "         _\\_):,_" << "\n";
+        std::cout << "         __          " << "\n";
+        std::cout << "      -=(o '.        " << "\n";
+        std::cout << "         '.-.\\      " << "\n";
+        std::cout << "         /|  \\\\    " << "\n";
+        std::cout << "         '|  ||      " <<  "\n";
+        std::cout << "         _\\_):,_.   " << "\n";
                 
     }
 };
@@ -158,28 +158,29 @@ public:
             100,
             {12, 8, 15},  // attack, defense, speed
             {
-                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Electric),
+                Action("Thunderbolt",   ActionKind::Attack, 14, MEDIUM_ACCURACY, 20, DamageType::Physical),
                 Action("Quick Attack",  ActionKind::Attack,  9, HIGH_ACCURACY,   10, DamageType::Physical),
                 Action("Iron Tail",     ActionKind::Attack, 12, MEDIUM_ACCURACY, 15, DamageType::Physical),
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
+                // resistance
                 {DamageType::Physical, 1.0f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
                 {DamageType::Grass,    1.0f},
-                {DamageType::Electric, 0.5f},
-                {DamageType::Flying,   1.0f}
+                // {DamageType::Electric, 0.5f},
+                {DamageType::Magical,   1.0f}
             }) {}
 
     std::string species() const override { return "Pikachu"; }
 
     // print ascii creature
     virtual void printAscii() override {
-        std::cout << "       _._     _,-'""`-._" << "\n";
-        std::cout << "      (,-.`._,'(       |\\`-/|" << "\n";
-        std::cout << "          `-.-' \\ )-`( , o o)" << "\n";
-        std::cout << "                `-    \\`_`\"'-\\ " << "\n";
+        std::cout << "       _._     _,-'""`-._           " << "\n";
+        std::cout << "      (,-.`._,'(       |\\`-/|      " << "\n";
+        std::cout << "          `-.-' \\ )-`( , o o)      " << "\n";
+        std::cout << "                `-    \\`_`\"'-\\   " << "\n";
     }
 };
 
@@ -199,12 +200,13 @@ public:
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
+                // resistance
                 {DamageType::Physical, 1.0f},
                 {DamageType::Fire,     0.5f},
                 {DamageType::Water,    1.5f},
                 {DamageType::Grass,    0.5f},
-                {DamageType::Electric, 1.0f},
-                {DamageType::Flying,   0.5f}
+                // {DamageType::Electric, 1.0f},
+                {DamageType::Magical,   0.5f}
             }) {}
 
     std::string species() const override { return "Charizard"; }
@@ -234,27 +236,27 @@ public:
                 Action("Shadow Claw",   ActionKind::Attack, 22, MEDIUM_ACCURACY, 20, DamageType::Physical)
             },
             {
+                // resistance
                 {DamageType::Physical, 1.3f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
                 {DamageType::Grass,    0.5f},
-                {DamageType::Electric, 0.5f},
-                {DamageType::Flying,   1.2f}
+                // {DamageType::Electric, 0.5f},
+                {DamageType::Magical,   1.2f}
             }) {}
 
     std::string species() const override { return "Lucario"; }
 
     // print ascii creature
     virtual void printAscii() override {
-
-std::cout << "                  /)-_-(\\  " << "\n";
-std::cout << "                   (o o)    " << "\n";
-std::cout << "           .-----__/\\o/    " << "\n";
-std::cout << "          /  __      /      " << "\n";
-std::cout << "      \\__/\\ /  \\_\\ |/   " << "\n";
-std::cout << "           \\     ||        " << "\n";
-std::cout << "           //     ||        " << "\n";
-std::cout << "           |\\     |\\      " << "\n";
+        std::cout << "                  /)-_-(\\  " << "\n";
+        std::cout << "                   (o o)    " << "\n";
+        std::cout << "           .-----__/\\o/    " << "\n";
+        std::cout << "          /  __      /      " << "\n";
+        std::cout << "      \\__/\\ /  \\_\\ |/   " << "\n";
+        std::cout << "           \\     ||        " << "\n";
+        std::cout << "           //     ||        " << "\n";
+        std::cout << "           |\\     |\\      " << "\n";
     }
 };
 
@@ -275,12 +277,13 @@ public:
                 Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0, DamageType::Physical)
             },
             {
+                // resistance
                 {DamageType::Physical, 1.2f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
                 {DamageType::Grass,    0.5f},
-                {DamageType::Electric, 1.0f},
-                {DamageType::Flying,   1.2f}
+                // {DamageType::Electric, 1.0f},
+                {DamageType::Magical,   1.2f}
             }) {}
 
     std::string species() const override { return "Gengar"; }

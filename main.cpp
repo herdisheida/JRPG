@@ -11,25 +11,26 @@
 #include "include/GameSettings.h"
 
 
-using namespace std;
+using std::cout;
+using std::cin;
 
 std::mt19937 rng(std::random_device{}());
 
 Difficulty chooseDifficulty() {
     while (true) {
-        std::cout << "Choose difficulty:\n";
-        std::cout << "1. Easy\n";
-        std::cout << "2. Medium\n";
-        std::cout << "3. Hard\n";
-        std::cout << "> ";
+        cout << "Choose difficulty:\n";
+        cout << "1. Easy\n";
+        cout << "2. Medium\n";
+        cout << "3. Hard\n";
+        cout << "> ";
 
         int choice;
-        std::cin >> choice;
+        cin >> choice;
 
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n\n";
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input.\n\n";
             continue;
         }
 
@@ -38,7 +39,7 @@ Difficulty chooseDifficulty() {
             case 2: return Difficulty::Medium;
             case 3: return Difficulty::Hard;
             default:
-                std::cout << "Invalid choice.\n\n";
+                cout << "Invalid choice.\n\n";
         }
     }
 }

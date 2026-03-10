@@ -4,7 +4,7 @@
 #include <iostream>
 #include <random>
 
-using namespace std;
+using std::cout;
 
 using std::cout;
 using std::setw;
