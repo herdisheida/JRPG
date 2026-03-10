@@ -17,16 +17,13 @@
 
 
 
-using std::cout;
-using std::cin;
-
 
 int main() {
-    cout << "=== Welcome to Miniiees by Herdis ===\n\n";
+    std::cout << "=== Welcome to Miniiees by Herdis ===\n\n";
 
     Difficulty difficulty = chooseDifficulty();
     GameSettings settings = settingsForDifficulty(difficulty);
-    cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
+    std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
 
     auto playerCreature = chooseCreature("Choose your creature:");
     customizeCreature(*playerCreature);
@@ -65,10 +62,10 @@ int main() {
         std::cout << "> ";
 
         std::string line;
-        getline(cin, line);
+        getline(std::cin, line);
         std::cout << "\n\n\n\n\n\n\n\n"; // add spacing after input
         if (line.length() > 1) {
-            cout << "\nInvalid input. Please enter a single character.\n";
+            std::cout << "\nInvalid input. Please enter a single character.\n";
             continue;
         }
         input = line[0];
