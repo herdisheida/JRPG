@@ -19,9 +19,9 @@ char getPlayerMove() {
 }
 
 void startGameIntro() {
-    std::cout << "========================================\n";
-    std::cout << "          Welcome to Miniiees!          \n";
-    std::cout << "========================================\n\n";
+    std::cout << "==================================================\n";
+    std::cout << "          Welcome to Minie's Adventures!          \n";
+    std::cout << "==================================================\n\n";
 
     std::cout << "Your goal is to explore the overworld and defeat all wild creatures. \n\n";
 
