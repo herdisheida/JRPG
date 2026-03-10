@@ -11,12 +11,6 @@
 // overworld map difficulty selection
 Difficulty chooseDifficulty();
 
-// player creature selection
-std::unique_ptr<Creature> chooseCreature(const std::string& prompt);
-
-// nickname customization
-void customizeCreature(Creature& creature);
-
 // get or create wild enemies (persisteent)
 Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
 

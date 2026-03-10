@@ -10,6 +10,7 @@
 #include "include/overworld/EnemyField.h"
 #include "include/overworld/OverworldMap.h"
 
+#include "include/game/CreatureSelection.h"
 #include "include/game/GameEnd.h"
 #include "include/game/Encounters.h"
 #include "include/game/Input.h"
