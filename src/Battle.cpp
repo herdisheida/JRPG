@@ -37,8 +37,8 @@ void Battle::printHealthBar(const Creature& creature, int offset) const {
     for (int i = 0; i < redBars; i++)
         bar += "🟥";
 
-    std::cout << std::string(offset, ' ') << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n";
-    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n";
+    std::cout << std::string(offset, ' ') << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n\n";
+    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
 }
 
 void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
