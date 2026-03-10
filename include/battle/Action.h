@@ -2,8 +2,8 @@
 #define ACTION_H
 
 #include <string>
-#include "Type.h"
-#include "Status.h"
+#include "../util/Type.h"
+#include "../util/Status.h"
 
 
 enum class ActionKind {

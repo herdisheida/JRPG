@@ -6,7 +6,7 @@
 #include "../creatures/Creature.h"
 #include "../controllers/PlayerController.h"
 #include "../controllers/EnemyController.h"
-#include "../Battle.h"
+#include "../battle/Battle.h"
 
 // wild enemies, hearts, and mystery encounters
 void handleEncounters(

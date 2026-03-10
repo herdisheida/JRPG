@@ -144,7 +144,6 @@ void printLoseMsg() {
 }
 
 char getPlayerMove() {
-    char input;
     std::cout << "\nEnter move: (I for instructions)\n";
     std::cout << "> ";
 

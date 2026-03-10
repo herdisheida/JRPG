@@ -1,6 +1,6 @@
-#include "../include/Battle.h"
+#include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"
-#include "../include/Random.h"
+#include "../include/util/Random.h"
 
 #include <algorithm>
 #include <iostream>

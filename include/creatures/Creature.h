@@ -8,9 +8,9 @@
 
 #include <iostream>
 
-#include "../Action.h"
-#include "../Health.h"
-#include "../Type.h"
+#include "../battle/Action.h"
+#include "../util/Health.h" 
+#include "../util/Type.h"
 
 
 struct Stats {

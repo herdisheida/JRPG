@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "../include/Encounters.h"
-#include "../include/Random.h"
-#include "../include/Helpers.h" // for getOrCreateRandomWildCreatureAt
+#include "../include/game/Encounters.h"
+#include "../include/util/Random.h"
+#include "../include/util/Helpers.h" // for getOrCreateRandomWildCreatureAt
 
 
 // main encounter handler
