@@ -10,161 +10,23 @@
 #include "include/controllers/PlayerController.h"
 
 #include "include/creatures/Creature.h"
-#include "include/creatures/CreatureType.h"
 
 #include "include/EnemyField.h"
 #include "include/OverworldMap.h"
 #include "include/GameSettings.h"
+
 #include "include/Random.h"
+#include "include/Helpers.h"
+
 
 
 using std::cout;
 using std::cin;
 
 
-Difficulty chooseDifficulty() {
-    while (true) {
-        cout << "Choose difficulty:\n";
-        cout << "1. Easy\n";
-        cout << "2. Medium\n";
-        cout << "3. Hard\n";
-        cout << "> ";
-
-        int choice;
-        cin >> choice;
-
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Invalid input.\n\n";
-            continue;
-        }
-
-        switch (choice) {
-            case 1: return Difficulty::Easy;
-            case 2: return Difficulty::Medium;
-            case 3: return Difficulty::Hard;
-            default:
-                cout << "Invalid choice.\n\n";
-        }
-    }
-}
 
 
 
-std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
-    while (true) {
-        cout << prompt << "\n";
-        cout << "1. Pikachu\n";
-        cout << "2. Piplup\n";
-        cout << "3. Charizard\n";
-        cout << "4. Lucario\n";
-        cout << "5. Gengar\n";
-
-        cout << "> ";
-
-        int choice;
-        cin >> choice;
-
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Invalid input.\n\n";
-            continue;
-        }
-
-        switch (choice) {
-            case 1: return std::make_unique<Pikachu>();
-            case 2: return std::make_unique<Piplup>();
-            case 3: return std::make_unique<Charizard>();
-            case 4: return std::make_unique<Lucario>();
-            case 5: return std::make_unique<Gengar>();
-            default:
-                cout << "Invalid choice.\n\n";
-        }
-    }
-}
-
-Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos) {
-    Creature* enemy = field.getEnemyAt(pos);
-    if (enemy) return enemy; // enemy already exists here
-
-    // create new random enemy
-    int roll = Random::range(0, 4); // 5 possible creatures
-    std::unique_ptr<Creature> newEnemy;
-
-    switch (roll) {
-        case 0: newEnemy  = std::make_unique<Pikachu>(); break;
-        case 1: newEnemy  = std::make_unique<Piplup>(); break;
-        case 2: newEnemy  = std::make_unique<Charizard>(); break;
-        case 3: newEnemy  = std::make_unique<Lucario>(); break;
-        default: newEnemy = std::make_unique<Gengar>(); break;
-    }
-
-    enemy = newEnemy.get();
-    field.addEnemyAt(pos, std::move(newEnemy));
-    return enemy;
-}
-
-// choose and set nickname for player creature
-void customizeCreature(Creature& creature) {
-    cout << "\nGive " << creature.species() << " a nickname: ";
-    std::string nickname;
-    std::getline(cin, nickname);
-    
-    while (std::getline(cin, nickname)) {
-        if (nickname.empty()) {
-            cout << "Nickname cannot be empty. Please enter a valid nickname: ";
-            continue;
-        }
-        if (nickname.length() > 15) {
-            cout << "Nickname too long. Please enter a nickname with 15 characters or fewer: ";
-            continue;
-        }
-        if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0_") != std::string::npos) {
-            cout << "Nickname contains invalid characters. Please use only letters or underscores: ";
-            continue;
-        }
-
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Invalid input.\n\n";
-            continue;
-        }
-        break;
-    }
-
-    // convert nickname to uppercase
-    std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
-    creature.setName(nickname);
-
-    // display customized creature
-    cout << creature.name() << " is ready for battle!\n\n";
-    creature.printAscii();
-}
-
-void printVictoryMsg() {
-    cout << "\n\n\n=========================================\n";
-    cout << "\nCongratulations!\n";
-    cout <<" You've defeated all the wild creatures and won the game!\n";
-}
-
-void printLoseMsg() {
-    cout << "\n\n\n=========================================\n";
-    cout << "\nGame Over!\n";
-    cout << "Your creature has fainted and there are no healing items left.\n";
-    cout << "Better luck next time!\n";
-}
-
-void moveToPreviousPosition(OverworldMap& map, char input) {
-    switch (input) {
-        case 'w': case 'W': map.movePlayer('s'); break;
-        case 's': case 'S': map.movePlayer('w'); break;
-        case 'a': case 'A': map.movePlayer('d'); break;
-        case 'd': case 'D': map.movePlayer('a'); break;
-    }
-}
 
 int main() {
     cout << "=== Mini JRPG Battle ===\n\n";
