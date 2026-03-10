@@ -29,8 +29,14 @@ void startGameIntro() {
     std::cout << "Try not to die!\n\n";
 
     std::cout << "Press Enter to start your adventure...";
+    waitForEnter();
+    std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
+}
+
+void waitForEnter(const std::string& prompt) {
+    std::cout << prompt;
     std::string dummy;
     std::getline(std::cin, dummy);  // waits for user to press Enter
-    std::cout << "\n\n\n\n\n\n\n";
 }
+
     
