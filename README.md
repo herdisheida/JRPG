@@ -174,13 +174,19 @@ File structure:
   - `Overworld.cpp`: implementation of the overworld map (movement, encounters, etc)
 
 - `include/`: contains the header files
+  - `controllers/`: contains controller classes
+    - `Controller.h`: base class for controllers
+    - `PlayerController.h`: handles player input and actions
+    - `EnemyController.h`: handles enemy AI and actions
+  - `creatures/`: contains creature classes
+    - `Creature.h`: base class for all creatures
+    - `CreatureType.h`: defines different creature types (pikachu, piplup, etc)
+
   - `Action.h`: defines **actions** that creatures use in battle
   - `Battle.h`: declare Battle class
-  - `Controller.h`: controller
-  - `Creature.h`: base class for all creatures
   - `GameSettings.h`: declares game settings and configurations
   - `Health.h`: handles health value
   - `OverworldMap.h`: declare OverworldMap class
   - `Random.h`: utility for random number generation
-  - `Status.h`: defines status effects like paralysis, poison, etc
+  - `Status.h`: defines statuses effects like paralysis, poison, etc
   - `Type.h`: defines damage types like fire, water, etc
