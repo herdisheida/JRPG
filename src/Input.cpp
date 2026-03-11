@@ -42,13 +42,9 @@ void startGameIntro() {
     UIHelper::printWithOffset("Try not to die!\n\n", 5);
     UIHelper::printWithOffset("enter to continue...", 5);
 
-    waitForEnter();
+    UIHelper::waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
 }
 
-void waitForEnter(const std::string& prompt) {
-    std::cout << prompt;
-    std::cin.get(); // waits for user to press Enter
-}
 
     

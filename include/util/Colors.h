@@ -20,6 +20,8 @@ namespace Color {
         BRIGHT_RED = 91, // error
         BRIGHT_GREEN = 92, // success
         MAGENTA = 35,
+
+        GREEN = 35,
     };
 
     // return ANSI escape string for a color code

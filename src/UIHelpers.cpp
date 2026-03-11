@@ -7,6 +7,10 @@
 #include "../include/util/UIHelpers.h"
 
 
+void UIHelper::waitForEnter(const std::string& prompt) {
+    std::cout << prompt;
+    std::cin.get(); // waits for user to press Enter
+}
 
 void UIHelper::printAscii(std::vector<std::string> ascii, int offset) {
     for (const auto& line : ascii) {

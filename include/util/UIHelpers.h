@@ -10,6 +10,8 @@ enum class DamageType;
 
 namespace UIHelper {
 
+// wait for enter to continue
+void waitForEnter(const std::string& prompt = "");
 
 // print ascii with offset to the right
 void printAscii(std::vector<std::string> ascii, int offset = 3);
