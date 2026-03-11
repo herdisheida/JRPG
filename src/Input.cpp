@@ -11,7 +11,7 @@ char getPlayerMove() {
     getline(std::cin, line);
     std::cout << "\n\n\n\n\n\n\n\n"; // spacing after input
 
-    if (line.length() > 1) {
+    if (line.length() > 1 || line.empty()) {
         std::cout << "\nInvalid input. Please enter a single character.\n";
         return '\0'; // error value
     }
