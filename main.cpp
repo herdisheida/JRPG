@@ -45,8 +45,6 @@ int main() {
     while (true) {
         map.print();
         
-        if (handleGameEnd(map, *playerCreature)) { break; }
-
         char input = getPlayerMove();
         if (input == '\0') continue;
     
@@ -54,7 +52,9 @@ int main() {
         if (input == 'i' || input == 'I') { map.printInstructions(); continue; }
 
         if (!map.movePlayer(input)) { continue; } // if player can move he moves
+        
         handleEncounters(map, enemyField, playerCreature.get(), playerController, enemyController, input);
+        if (handleGameEnd(map, *playerCreature)) { break; }
 
     }
 }

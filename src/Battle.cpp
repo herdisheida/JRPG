@@ -211,7 +211,7 @@ void Battle::run() {
     // first print (init status)
     int round = 1;
     printBattleScreen(playerCreature_, enemyCreature_, "", "", round); // initial status
-    std::cout << "\n\n" << std::string(MSG_OFFSET, ' ') << "A wild " << enemyCreature_.name() << " appears!\n\n";
+    std::cout << "\n\n" << std::string(MSG_OFFSET, ' ') << "A wild " << enemyCreature_.name() << " appears!\n";
 
 
     std::string p_msg, e_msg;

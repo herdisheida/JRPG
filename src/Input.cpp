@@ -11,7 +11,7 @@ char getPlayerMove() {
     getline(std::cin, line);
     std::cout << "\n\n\n\n\n\n\n\n"; // spacing after input
 
-    if (line.length() > 1 || line.empty()) {
+    if (line.length() > 1) {
         std::cout << "\nInvalid input. Please enter a single character.\n";
         return '\0'; // error value
     }
@@ -35,8 +35,7 @@ void startGameIntro() {
 
 void waitForEnter(const std::string& prompt) {
     std::cout << prompt;
-    std::string dummy;
-    std::getline(std::cin, dummy);  // waits for user to press Enter
+    std::cin.get(); // waits for user to press Enter
 }
 
     
