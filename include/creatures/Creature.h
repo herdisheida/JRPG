@@ -12,7 +12,7 @@
 #include "../battle/Action.h"
 #include "../util/Health.h" 
 #include "../util/Type.h"
-#include "../util/Helpers.h" // for printAscii
+#include "../util/UIHelpers.h" // for printAscii
 
 
 
