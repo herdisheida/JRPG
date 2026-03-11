@@ -20,6 +20,10 @@ void printHealthBar(const Creature& creature, int offset);
 void printWithOffset(const std::string& text, int offset);
 
 
+// void print spacer '=' for prettyfactor
+std::string getSpacer(int length);
+
+
 }
 
 #endif

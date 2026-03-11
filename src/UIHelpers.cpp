@@ -1,6 +1,7 @@
 
 #include <iomanip> // for std::setw
 #include <sstream>
+#include <string>
 
 #include "../include/creatures/Creature.h"
 #include "../include/util/UIHelpers.h"
@@ -42,4 +43,8 @@ void UIHelper::printWithOffset(const std::string& text, int offset) {
     while (std::getline(in, line)) {
         std::cout << std::string(offset, ' ') << line << "\n";
     }
+}
+
+std::string UIHelper::getSpacer(int length) {
+    return std::string(length, '=');
 }
