@@ -34,9 +34,10 @@ std::vector<std::string> introString() {
 }
 
 void startGameIntro() {
+    std::cout << "\n";
     UIHelper::printAscii(introString(), 5);
 
-    std::cout << "Your goal is to explore the overworld and defeat all wild creatures.\n";
+    std::cout << "\nYour goal is to explore the overworld and defeat all wild creatures.\n";
     std::cout << "Be careful! If your creature faints and you run out of healing items, you lose!\n";
     std::cout << "Try not to die!\n\n";
 
