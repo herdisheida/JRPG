@@ -12,7 +12,7 @@
 #include "../battle/Action.h"
 #include "../util/Health.h" 
 #include "../util/Type.h"
-#include "../util/Helpers.h" // for printAscii
+#include "../util/UIHelpers.h" // for printAscii
 
 
 
@@ -57,7 +57,7 @@ class Creature {
 
         virtual std::vector<std::string> asciiArt() const { return { name_ }; }
         void printCreature(int offset = 3) const {
-            printAscii(this->asciiArt(), offset); // global helper
+            UIHelpers::printAscii(this->asciiArt(), offset); // global helper
 
         }
 
