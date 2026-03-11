@@ -41,4 +41,7 @@ inline GameSettings settingsForDifficulty(Difficulty difficulty) {
     return { 5, 3, 5, 6, 8 }; // fallback (the OG)
 }
 
+// overworld map difficulty selection
+Difficulty chooseDifficulty();
+
 #endif

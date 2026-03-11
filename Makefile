@@ -1,6 +1,9 @@
 CXX      := clang++
 CXXFLAGS := -std=c++23 -Wall -Wextra -pedantic # newest version
 
+OUT:= run
+
+
 SRC = main.cpp \
 	src/Battle.cpp \
 	src/CreatureSelection.cpp \
@@ -11,9 +14,9 @@ SRC = main.cpp \
 	src/Input.cpp \
 	src/OverworldMap.cpp
 
-OUT:= run
 
-all: $(OUT) info
+
+all: $(OUT)
 
 $(OUT): $(SRC)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT)
@@ -21,5 +24,5 @@ $(OUT): $(SRC)
 clean:
 	rm -f $(OUT)
 
-.PHONY: all clean info
+.PHONY: all clean
 
