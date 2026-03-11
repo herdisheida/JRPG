@@ -14,7 +14,7 @@ char getPlayerMove() {
     std::cout << "\n\n\n\n\n\n\n\n"; // spacing after input
 
     if (line.length() > 1) {
-        std::cout << UIHelper::getErrorStr("\nInvalid input") << ". Please enter a single character.\n";
+        std::cout << UIHelper::getErrorStr("\nInvalid input.") << " Please enter a single character.\n";
         return '\0'; // error value
     }
     if (line.empty()) return '\0';

@@ -25,8 +25,8 @@ Battle::Battle(
 
 
 
-void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
-    std::cout << "\n\n========================================================= Round " << round++ << " =========================================================\n\n";
+void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round_nr, bool playerFirst) const {
+    std::cout << "\n\n========================================================= Round " << round_nr++ << " =========================================================\n\n";
 
     // print enemy top right 
     UIHelper::printHealthBar(enemy, ENEMY_OFFSET);
@@ -39,14 +39,19 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
     UIHelper::printHealthBar(player, PLAYER_HP_OFFSET);
 
     // print previous action (enemy and player moves) message
-    if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
-    if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n\n";
+    if (playerFirst) {
+        if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n\n";
+    } else {
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg;
+        if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg  << "\n\n";
+    }
 }
 
 
 std::string Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
     if (!Random::rollPercent(action.accuracy)) {
-        return actor.name() + " uses " + action.name + " but it misses! ";
+        return actor.name() + " uses " + action.name + UIHelper::getColored(" but it misses! ", Color::YELLOW);
     }
 
     std::string msg;
@@ -80,7 +85,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
 
             if (critical) msg += UIHelper::getColored(" - Critical hit!", Color::MAGENTA);
 
-            if (typeMultiplier < 1.0f) msg += " - Not very effective. ";
+            if (typeMultiplier < 1.0f) msg += UIHelper::getColored(" - Not very effective. ", Color::YELLOW);
             if (typeMultiplier > 1.0f) msg += UIHelper::getColored(" - Super effective! ", Color::MAGENTA);
             if (target.isDefending()) msg += " - Enemy defended and took less damage! ";
             break;
@@ -105,7 +110,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
                 fled_ = true;
                 msg = actor.name() + " successfully fled from battle!";
             } else {
-                msg = actor.name() + " tried to flee, but couldn't escape! ";
+                msg = actor.name() + " tried to flee, " + UIHelper::getColored("but couldn't escape! ", Color::YELLOW);
             }
             break;
         }
@@ -194,7 +199,7 @@ void Battle::run() {
 
     // first print (init status)
     int round = 1;
-    printBattleScreen(playerCreature_, enemyCreature_, "", "", round); // initial status
+    printBattleScreen(playerCreature_, enemyCreature_, "", "", round, true); // initial status
     std::cout << "\n\n" << std::string(MSG_OFFSET, ' ') << "A wild " << enemyCreature_.name() << " appears!\n";
 
 
@@ -212,7 +217,7 @@ void Battle::run() {
         }
 
         // print battle each round
-        printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg, round); // print status with health bars
+        printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg, round, playerFirst); // print status with health bars
 
         // reset defending state at end of round
         playerCreature_.setDefending(false);
@@ -224,7 +229,7 @@ void Battle::run() {
         std::cout << "The battle is over.\n";
     } else if (playerCreature_.isFainted()) {
         // Enemy wins
-        std::cout << playerCreature_.name() << UIHelper::getColored(" has fainted!", Color::BRIGHT_RED) << "Find a heart to recover!\n";
+        std::cout << playerCreature_.name() << UIHelper::getColored(" has fainted! ", Color::BRIGHT_RED) << "Find a heart to recover!\n";
     } else if (enemyCreature_.isFainted()) {
         // Player wins
         std::cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";

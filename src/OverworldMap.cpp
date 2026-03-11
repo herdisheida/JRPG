@@ -70,7 +70,7 @@ bool OverworldMap::movePlayer(char input) {
         case 'a': case 'A': --newCol; break;
         case 'd': case 'D': ++newCol; break;
         default:
-            std::cout << UIHelper::getErrorStr("\nInvalid input") << ". Use W A S D.\n";
+            std::cout << UIHelper::getErrorStr("\nInvalid input.") << " Use W A S D.\n";
             return false;
     }
 
