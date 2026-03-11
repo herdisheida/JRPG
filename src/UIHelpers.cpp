@@ -35,8 +35,11 @@ void UIHelper::printHealthBar(const Creature& creature, int offset) {
 
     int totalBarLength = barWidth * 2 + 4; // each bar is 2 characters wide + 2 for brackets + 2 spaces
     std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
+    std::string statusInfo = statusToString(creature.status());
+
     std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
-    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
+    std::cout << std::string(offset, ' ') << "[ " << bar << " ]  " << statusInfo;
+    std::cout << "\n\n";
 }
 
 
