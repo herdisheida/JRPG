@@ -136,6 +136,8 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
 std::string Battle::takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer) {
     std::string msg;
 
+    int chosen = controller.chooseAction(actor, target); // choose action even if you're paralized -- the msg will show up on screen later
+
     // creature is paralized
     if (actor.status() == StatusEffect::Paralyze) {
         msg = actor.name() + UIHelper::getColored(" is paralyzed and cannot act! ", Color::YELLOW);
@@ -144,8 +146,6 @@ std::string Battle::takeTurn(Creature& actor, Creature& target, Controller& cont
         if (!actor.hasStatus()) msg += actor.name() + " woke up! ";
         return msg;
     }
-
-    int chosen = controller.chooseAction(actor, target);
 
     // player flee option
     int actionCount = static_cast<int>(actor.actions().size());
