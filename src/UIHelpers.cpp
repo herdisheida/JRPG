@@ -1,7 +1,10 @@
-#include "../include/util/UIHelpers.h"
 
 #include <iomanip> // for std::setw
+#include <sstream>
+
 #include "../include/creatures/Creature.h"
+#include "../include/util/UIHelpers.h"
+
 
 
 void printAscii(std::vector<std::string> ascii, int offset) {
@@ -29,4 +32,14 @@ void printHealthBar(const Creature& creature, int offset) {
     std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
     std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
     std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
+}
+
+
+void printWithOffset(const std::string& text, int offset) {
+    std::istringstream in(text);
+    std::string line;
+
+    while (std::getline(in, line)) {
+        std::cout << std::string(offset, ' ') << line << "\n";
+    }
 }

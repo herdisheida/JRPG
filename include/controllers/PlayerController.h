@@ -2,6 +2,8 @@
 #define PLAYERCONTROLLER_H
 
 #include "Controller.h"
+// #include "../util/UIHelpers.h"
+
 
 #include <iostream>
 #include <iomanip> // for std::setw
@@ -61,16 +63,6 @@ class PlayerController : public Controller {
                     << "\n";
 
             return out.str();
-        }
-    
-
-        void printWithOffset(const std::string& text, int offset) const {
-            std::istringstream in(text);
-            std::string line;
-
-            while (std::getline(in, line)) {
-                std::cout << std::string(offset, ' ') << line << "\n";
-            }
         }
 
         void printActionOptions(const Creature& self) const {
