@@ -66,7 +66,7 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
 std::string Battle::executeAction(Creature& actor, Creature& target, const Action& action, bool isPlayer) {
     if (!Random::rollPercent(action.accuracy)) {
-        return actor.name() + " uses " + action.name + " but it misses!";
+        return actor.name() + " uses " + action.name + " but it misses! ";
     }
 
     std::string msg;
@@ -95,25 +95,25 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             target.health().damage(damage);
 
             // build msg
-            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage";
+            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage ";
 
             if (critical) msg += " - Critical hit!";
 
-            if (typeMultiplier < 1.0f) msg += " Not very effective.";
-            if (typeMultiplier > 1.0f) msg += " Super effective!";
-            if (target.isDefending()) msg += " - Enemy defended and took less damage!";
+            if (typeMultiplier < 1.0f) msg += " Not very effective. ";
+            if (typeMultiplier > 1.0f) msg += " Super effective! ";
+            if (target.isDefending()) msg += " - Enemy defended and took less damage! ";
             break;
         }
 
         case ActionKind::Heal: {
             actor.health().heal(action.power);
-            msg = actor.name() + " uses " + action.name + " and restores " + std::to_string(action.power) + " HP!";
+            msg = actor.name() + " uses " + action.name + " and restores " + std::to_string(action.power) + " HP! ";
             break;
         }
 
         case ActionKind::Defend: {
             actor.setDefending(true);
-            msg = actor.name() + " uses " + action.name + " and braces for the next hit!";
+            msg = actor.name() + " uses " + action.name + " and braces for the next hit! ";
             break;
         }
 
@@ -121,16 +121,16 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             int fleeChance = isPlayer ? 60 : 20;
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
-                msg = isPlayer ? actor.name() + " successfully fled from battle!" : actor.name() + " ran away safely";
+                msg = isPlayer ? actor.name() + " successfully fled from battle!" : actor.name() + " ran away safely ";
             } else {
-                msg = actor.name() + " tried to flee, but couldn't escape!";
+                msg = actor.name() + " tried to flee, but couldn't escape! ";
             }
             break;
         }
 
         case ActionKind::Status: {
             if (target.hasStatus()) {
-                msg =  target.name() + " already has a status effect!\n";
+                msg =  target.name() + " already has a status effect! ";
                 break;
             }
 
@@ -139,7 +139,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             msg = actor.name() + " uses " + action.name + "! "
                     + target.name() + " is now "
                     + statusToString(action.statusEffect) + " for "
-                    + std::to_string(action.statusDuration) + " turn(s)!\n";
+                    + std::to_string(action.statusDuration) + " turn(s)! ";
             break;
         }
     }
@@ -151,10 +151,10 @@ std::string Battle::takeTurn(Creature& actor, Creature& target, Controller& cont
 
     // creature is paralized
     if (actor.status() == StatusEffect::Paralyze) {
-        msg = actor.name() + " is paralyzed and cannot act!\n";
+        msg = actor.name() + " is paralyzed and cannot act! ";
 
         actor.reduceStatusTurns();
-        if (!actor.hasStatus()) msg += actor.name() + " woke up!\n";
+        if (!actor.hasStatus()) msg += actor.name() + " woke up! ";
         return msg;
     }
 
