@@ -37,11 +37,11 @@ void startGameIntro() {
     std::cout << "\n";
     UIHelper::printAscii(introString(), 5);
 
-    std::cout << "\nYour goal is to explore the overworld and defeat all wild creatures.\n";
-    std::cout << "Be careful! If your creature faints and you run out of healing items, you lose!\n";
-    std::cout << "Try not to die!\n\n";
+    UIHelper::printWithOffset("\nYour goal is to explore the overworld and defeat all wild creatures.\n", 5);
+    UIHelper::printWithOffset("Be careful! If your creature faints and you run out of healing items, you lose!\n", 5);
+    UIHelper::printWithOffset("Try not to die!\n\n", 5);
+    UIHelper::printWithOffset("enter to continue...", 5);
 
-    std::cout << "Press enter...";
     waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
 }
