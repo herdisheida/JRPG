@@ -20,10 +20,10 @@ public:
             160, // HP
             {8, 12, 10},  // attack, defense, speed
             {                                                // power, accuracy, crit chance
-                Action("Bubble",         ActionKind::Attack,  15, MEDIUM_ACCURACY,   5         , DamageType::Water),
+                // Action("Bubble",         ActionKind::Attack,  15, MEDIUM_ACCURACY,   5         , DamageType::Water),
                 Action("Healing Beam",   ActionKind::Heal,    10, LOW_ACCURACY,      0         , DamageType::Magical),
                 Action("Slack Off",      ActionKind::Heal,    40, MEDIUM_ACCURACY,   0         , DamageType::Physical),
-                Action("Water Pulse",    ActionKind::Attack,  20, LOW_ACCURACY,     10         , DamageType::Water)
+                Action("Water Pulse",    ActionKind::Attack,  20, MEDIUM_ACCURACY,   10         , DamageType::Water)
             },
             {
                 // resistance
@@ -63,7 +63,6 @@ public:
                 Action("Thunderbolt",   ActionKind::Attack,  14, MEDIUM_ACCURACY, 20         , DamageType::Magical),
                 Action("Quick Attack",  ActionKind::Attack,  10, HIGH_ACCURACY,   10         , DamageType::Physical,   StatusEffect::Paralyze, 1),
                 Action("Iron Tail",     ActionKind::Attack,  12, MEDIUM_ACCURACY, 15         , DamageType::Physical,   StatusEffect::Paralyze, 1),
-                Action("Defend",        ActionKind::Defend,   0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
@@ -101,7 +100,6 @@ public:
                 Action("Fire Fang",     ActionKind::Attack, 14, MEDIUM_ACCURACY, 10         , DamageType::Fire),
                 Action("Slash",         ActionKind::Attack,  9, HIGH_ACCURACY,   10         , DamageType::Physical),
                 Action("Fire Blitz",    ActionKind::Attack, 22, LOW_ACCURACY,    20         , DamageType::Fire,       StatusEffect::Burn, 1),
-                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
@@ -178,17 +176,16 @@ public:
             150,
             {15, 5, 14},  // attack, defense, speed
             {
-                Action("Dark Pulse",    ActionKind::Attack, 10, MEDIUM_ACCURACY, 10         , DamageType::Magical),
+                Action("Dark Pulse",    ActionKind::Attack, 12, MEDIUM_ACCURACY, 10         , DamageType::Magical),
                 Action("Hypnosis",      ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical,   StatusEffect::Paralyze, 2),
                 Action("Curse",         ActionKind::Status,  0, MEDIUM_ACCURACY,  0         , DamageType::Magical,   StatusEffect::Poison, 3),
-                Action("Defend",        ActionKind::Defend,  0, HIGH_ACCURACY,    0         , DamageType::Physical)
             },
             {
                 // resistance
                 {DamageType::Physical, 1.5f},
                 {DamageType::Fire,     1.0f},
                 {DamageType::Water,    1.0f},
-                {DamageType::Magical,   1.5f}
+                {DamageType::Magical,  1.5f}
             }) {}
 
     std::string species() const override { return "Gengar"; }
