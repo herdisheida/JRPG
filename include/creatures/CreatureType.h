@@ -19,7 +19,7 @@ public:
     Piplup()
         : Creature(
             "PIPLUP", // name
-            200,         // high HP
+            180,         // high HP
             {6, 14, 8},  // very low attack, very high defense, medium speed
 
             {                                                // power, accuracy, crit chance
@@ -99,7 +99,7 @@ public:
         : Creature(
             "CHARIZARD",
             220,          // Massive HP
-            {16, 20, 5},  // High attack, MASSIVE defense, very slow
+            {15, 20, 5},  // High attack, MASSIVE defense, very slow
             {
                 // POWER but inaccurate
                 Action("Fire Fang",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 10         , DamageType::Fire),
