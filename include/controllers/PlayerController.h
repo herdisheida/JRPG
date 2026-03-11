@@ -10,6 +10,7 @@
 #include <sstream>
 #include <limits>
 
+#include "../util/Colors.h"
 
 
 
@@ -89,7 +90,7 @@ class PlayerController : public Controller {
                 if (std::cin.fail() || choice < 1 || choice > maxChoice) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Invalid choice. Try again.\n";
+                    std::cout << UIHelper::getErrorStr("Invalid choice. Try again.\n");
                 } else {
                     // clear leftover newline before returning
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

@@ -2,6 +2,7 @@
 #include <limits>
 
 #include "../include/util/GameSettings.h"
+#include "../include/util/UIHelpers.h"
 
 
 
@@ -19,7 +20,7 @@ Difficulty chooseDifficulty() {
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n\n";
+            std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
         }
 
@@ -31,7 +32,7 @@ Difficulty chooseDifficulty() {
             case 3: return Difficulty::Hard;
             
             default:
-                std::cout << "Invalid choice.\n\n";
+                std::cout << UIHelper::getErrorStr("Invalid choice.\n\n");
         }
     }
 }

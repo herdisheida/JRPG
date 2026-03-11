@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../include/overworld/OverworldMap.h"
+#include "../include/util/UIHelpers.h"
 
 
 const std::string PLAYER_SYMBOL = "P";
@@ -69,12 +70,12 @@ bool OverworldMap::movePlayer(char input) {
         case 'a': case 'A': --newCol; break;
         case 'd': case 'D': ++newCol; break;
         default:
-            std::cout << "\nInvalid input. Use W A S D.\n";
+            std::cout << UIHelper::getErrorStr("\nInvalid input") << ". Use W A S D.\n";
             return false;
     }
 
     if (!isInside(newRow, newCol)) {
-        std::cout << "\nYou cannot move outside the map!\n";
+        std::cout << UIHelper::getErrorStr("\nYou cannot move outside the map!\n");
         return false;
     }
 

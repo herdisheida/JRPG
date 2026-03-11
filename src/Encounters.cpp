@@ -19,7 +19,7 @@ void handleEncounters(
     if(map.hasHeart()) {
         std::cout << "\n" << playerCreature->name() << " found a healing heart!\n";
         playerCreature->healToFull();
-        std::cout << playerCreature->name() << " was restored to full HP!\n";
+        std::cout << UIHelper::getSuccessStr(playerCreature->name() +" was restored to full HP!\n");
         map.clearHeart();
     }
 
@@ -30,24 +30,22 @@ void handleEncounters(
         int outcome = Random::range(0,3); //
 
         if(outcome == 0) {
-            playerCreature->changeMaxHp(10); std::cout << "+10 max HP!\n";
-            // printHpStatus(playerCreature);
+            playerCreature->changeMaxHp(30); std::cout << UIHelper::getSuccessStr("+30 max HP!\n");
         }
         else if(outcome == 1) {
-            playerCreature->changeMaxHp(-10); std::cout << "-10 max HP...\n";
-            // printHpStatus(playerCreature);
+            playerCreature->changeMaxHp(-30); std::cout << UIHelper::getColored("-30 max HP...\n", Color::BRIGHT_RED);
         }
         else if(outcome == 2) { 
-            playerCreature->health().damage(playerCreature->health().current()); std::cout << "Trap! Fainted!\n";
+            playerCreature->health().damage(playerCreature->health().current()); std::cout << UIHelper::getColored("Trap! Fainted!\n", Color::BRIGHT_RED);
         }
         else if (outcome == 3) {
             playerCreature->stats().attack = std::max(1, playerCreature->stats().attack-5);
             playerCreature->stats().defense = std::max(1, playerCreature->stats().defense-5);
             playerCreature->stats().speed = std::max(1, playerCreature->stats().speed-5);
-            std::cout << "Stats reduced!\n"; 
+            std::cout << UIHelper::getColored("Stats reduced!\n", Color::BRIGHT_RED); 
         }
         else {
-            std::cout << "hmphh! the box was empty :(\n";
+            std::cout << UIHelper::getColored("hmphh! the box was empty :(\n", Color::YELLOW);
         }
         map.clearMystery();
     }
@@ -55,7 +53,7 @@ void handleEncounters(
     // wild
     if(map.hasEncounter()) {
         if(playerCreature->isFainted()) {
-            std::cout << "\n" << playerCreature->name() << " is fainted and cannot battle.\n";
+            std::cout << "\n" << playerCreature->name() << UIHelper::getColored(" is fainted and cannot battle.\n", Color::YELLOW);
             // move player back to prev pos to prevent repeated encounters
             map.movePlayerBack(lastMove);
             return; // skip battle

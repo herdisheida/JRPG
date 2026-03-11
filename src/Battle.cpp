@@ -75,19 +75,21 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             target.health().damage(damage);
 
             // build msg
-            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage";
+            std::string dmgMsg = " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage";
+            msg = actor.name() + " uses " + action.name + UIHelper::getColored(dmgMsg, Color::BRIGHT_RED);
 
-            if (critical) msg += " - Critical hit!";
+            if (critical) msg += UIHelper::getColored(" - Critical hit!", Color::MAGENTA);
 
-            if (typeMultiplier < 1.0f) msg += " Not very effective. ";
-            if (typeMultiplier > 1.0f) msg += " Super effective! ";
+            if (typeMultiplier < 1.0f) msg += " - Not very effective. ";
+            if (typeMultiplier > 1.0f) msg += UIHelper::getColored(" - Super effective! ", Color::MAGENTA);
             if (target.isDefending()) msg += " - Enemy defended and took less damage! ";
             break;
         }
 
         case ActionKind::Heal: {
             actor.health().heal(action.power);
-            msg = actor.name() + " uses " + action.name + " and restores " + std::to_string(action.power) + " HP! ";
+            std::string boost = "restores " + std::to_string(action.power) + " HP!";
+            msg = actor.name() + " uses " + action.name + " and " + UIHelper::getSuccessStr(boost);
             break;
         }
 
@@ -101,7 +103,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             int fleeChance = isPlayer ? 60 : 20;
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
-                msg = isPlayer ? actor.name() + " successfully fled from battle!" : actor.name() + " ran away safely ";
+                msg = actor.name() + " successfully fled from battle!";
             } else {
                 msg = actor.name() + " tried to flee, but couldn't escape! ";
             }
@@ -131,7 +133,7 @@ std::string Battle::takeTurn(Creature& actor, Creature& target, Controller& cont
 
     // creature is paralized
     if (actor.status() == StatusEffect::Paralyze) {
-        msg = actor.name() + " is paralyzed and cannot act! ";
+        msg = actor.name() + UIHelper::getColored(" is paralyzed and cannot act! ", Color::YELLOW);
 
         actor.reduceStatusTurns();
         if (!actor.hasStatus()) msg += actor.name() + " woke up! ";
@@ -175,7 +177,8 @@ std::string Battle::applyStatusEffect(Creature& creature) {
         }
 
         creature.health().damage(damage);
-        msg += " " + creature.name() + " suffers " + std::to_string(damage) + " " + takeDamageString(creature.status()) + "! ";
+        std::string dmgMsg = std::to_string(damage) + " " + takeDamageString(creature.status());
+        msg += " " + creature.name() + " suffers " + UIHelper::getColored(dmgMsg, Color::BRIGHT_RED) + "! ";
 
         std::string statusStr = statusToString(creature.status()); // save before reducing status
         creature.reduceStatusTurns();
@@ -221,7 +224,7 @@ void Battle::run() {
         std::cout << "The battle is over.\n";
     } else if (playerCreature_.isFainted()) {
         // Enemy wins
-        std::cout << playerCreature_.name() << " has fainted! Find a heart to recover!\n";
+        std::cout << playerCreature_.name() << UIHelper::getColored(" has fainted!", Color::BRIGHT_RED) << "Find a heart to recover!\n";
     } else if (enemyCreature_.isFainted()) {
         // Player wins
         std::cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";

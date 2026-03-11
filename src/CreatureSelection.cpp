@@ -34,7 +34,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n\n";
+            std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
         }
 
@@ -47,7 +47,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
             case 4: return std::make_unique<Lucario>();
             case 5: return std::make_unique<Gengar>();
             default:
-                std::cout << "Invalid choice.\n\n";
+                std::cout << UIHelper::getErrorStr("Invalid choice.\n\n");
         }
     }
 }
@@ -62,22 +62,22 @@ void customizeCreature(Creature& creature) {
         std::getline(std::cin, nickname);
 
         if (nickname.empty()) {
-            std::cout << "Nickname cannot be empty. Please enter a valid nickname: ";
+            std::cout << UIHelper::getErrorStr( "Nickname cannot be empty.") << " Please enter a valid nickname: ";
             continue;
         }
         if (nickname.length() > 15) {
-            std::cout << "Nickname too long. Please enter a nickname with 15 characters or fewer: ";
+            std::cout << UIHelper::getErrorStr("Nickname too long.") << " Please enter a nickname with 15 characters or fewer: ";
             continue;
         }
         if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") != std::string::npos) {
-            std::cout << "Nickname contains invalid characters. Please use only letters or underscores: ";
+            std::cout << UIHelper::getErrorStr("Nickname contains invalid characters.") << " Please use only letters or underscores: ";
             continue;
         }
 
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n\n";
+            std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
         }
 
@@ -93,15 +93,13 @@ void customizeCreature(Creature& creature) {
 }
 
 void printCreatureSummary(const Creature& creature) {
-    std::cout << "\n================= " << creature.name() << " is ready for battle!" << " =================\n\n";
+    std::cout << "\n\n================= " << creature.name() << " is ready for battle!" << " =================\n\n";
 
     creature.printCreature(); // print ascii art with offset
     std::cout << "\n";
 
     // health
-    std::cout << "Health: "
-              << creature.health().max()
-              << " HP\n";
+    std::cout << "Health: " << creature.health().max() << " HP\n";
 
     // stats
     const Stats& stats = creature.stats();

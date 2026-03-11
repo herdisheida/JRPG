@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include <vector>
+#include "Colors.h"
 
 class Creature;
-
+enum class DamageType;
 
 namespace UIHelper {
 
@@ -19,11 +20,14 @@ void printHealthBar(const Creature& creature, int offset);
 // print string with offset
 void printWithOffset(const std::string& text, int offset);
 
-
 // void print spacer '=' for prettyfactor
 std::string getSpacer(int length);
 
 
+// New colored versions
+std::string getColored(const std::string& text, Color::Code color, int offset = 0);
+std::string getSuccessStr(const std::string& text, int offset = 0);
+std::string getErrorStr(const std::string& text, int offset = 0);
 }
 
 #endif

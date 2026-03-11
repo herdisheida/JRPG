@@ -48,3 +48,15 @@ void UIHelper::printWithOffset(const std::string& text, int offset) {
 std::string UIHelper::getSpacer(int length) {
     return std::string(length, '=');
 }
+
+
+
+std::string UIHelper::getColored(const std::string& text, Color::Code color, int offset) {
+    return std::string(offset, ' ') + Color::colorize(text, color);
+}
+std::string UIHelper::getSuccessStr(const std::string& text, int offset) {
+    return getColored(text, Color::BRIGHT_GREEN, offset);
+}
+std::string UIHelper::getErrorStr(const std::string& text, int offset) {
+    return getColored(text, Color::BRIGHT_RED, offset);
+}
