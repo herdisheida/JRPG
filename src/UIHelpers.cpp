@@ -34,11 +34,11 @@ void UIHelper::printHealthBar(const Creature& creature, int offset) {
         bar += "🟥";
 
     int totalBarLength = barWidth * 2 + 4; // each bar is 2 characters wide + 2 for brackets + 2 spaces
-    std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
-    std::string statusInfo = statusToString(creature.status());
+    std::string hpInfo = UIHelper::getColored("HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max()), Color::BOLD);
+    std::string statusInfo = UIHelper::getColored(statusToString(creature.status()), Color::BOLD);
 
-    std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
-    std::cout << std::string(offset, ' ') << "[ " << bar << " ]  " << statusInfo;
+    std::cout << std::string(offset, ' ') << UIHelper::getColored(creature.name(), Color::BOLD) << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
+    std::cout << std::string(offset, ' ') << "[ " << bar << " ]  " << UIHelper::getColored(statusInfo, Color::UNDERLINE);
     std::cout << "\n\n";
 }
 
