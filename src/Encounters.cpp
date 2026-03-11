@@ -2,7 +2,7 @@
 
 #include "../include/game/Encounters.h"
 #include "../include/util/Random.h"
-#include "../include/util/Helpers.h" // for getOrCreateRandomWildCreatureAt
+#include "../include/util/UIHelpers.h" // for getOrCreateRandomWildCreatureAt
 
 
 // void printHpStatus(const Creature& creature) {
