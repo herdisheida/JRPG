@@ -2,12 +2,7 @@
 
 #include "../include/game/Encounters.h"
 #include "../include/util/Random.h"
-#include "../include/util/UIHelpers.h" // for getOrCreateRandomWildCreatureAt
 
-
-// void printHpStatus(const Creature& creature) {
-//     std::cout << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n";
-// }
 
 // main encounter handler
 void handleEncounters(
