@@ -19,7 +19,7 @@ public:
     Piplup()
         : Creature(
             "PIPLUP", // name
-            180,         // high HP
+            200,         // high HP
             {6, 14, 8},  // very low attack, very high defense, medium speed
 
             {                                                // power, accuracy, crit chance
