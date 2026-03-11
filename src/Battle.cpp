@@ -24,25 +24,6 @@ Battle::Battle(
         fled_(false) {}
 
 
-// print a simple text-based health bar
-void Battle::printHealthBar(const Creature& creature, int offset) const {
-    // calculate green and red ratio
-    int barWidth = 15;
-    float hpRatio = static_cast<float>(creature.health().current()) / creature.health().max();
-    int greenBars = static_cast<int>(hpRatio * barWidth);
-    int redBars = barWidth - greenBars;
-
-    std::string bar;
-    for (int i = 0; i < greenBars; i++)
-        bar += "🟩";
-    for (int i = 0; i < redBars; i++)
-        bar += "🟥";
-
-    int totalBarLength = barWidth * 2 + 4; // each bar is 2 characters wide + 2 for brackets + 2 spaces
-    std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
-    std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
-    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
-}
 
 void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
     std::cout << "\n\n========================================================= Round " << round++ << " =========================================================\n\n";

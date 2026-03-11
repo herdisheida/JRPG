@@ -29,9 +29,6 @@ class Battle {
         // print whole battle screen (like pokemon battle)
         void printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const;
 
-        // print health bar with 🟩 and 🟥 colors (name and health beneath)
-        void printHealthBar(const Creature& creature, int offset) const;
-
         // returns the action result message
         std::string takeTurn(Creature& actor, Creature& target, Controller& controller, bool isPlayer);
 
