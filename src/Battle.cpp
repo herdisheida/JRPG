@@ -60,7 +60,7 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
     // print previous action (enemy and player moves) message
     if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
-    if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n";
+    if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n\n";
 }
 
 
@@ -95,7 +95,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             target.health().damage(damage);
 
             // build msg
-            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage ";
+            msg = actor.name() + " uses " + action.name + " dealing " + std::to_string(damage) + " " + toString(action.damageType) + " damage";
 
             if (critical) msg += " - Critical hit!";
 
@@ -195,10 +195,11 @@ std::string Battle::applyStatusEffect(Creature& creature) {
         }
 
         creature.health().damage(damage);
-        msg +=  creature.name() + " suffers " + std::to_string(damage) + " " + takeDamageString(creature.status()) + "!\n";
+        msg += " " + creature.name() + " suffers " + std::to_string(damage) + " " + takeDamageString(creature.status()) + "! ";
 
+        std::string statusStr = statusToString(creature.status()); // save before reducing status
         creature.reduceStatusTurns();
-        if (!creature.hasStatus()) msg += creature.name() + " is no longer " + statusToString(creature.status()) + ".\n";
+        if (!creature.hasStatus()) msg += creature.name() + " is no longer " + statusStr + ". ";
     }
 
     return msg;
