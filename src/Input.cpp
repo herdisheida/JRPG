@@ -41,7 +41,7 @@ void startGameIntro() {
     std::cout << "Be careful! If your creature faints and you run out of healing items, you lose!\n";
     std::cout << "Try not to die!\n\n";
 
-    std::cout << "Press Enter to start your adventure...";
+    std::cout << "Press enter...";
     waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
 }
