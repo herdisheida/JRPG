@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip> // for std::setw
 
 #include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"
