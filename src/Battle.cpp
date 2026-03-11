@@ -1,9 +1,9 @@
 #include <iostream>
-#include <iomanip> // for std::setw
 
 #include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"
 #include "../include/util/Random.h"
+#include "../include/util/UIHelpers.h"
 
 
 const int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
@@ -25,38 +25,18 @@ Battle::Battle(
         fled_(false) {}
 
 
-// print a simple text-based health bar
-void Battle::printHealthBar(const Creature& creature, int offset) const {
-    // calculate green and red ratio
-    int barWidth = 15;
-    float hpRatio = static_cast<float>(creature.health().current()) / creature.health().max();
-    int greenBars = static_cast<int>(hpRatio * barWidth);
-    int redBars = barWidth - greenBars;
-
-    std::string bar;
-    for (int i = 0; i < greenBars; i++)
-        bar += "🟩";
-    for (int i = 0; i < redBars; i++)
-        bar += "🟥";
-
-    int totalBarLength = barWidth * 2 + 4; // each bar is 2 characters wide + 2 for brackets + 2 spaces
-    std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
-    std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
-    std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
-}
-
 void Battle::printBattleScreen(const Creature& player, const Creature& enemy, const std::string& p_msg, const std::string& e_msg, int& round) const {
     std::cout << "\n\n========================================================= Round " << round++ << " =========================================================\n\n";
 
     // print enemy top right 
-    printHealthBar(enemy, ENEMY_OFFSET);
+    UIHelpers::printHealthBar(enemy, ENEMY_OFFSET);
     enemy.printCreature(ENEMY_OFFSET);
 
 
     // print player bottom left
     player.printCreature(PLAYER_OFFSET);
     std::cout << "\n";
-    printHealthBar(player, PLAYER_HP_OFFSET);
+    UIHelpers::printHealthBar(player, PLAYER_HP_OFFSET);
 
     // print previous action (enemy and player moves) message
     if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
