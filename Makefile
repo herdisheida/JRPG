@@ -13,7 +13,7 @@ SRC = main.cpp \
 	src/GameSettings.cpp \
 	src/Input.cpp \
 	src/OverworldMap.cpp \
-	src/Helpers.cpp
+	src/UIHelpers.cpp
 
 
 
