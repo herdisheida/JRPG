@@ -12,6 +12,9 @@
 #include "../battle/Action.h"
 #include "../util/Health.h" 
 #include "../util/Type.h"
+#include "../util/Helpers.h" // for printAscii
+
+
 
 
 struct Stats {
@@ -53,10 +56,9 @@ class Creature {
         virtual std::string Roles() const { return name_; };
 
         virtual std::vector<std::string> asciiArt() const { return { name_ }; }
-        void printAscii(int offset = 3) const {
-            for (const auto& line : this->asciiArt()) {
-                std::cout << std::setw(offset) << "" << line << "\n";
-            }
+        void printCreature(int offset = 3) const {
+            printAscii(this->asciiArt(), offset); // global helper
+
         }
 
         const std::string& name() const { return name_; }
@@ -115,6 +117,7 @@ class Creature {
             }
         }        
 };
+
 
 
 

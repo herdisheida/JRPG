@@ -10,7 +10,6 @@
 #include "OverworldMap.h"
 
 
-
 // keep track of enemies currently on the map
 class EnemyField {
     private:
@@ -31,5 +30,9 @@ class EnemyField {
         void listEnemies() const;
 
 };
+
+// get or create wild enemies (persisteent)
+Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
+
 
 #endif

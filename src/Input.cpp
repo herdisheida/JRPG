@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "../include/game/Input.h"
+#include "../include/util/Helpers.h"
 
 
 char getPlayerMove() {
@@ -21,14 +22,22 @@ char getPlayerMove() {
     return line[0];
 }
 
+
+std::vector<std::string> introString() {
+    return {
+        "▗▖  ▗▖▄ ▄▄▄▄  ▗▞▀▜▌ ▄▄▄      ▗▄▖    ▐▌▄   ▄ ▗▞▀▚▖▄▄▄▄     ■  █  ▐▌ ▄▄▄ ▗▞▀▚▖",
+        "▐▛▚▞▜▌▄ █ █ █ ▝▚▄▟▌▀▄▄      ▐▌ ▐▌   ▐▌█   █ ▐▛▀▀▘█   █ ▗▄▟▙▄▖▀▄▄▞▘█    ▐▛▀▀▘",
+        "▐▌  ▐▌█ █   █      ▄▄▄▀     ▐▛▀▜▌▗▞▀▜▌ ▀▄▀  ▝▚▄▄▖█   █   ▐▌       █    ▝▚▄▄▖",
+        "▐▌  ▐▌█                     ▐▌ ▐▌▝▚▄▟▌                   ▐▌                 ",
+        "                                                         ▐▌                 "
+    };
+}
+
 void startGameIntro() {
-    std::cout << "==================================================\n";
-    std::cout << "          Welcome to Minie's Adventures!          \n";
-    std::cout << "==================================================\n\n";
+    printAscii(introString(), 5);
 
-    std::cout << "Your goal is to explore the overworld and defeat all wild creatures. \n\n";
-
-    std::cout << "Be careful! If your creature faints and you run out of healing items, you lose!\n\n";
+    std::cout << "Your goal is to explore the overworld and defeat all wild creatures.\n";
+    std::cout << "Be careful! If your creature faints and you run out of healing items, you lose!\n";
     std::cout << "Try not to die!\n\n";
 
     std::cout << "Press Enter to start your adventure...";

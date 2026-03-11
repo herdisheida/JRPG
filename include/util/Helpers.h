@@ -1,12 +1,10 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#include "../overworld/EnemyField.h"
-#include "../creatures/Creature.h"
+#include <iostream>
+#include <vector>
 
-
-// get or create wild enemies (persisteent)
-Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos);
+void printAscii(std::vector<std::string> ascii, int offset = 3);
 
 
 #endif

@@ -50,11 +50,11 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
     // print enemy top right 
     printHealthBar(enemy, ENEMY_OFFSET);
-    enemy.printAscii(ENEMY_OFFSET);
+    enemy.printCreature(ENEMY_OFFSET);
 
 
     // print player bottom left
-    player.printAscii(PLAYER_OFFSET);
+    player.printCreature(PLAYER_OFFSET);
     std::cout << "\n";
     printHealthBar(player, PLAYER_HP_OFFSET);
 
