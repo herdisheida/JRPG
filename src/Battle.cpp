@@ -211,14 +211,12 @@ void Battle::run() {
         // print battle each round
         printBattleScreen(playerCreature_, enemyCreature_, p_msg, e_msg, round); // print status with health bars
 
-        if (enemyCreature_.isFainted() || playerCreature_.isFainted() || fled_) return;
-
         // reset defending state at end of round
         playerCreature_.setDefending(false);
         enemyCreature_.setDefending(false);
     }
 
-    
+
     if (fled_) {
         std::cout << "The battle is over.\n";
     } else if (playerCreature_.isFainted()) {
