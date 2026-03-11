@@ -69,7 +69,7 @@ void customizeCreature(Creature& creature) {
             std::cout << "Nickname too long. Please enter a nickname with 15 characters or fewer: ";
             continue;
         }
-        if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0_") != std::string::npos) {
+        if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") != std::string::npos) {
             std::cout << "Nickname contains invalid characters. Please use only letters or underscores: ";
             continue;
         }
