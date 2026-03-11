@@ -53,7 +53,7 @@ class Creature {
         virtual std::string Roles() const { return name_; };
 
         virtual std::vector<std::string> asciiArt() const { return { name_ }; }
-        void printAscii(int offset = 5) const {
+        void printAscii(int offset = 3) const {
             for (const auto& line : this->asciiArt()) {
                 std::cout << std::setw(offset) << "" << line << "\n";
             }

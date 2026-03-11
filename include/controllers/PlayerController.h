@@ -6,19 +6,23 @@
 #include <iostream>
 #include <iomanip> // for std::setw
 #include <vector>
+#include <sstream>
+
 
 
 
 class PlayerController : public Controller {
     private:
-        void printActionsTable(const std::vector<Action>& actions) const {
+        std::string buildActionsTable(const std::vector<Action>& actions) const {
             constexpr int numWidth = 4;      // width for numbering
             constexpr int nameWidth = 20;    // width for action name
             constexpr int effectWidth = 25;  // width for power/heal/status
             constexpr int accWidth = 10;     // width for accuracy column
 
+            std::ostringstream out;
+
             // header
-            std::cout << std::left
+            out << std::left
                     << std::setw(numWidth) << "No."
                     << std::setw(nameWidth) << "Name"
                     << std::setw(effectWidth) << "Effect"
@@ -26,7 +30,7 @@ class PlayerController : public Controller {
                     << "\n";
 
             // separator
-            std::cout << std::string(numWidth + nameWidth + effectWidth + accWidth, '-') << "\n";
+            out << std::string(numWidth + nameWidth + effectWidth + accWidth, '-') << "\n";
 
             // actions
             for (size_t i = 0; i < actions.size(); ++i) {
@@ -41,7 +45,7 @@ class PlayerController : public Controller {
                     effect = statusToString(a.statusEffect) + " " + std::to_string(a.statusDuration) + " turn";
                 }
 
-                std::cout << std::left
+                out << std::left
                         << std::setw(numWidth)     << (i + 1)
                         << std::setw(nameWidth)    << a.name
                         << std::setw(effectWidth)  << effect
@@ -50,16 +54,30 @@ class PlayerController : public Controller {
             }
 
             // add Flee as last option
-            std::cout << std::left
+            out << std::left
                     << std::setw(numWidth) << (actions.size() + 1)
                     << std::setw(nameWidth) << "Flee"
                     << "\n";
+
+            return out.str();
         }
     
+
+        void printWithOffset(const std::string& text, int offset) const {
+            std::istringstream in(text);
+            std::string line;
+
+            while (std::getline(in, line)) {
+                std::cout << std::string(offset, ' ') << line << "\n";
+            }
+        }
+
         void printActionOptions(const Creature& self) const {
+            constexpr int MSG_OFFSET = 0; // where action messages appear (between player and enemy)
             const auto& actions = self.actions();
-            std::cout << "\nChoose an action:\n\n";
-            printActionsTable(actions);
+            std::cout << "\n" << std::string(MSG_OFFSET, ' ') << "Choose an action:\n\n";
+            std::string actionsTable = buildActionsTable(actions);
+            printWithOffset(actionsTable, MSG_OFFSET);
         }
 
     public:

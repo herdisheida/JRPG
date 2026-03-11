@@ -1,14 +1,16 @@
-#include "../include/battle/Battle.h"
-#include "../include/controllers/Controller.h"
-#include "../include/util/Random.h"
-#include "../include/game/Input.h"
-
 #include <iostream>
 #include <iomanip> // for std::setw
 
+#include "../include/battle/Battle.h"
+#include "../include/controllers/Controller.h"
+#include "../include/util/Random.h"
 
-constexpr int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
-constexpr int PLAYER_OFFSET = 3; // where player info appears (bottom left)
+
+const int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
+const int PLAYER_OFFSET = 10; // where player info appears (bottom left)
+const int PLAYER_HP_OFFSET = 3; // where player hp appears (bottom left)
+const int MSG_OFFSET = 0; // where action messages appear (between player and enemy)
+
 
 
 Battle::Battle(
@@ -37,7 +39,9 @@ void Battle::printHealthBar(const Creature& creature, int offset) const {
     for (int i = 0; i < redBars; i++)
         bar += "🟥";
 
-    std::cout << std::string(offset, ' ') << creature.name() << " HP: " << creature.health().current() << "/" << creature.health().max() << "\n\n";
+    int totalBarLength = barWidth * 2 + 4; // each bar is 2 characters wide + 2 for brackets + 2 spaces
+    std::string hpInfo = "HP: " + std::to_string(creature.health().current()) + "/" + std::to_string(creature.health().max());
+    std::cout << std::string(offset, ' ') << creature.name() << std::string(totalBarLength - creature.name().length() - hpInfo.length(), ' ') << hpInfo << "\n\n";
     std::cout << std::string(offset, ' ') << "[ " << bar << " ]\n\n";
 }
 
@@ -50,13 +54,13 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
 
     // print player bottom left
-    printHealthBar(player, PLAYER_OFFSET);
     player.printAscii(PLAYER_OFFSET);
-
     std::cout << "\n";
+    printHealthBar(player, PLAYER_HP_OFFSET);
+
     // print previous action (enemy and player moves) message
-    if (!p_msg.empty()) std::cout << "\n" << p_msg << "\n";
-    if (!e_msg.empty()) std::cout << "\n" << e_msg << "\n";
+    if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
+    if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n";
 }
 
 
@@ -202,11 +206,13 @@ std::string Battle::applyStatusEffect(Creature& creature) {
 
 
 void Battle::run() {
-    std::cout << "\n\n\nA wild " << enemyCreature_.name() << " appears!\n\n";
+    std::cout << "\n\n\n";
 
     // first print (init status)
     int round = 1;
     printBattleScreen(playerCreature_, enemyCreature_, "", "", round); // initial status
+    std::cout << "\n\n" << std::string(MSG_OFFSET, ' ') << "A wild " << enemyCreature_.name() << " appears!\n\n";
+
 
     std::string p_msg, e_msg;
     while (!playerCreature_.isFainted() && !enemyCreature_.isFainted() && !fled_) {
@@ -216,7 +222,7 @@ void Battle::run() {
             p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player goes first
             e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes second
         } else {
-            if (round == 2) std::cout << "\n" << enemyCreature_.name() << " is faster and takes the first move!\n";
+            if (round == 2) std::cout << std::string(MSG_OFFSET, ' ') << enemyCreature_.name() << " is FASTER and takes the first moves!\n";
             e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes first
             p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player second
         }
@@ -236,7 +242,7 @@ void Battle::run() {
         std::cout << "The battle is over.\n";
     } else if (playerCreature_.isFainted()) {
         // Enemy wins
-        std::cout << playerCreature_.name() << " has fainted! " << enemyCreature_.name() << " wins!\n";
+        std::cout << playerCreature_.name() << " has fainted! Find a heart to recover!\n";
     } else if (enemyCreature_.isFainted()) {
         // Player wins
         std::cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";

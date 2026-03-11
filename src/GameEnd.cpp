@@ -31,11 +31,5 @@ bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature) {
         return true;
     }
 
-    // player fainted but hearts still exist
-    if (playerCreature.isFainted()) {
-        std::cout << "\n" << playerCreature.name()
-                  << " has fainted. Find a heart to recover!\n";
-    }
-
     return false;
 }
