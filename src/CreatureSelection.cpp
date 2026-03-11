@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip> // for std::setw
+#include <limits>
 
 
 #include "../include/game/CreatureSelection.h"
@@ -37,6 +38,8 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
             continue;
         }
 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear input buffer
+
         switch (choice) {
             case 1: return std::make_unique<Pikachu>();
             case 2: return std::make_unique<Piplup>();
@@ -53,10 +56,11 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 // choose and set nickname for player creature
 void customizeCreature(Creature& creature) {
     std::cout << "\nGive " << creature.species() << " a nickname: ";
-    std::string nickname;
-    std::getline(std::cin, nickname);
-    
-    while (std::getline(std::cin, nickname)) {
+
+    std::string nickname;    
+    while (true) {
+        std::getline(std::cin, nickname);
+
         if (nickname.empty()) {
             std::cout << "Nickname cannot be empty. Please enter a valid nickname: ";
             continue;
@@ -76,6 +80,7 @@ void customizeCreature(Creature& creature) {
             std::cout << "Invalid input.\n\n";
             continue;
         }
+
         break;
     }
 

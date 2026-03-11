@@ -4,6 +4,7 @@
 
 
 char getPlayerMove() {
+
     std::cout << "\nEnter move: (I for instructions)\n";
     std::cout << "> ";
 
@@ -15,6 +16,8 @@ char getPlayerMove() {
         std::cout << "\nInvalid input. Please enter a single character.\n";
         return '\0'; // error value
     }
+    if (line.empty()) return '\0';
+
     return line[0];
 }
 

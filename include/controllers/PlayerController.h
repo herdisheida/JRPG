@@ -7,6 +7,7 @@
 #include <iomanip> // for std::setw
 #include <vector>
 #include <sstream>
+#include <limits>
 
 
 
@@ -99,6 +100,8 @@ class PlayerController : public Controller {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << "Invalid choice. Try again.\n";
                 } else {
+                    // clear leftover newline before returning
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     return choice - 1;
                 }
             }

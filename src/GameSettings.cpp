@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 #include "../include/util/GameSettings.h"
 
@@ -22,10 +23,13 @@ Difficulty chooseDifficulty() {
             continue;
         }
 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear input buffer
+
         switch (choice) {
             case 1: return Difficulty::Easy;
             case 2: return Difficulty::Medium;
             case 3: return Difficulty::Hard;
+            
             default:
                 std::cout << "Invalid choice.\n\n";
         }
