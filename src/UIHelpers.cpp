@@ -6,7 +6,6 @@
 #include "../include/util/UIHelpers.h"
 
 
-
 void printAscii(std::vector<std::string> ascii, int offset) {
     for (const auto& line : ascii) {
         std::cout << std::setw(offset) << "" << line << "\n";

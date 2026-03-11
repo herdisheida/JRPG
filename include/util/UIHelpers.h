@@ -1,5 +1,5 @@
-#ifndef HELPERS_H
-#define HELPERS_H
+#ifndef UIHELPERS_H
+#define UIHELPERS_H
 
 #include <iostream>
 #include <vector>
