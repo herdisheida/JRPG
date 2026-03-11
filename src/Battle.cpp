@@ -29,14 +29,14 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
     std::cout << "\n\n========================================================= Round " << round++ << " =========================================================\n\n";
 
     // print enemy top right 
-    printHealthBar(enemy, ENEMY_OFFSET);
+    UIHelper::printHealthBar(enemy, ENEMY_OFFSET);
     enemy.printCreature(ENEMY_OFFSET);
 
 
     // print player bottom left
     player.printCreature(PLAYER_OFFSET);
     std::cout << "\n";
-    printHealthBar(player, PLAYER_HP_OFFSET);
+    UIHelper::printHealthBar(player, PLAYER_HP_OFFSET);
 
     // print previous action (enemy and player moves) message
     if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;

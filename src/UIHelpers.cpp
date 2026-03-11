@@ -6,7 +6,8 @@
 #include "../include/util/UIHelpers.h"
 
 
-void printAscii(std::vector<std::string> ascii, int offset) {
+
+void UIHelper::printAscii(std::vector<std::string> ascii, int offset) {
     for (const auto& line : ascii) {
         std::cout << std::setw(offset) << "" << line << "\n";
     }
@@ -14,7 +15,7 @@ void printAscii(std::vector<std::string> ascii, int offset) {
 
 
 // print a simple text-based health bar
-void printHealthBar(const Creature& creature, int offset) {
+void UIHelper::printHealthBar(const Creature& creature, int offset) {
     // calculate green and red ratio
     int barWidth = 15;
     float hpRatio = static_cast<float>(creature.health().current()) / creature.health().max();
@@ -34,7 +35,7 @@ void printHealthBar(const Creature& creature, int offset) {
 }
 
 
-void printWithOffset(const std::string& text, int offset) {
+void UIHelper::printWithOffset(const std::string& text, int offset) {
     std::istringstream in(text);
     std::string line;
 

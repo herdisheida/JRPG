@@ -70,7 +70,7 @@ class PlayerController : public Controller {
             const auto& actions = self.actions();
             std::cout << "\n" << std::string(MSG_OFFSET, ' ') << "Choose an action:\n\n";
             std::string actionsTable = buildActionsTable(actions);
-            printWithOffset(actionsTable, MSG_OFFSET);
+            UIHelper::printWithOffset(actionsTable, MSG_OFFSET);
         }
 
     public:

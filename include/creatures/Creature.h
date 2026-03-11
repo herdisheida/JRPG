@@ -57,7 +57,7 @@ class Creature {
 
         virtual std::vector<std::string> asciiArt() const { return { name_ }; }
         void printCreature(int offset = 3) const {
-            printAscii(this->asciiArt(), offset); // global helper
+            UIHelper::printAscii(this->asciiArt(), offset); // global helper
 
         }
 
