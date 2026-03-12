@@ -35,12 +35,13 @@ std::vector<std::string> introString() {
 
 void startGameIntro() {
     std::cout << "\n";
-    UIHelper::printAscii(introString(), 5);
+    const int startGameOffset = 5;
+    UIHelper::printAscii(introString(), startGameOffset);
 
-    UIHelper::printWithOffset("\nYour goal is to explore the overworld and defeat all wild creatures.\n", 5);
-    UIHelper::printWithOffset("Be careful! If your creature faints and you run out of healing items, you lose!\n", 5);
-    UIHelper::printWithOffset("Try not to die!\n\n", 5);
-    UIHelper::printWithOffset("enter to continue...", 5);
+    UIHelper::printWithOffset("\nYour goal is to explore the overworld and defeat all wild creatures.\n", startGameOffset);
+    UIHelper::printWithOffset("Be careful! If your creature faints and you run out of healing items, you lose!\n", startGameOffset);
+    UIHelper::printWithOffset("Try not to die!\n\n", startGameOffset);
+    UIHelper::printWithOffset("enter to continue...", startGameOffset);
 
     UIHelper::waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
