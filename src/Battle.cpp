@@ -225,13 +225,13 @@ void Battle::run() {
     }
 
 
-    if (fled_) {
-        std::cout << "The battle is over.\n";
-    } else if (playerCreature_.isFainted()) {
+    if (playerCreature_.isFainted()) {
         // Enemy wins
-        std::cout << playerCreature_.name() << UIHelper::getColored(" has fainted! ", Color::BRIGHT_RED) << "Find a heart to recover!\n";
+        std::string faintMsg = playerCreature_.name() + " has fainted! ";
+        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "Find a heart to recover!\n";
     } else if (enemyCreature_.isFainted()) {
         // Player wins
-        std::cout << enemyCreature_.name() << " has fainted! " << playerCreature_.name() << " wins!\n";
+        std::string faintMsg = enemyCreature_.name() + " has fainted! ";
+        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED)  << playerCreature_.name() << " wins!\n";
     }
 }
