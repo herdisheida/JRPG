@@ -208,8 +208,8 @@ void Battle::run() {
         bool playerFirst = playerCreature_.stats().speed >= enemyCreature_.stats().speed;
 
         if (playerFirst) {
-            p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true); // player goes first
-            e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes second
+            p_msg = takeTurn(playerCreature_, enemyCreature_, playerController_, true);
+            if (!enemyCreature_.isFainted()) e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // ememy only moves if he alive
         } else {
             if (round == 2) std::cout << std::string(MSG_OFFSET, ' ') << enemyCreature_.name() << " is FASTER and takes the first moves!\n";
             e_msg = takeTurn(enemyCreature_, playerCreature_, enemyController_, false); // enemy goes first
@@ -229,9 +229,10 @@ void Battle::run() {
         // Enemy wins
         std::string faintMsg = "\n" + playerCreature_.name() + " has fainted! ";
         std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "Find a heart to recover!\n";
-    } else if (enemyCreature_.isFainted()) {
+    }
+    if (enemyCreature_.isFainted()) {
         // Player wins
         std::string faintMsg = "\n" + enemyCreature_.name() + " has fainted! ";
-        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED)  << playerCreature_.name() << " wins!\n";
+        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "\n";
     }
 }
