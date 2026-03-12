@@ -3,16 +3,26 @@
 #include "../include/game/GameEnd.h"
 #include "../include/util/UIHelpers.h"
 
+constexpr int gameEndOffset = 5;
 
 
+std::vector<std::string> victoryStr() {
+    return {
+        "                                        ▄▄  ",
+        "██     ██ ▄▄ ▄▄  ▄▄ ▄▄  ▄▄ ▄▄▄▄▄ ▄▄▄▄   ██  ",
+        "██ ▄█▄ ██ ██ ███▄██ ███▄██ ██▄▄  ██▄█▄  ██  ",
+        " ▀██▀██▀  ██ ██ ▀██ ██ ▀██ ██▄▄▄ ██ ██  ▄▄  ",
+    };
+}                                           
 
+                                           
 void printVictoryMsg() {
-    std::cout << "\n\n\n=========================================\n";
-    std::cout << "\nCongratulations!\n";
-    std::cout <<" You've defeated all the wild creatures and won the game!\n";
+    std::cout << "\n\n\n\n=========================================\n";
+    UIHelper::printAscii(victoryStr(), gameEndOffset);
+    UIHelper::printWithOffset("\nYou've defeated all the wild creatures and won the game!\n", gameEndOffset);
 }
 
-std::vector<std::string> gameOver() {
+std::vector<std::string> gameOverStr() {
     return {
         " ██████   █████  ███    ███ ███████      ██████  ██    ██ ███████ ██████   ",
         "██       ██   ██ ████  ████ ██          ██    ██ ██    ██ ██      ██   ██  ",
@@ -23,11 +33,10 @@ std::vector<std::string> gameOver() {
 }
 
 void printLoseMsg() {
-    const int gameOverOffset = 5;
     std::cout << "\n\n\n\n=========================================\n";
-    UIHelper::printAscii(gameOver(), gameOverOffset);
-    UIHelper::printWithOffset("\nYour creature has fainted and there are no healing items left.", gameOverOffset);
-    UIHelper::printWithOffset("Better luck next time!", gameOverOffset);
+    UIHelper::printAscii(gameOverStr(), gameEndOffset);
+    UIHelper::printWithOffset("\nYour creature has fainted and there are no healing items left.", gameEndOffset);
+    UIHelper::printWithOffset("Better luck next time!", gameEndOffset);
 }
 
 bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature) {
