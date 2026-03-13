@@ -53,7 +53,7 @@ void handleEncounters(
     // wild
     if(map.hasEncounter()) {
         if(playerCreature->isFainted()) {
-            std::cout << "\n" << playerCreature->name() << UIHelper::getColored(" is fainted and cannot battle.\n", Color::YELLOW);
+            std::cout << "\n" << UIHelper::getColored(playerCreature->name() + " is fainted and cannot battle.\n", Color::YELLOW);
             // move player back to prev pos to prevent repeated encounters
             map.movePlayerBack(lastMove);
             return; // skip battle
