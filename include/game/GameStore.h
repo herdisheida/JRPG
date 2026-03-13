@@ -16,6 +16,8 @@ class GameStore {
 
         // load a game from a save file
         static bool loadGame(const std::string& saveName, std::unique_ptr<Creature>& player, OverworldMap& map);
+        // update save index: add save name to index file if not already present
+        static void updateSaveIndex(const std::string& saveName);
 
         // list saved games (returns filenames)
         static std::vector<std::string> listSaves();

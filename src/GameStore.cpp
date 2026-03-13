@@ -47,15 +47,37 @@ bool GameStore::saveGame(const std::string& saveName, const Creature& player, co
 
     file.close();
 
-    // update index
-    std::ofstream index(INDEX_FILE, std::ios::app); // append
-    if (!index.is_open()) return false;
-    index << saveName << "\n";
-    index.close();
-
+    // update index - do nothing if index already has this save
+    updateSaveIndex(saveName);
     return true;
 }
 
+
+// update index safely
+void GameStore::updateSaveIndex(const std::string& saveName) {
+    std::ifstream indexIn(INDEX_FILE);
+    bool exists = false;
+
+    if (indexIn.is_open()) {
+        std::string line;
+        while (std::getline(indexIn, line)) {
+            if (line == saveName) {
+                exists = true;
+                break;
+            }
+        }
+        indexIn.close();
+    }
+
+    if (!exists) {
+        // append only if not exists    
+        std::ofstream indexOut(INDEX_FILE, std::ios::app);
+        if (indexOut.is_open()) {
+            indexOut << saveName << "\n";
+            indexOut.close();
+        }
+    }
+}
 
 // load a saved game
 bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>& player, OverworldMap& map) {
