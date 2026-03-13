@@ -51,29 +51,51 @@ class Creature {
             statusTurns_(0) {}
 
         virtual ~Creature() = default;
-        
-        virtual std::string species() const = 0;
-        virtual std::string Roles() const { return name_; };
 
+        // creature ascii
         virtual std::vector<std::string> asciiArt() const { return { name_ }; }
-        void printCreature(int offset = 3) const {
-            UIHelper::printAscii(this->asciiArt(), offset); // global helper
+        void printCreature(int offset = 3) const { UIHelper::printAscii(this->asciiArt(), offset); }
 
-        }
+        // getters
+        virtual std::string species() const = 0;                // specific for creature type
+        virtual std::string Roles() const { return name_; };    // specific for creature type
 
-        const std::string& name() const { return name_; }
+        // name set/get
         void setName(const std::string& name) { name_ = name; }
+        const std::string& name() const { return name_; }
 
+        // stats set/get
+        const Stats& stats() const { return stats_; }
+        Stats& stats() { return stats_; }
+
+        // health set/get
         const Health& health() const { return health_; }
         Health& health() { return health_; }
         void healToFull() { health_.healToFull(); }
         void changeMaxHp(int amount) { health_.changeMax(amount); }
 
-        bool isFainted() const { return health_.isFainted(); }
-    
-        const Stats& stats() const { return stats_; }
-        Stats& stats() { return stats_; }
+        // status helpers
+        StatusEffect status() const { return status_; }
+        int statusTurns() const { return statusTurns_; }
+        bool hasStatus() const { return status_ != StatusEffect::None; }
+        void setStatus(StatusEffect status, int turns) {
+            status_ = status;
+            statusTurns_ = turns;
+        }
+        void clearStatus() {
+            status_ = StatusEffect::None;
+            statusTurns_ = 0;
+        }
+        void reduceStatusTurns() {
+            if (statusTurns_ > 0) {
+                --statusTurns_;
+            }
+            if (statusTurns_ <= 0) {
+                clearStatus();
+            }
+        }
 
+        // action, resistance, damagetype
         const std::vector<Action>& actions() const { return actions_; }
 
         float resistanceTo(DamageType type) const {
@@ -88,34 +110,11 @@ class Creature {
             return resistances_;
         }
 
+        // defending state
         bool isDefending() const { return defending_; }
         void setDefending(bool value) { defending_ = value; }
 
-
-        // status helpers
-        StatusEffect status() const { return status_; }
-        int statusTurns() const { return statusTurns_; }
-
-        bool hasStatus() const { return status_ != StatusEffect::None; }
-
-        void setStatus(StatusEffect status, int turns) {
-            status_ = status;
-            statusTurns_ = turns;
-        }
-
-        void clearStatus() {
-            status_ = StatusEffect::None;
-            statusTurns_ = 0;
-        }
-
-        void reduceStatusTurns() {
-            if (statusTurns_ > 0) {
-                --statusTurns_;
-            }
-            if (statusTurns_ <= 0) {
-                clearStatus();
-            }
-        }        
+        bool isFainted() const { return health_.isFainted(); }
 };
 
 
