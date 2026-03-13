@@ -40,7 +40,6 @@ class Health {
             current_ = max_;
         }
 
-
         void set(int current, int max) {
             max_ = max;
             if (max_ < 1) { max_ = 1; }
