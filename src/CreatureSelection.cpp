@@ -58,9 +58,6 @@ void customizeCreature(Creature& creature) {
     // convert nickname to uppercase
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
     creature.setName(nickname);
-
-    // display chosen creature
-    printCreatureSummary(creature);
 }
 
 void printCreatureSummary(const Creature& creature) {

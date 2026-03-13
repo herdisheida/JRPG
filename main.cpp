@@ -69,26 +69,13 @@ int main() {
         map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
     }
 
+    // display user's creature
+    printCreatureSummary(*playerCreature);
 
+    // init controllers and fields
     EnemyField enemyField;
     PlayerController playerController;
     EnemyController enemyController;
-    // -- game setup --
-    // Difficulty difficulty = chooseDifficulty();
-    // GameSettings settings = settingsForDifficulty(difficulty);
-    // std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
-
-    // auto playerCreature = chooseCreature("Choose your creature:");
-    // customizeCreature(*playerCreature);
-
-    // // -- initalize game --
-    // PlayerController playerController;
-    // EnemyController enemyController;
-    // // -- initalize overworld --
-    // OverworldMap map(settings.rows, settings.cols);
-    // EnemyField enemyField;
-    // map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
-
 
     // main game loop - player moves around map and encounters wild creatures
     while (true) {
