@@ -127,6 +127,7 @@ File structure:
     - `Type.h`: defines damage types (fire, water, etc)
     - `UIHelpers.h`: helps print UI smoothly
 
+
 ### Creature Stats
 
 Each creature has the following stats:
