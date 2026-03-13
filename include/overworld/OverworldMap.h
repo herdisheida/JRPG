@@ -33,7 +33,6 @@ class OverworldMap {
 
     public:
         OverworldMap(int rows, int cols);
-
         void initialize(int wildCount, int heartCount, int mysteryCount);
         void print() const;
         void printInstructions() const;
@@ -57,7 +56,12 @@ class OverworldMap {
     
         // win or lose conditions
         bool hasWildsLeft() const;  // win condition: defeat all wild creatures
-        bool hasHeartsLeft() const; // lose condition: run out of healing items and faint in battle
+        bool hasHeartsLeft() const; // lose condition: alll healing locations gone and faint in battle
+
+        // saving and loading game
+        void serialize(std::ofstream& file) const; // write map to file
+        void deserialize(std::ifstream& file); // load map from file
+        void setPlayerPosition(int row, int col) { playerPos_ = {row, col}; }
 
     private:
         bool isInside(int row, int col) const;
