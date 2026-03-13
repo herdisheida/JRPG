@@ -74,6 +74,11 @@ During battle:
 - The battle continues until one creature’s health reaches 0 or the player flees
 - After the battle, you return to the overworld map
 
+### Save & Load Gamee
+
+When a player quits in the middle of the game, they have the option to save their current progress.
+The next time the game is started, the player is prompted to either load a previously saved game or start a new session.
+
 ## For Programmers (Code Structure)
 
 The program uses **inheritance** to create different types of creatures and controllers.
@@ -93,6 +98,7 @@ File structure:
   - `Input.cpp`: handles player input
   - `Overworld.cpp`: the overworld map (movement, encounters, etc)
   - `CreatureFactory.cpp`: create Creature
+  - `GameStore.h`: save and load games
 
 - `saves/`: storage files:
   - `index.txt`: stores all save filenames
@@ -118,6 +124,7 @@ File structure:
     - `Encounters.h`: map interactions
     - `GameEnd.h`: win/lose logic
     - `Input.h`: player input
+    - `GameStore.h`: save and load games
 
   - `overworld/`:
     - `OverworldMap.h`: map system
