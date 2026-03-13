@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/game/BattleEnd.h"
+#include "../include/game/GameEnd.h"
 #include "../include/util/UIHelpers.h"
 
 constexpr int gameEndOffset = 5;

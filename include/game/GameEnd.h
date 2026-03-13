@@ -1,5 +1,5 @@
-#ifndef BATTLEEND_H
-#define BATTLEEND_H
+#ifndef GAMEEND_H
+#define GAMEEND_H
 
 #include "../overworld/OverworldMap.h"
 #include "../creatures/Creature.h"

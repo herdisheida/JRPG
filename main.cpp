@@ -11,7 +11,7 @@
 #include "include/overworld/OverworldMap.h"
 
 #include "include/game/CreatureSelection.h"
-#include "include/game/BattleEnd.h"
+#include "include/game/GameEnd.h"
 #include "include/game/Encounters.h"
 #include "include/game/Input.h"
 #include "include/game/GameStore.h"
