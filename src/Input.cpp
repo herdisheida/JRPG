@@ -49,7 +49,7 @@ void startGameIntro() {
 }
 
 // asking user if they want to play old games
-bool playOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
     std::vector<std::string> saves = GameStore::listSaves();
     if (saves.empty()) return false;
 

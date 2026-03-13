@@ -50,8 +50,8 @@ int main() {
     OverworldMap map(defaultSettings.rows, defaultSettings.cols);
     std::unique_ptr<Creature> playerCreature;
 
-    // try loading a saved game
-    bool loaded = playOldGames(playerCreature, map);
+    // try to load old game, if user wants to
+    bool loaded = loadOldGames(playerCreature, map);
 
     // if not loaded, then initialize normally
     if (!loaded) {

@@ -16,6 +16,6 @@ std::vector<std::string> introString();
 void startGameIntro();
 
 // try loading old games
-bool playOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map);
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map);
 
 #endif
