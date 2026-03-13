@@ -92,6 +92,7 @@ File structure:
   - `UIHelpers.cpp`: helps print UI smoothly
   - `Input.cpp`: handles player input
   - `Overworld.cpp`: the overworld map (movement, encounters, etc)
+  - `CreatureFactory.cpp`: create Creature
 
 - `data/`: storage files:
   - `save.json`: game saves
@@ -104,6 +105,7 @@ File structure:
   - `creatures/`: creature classes
     - `Creature.h`: base class for creatures
     - `CreatureType.h`: specific creature types (pikachu, piplup, etc)
+    - `CreatureFactory.h`: create Creature
 
   - `battle/`:
     - `Action.h`: actions creatures can perform in battle

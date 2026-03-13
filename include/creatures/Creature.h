@@ -8,12 +8,12 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 #include "../battle/Action.h"
 #include "../util/Health.h" 
 #include "../util/Type.h"
 #include "../util/UIHelpers.h" // for printAscii
-
 
 
 
@@ -95,7 +95,7 @@ class Creature {
             }
         }
 
-        // action, resistance, damagetype
+        // attack and action helpers
         const std::vector<Action>& actions() const { return actions_; }
 
         float resistanceTo(DamageType type) const {
@@ -115,6 +115,29 @@ class Creature {
         void setDefending(bool value) { defending_ = value; }
 
         bool isFainted() const { return health_.isFainted(); }
+
+
+
+
+        // -- for saving and loading game --
+        void serialize(std::ofstream& file) const {
+            file << species() << "\n";  // save the type
+            file << name_ << "\n";      // save nickname
+            file << health_.current() << " " << health_.max() << "\n";
+            file << stats_.attack << " " << stats_.defense << " " << stats_.speed << "\n";
+        }
+
+        void deserialize(std::ifstream& file) {
+            std::string line;
+            std::getline(file, name_);
+            
+            int currentHp, maxHp;
+            file >> currentHp >> maxHp;
+            health_.set(currentHp, maxHp);
+            
+            file >> stats_.attack >> stats_.defense >> stats_.speed;
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 };
 
 
