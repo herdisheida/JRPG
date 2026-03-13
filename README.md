@@ -82,7 +82,7 @@ File structure:
 
 - `main.cpp`: entry point of the program; sets up the game and starts the battle loop
 
-- `src/`: implementation files:
+- `src/`: .cpp files:
   - `Battle.cpp`: battle system loop
   - `CreatureSelection.cpp`: user creature selection screen
   - `Encounters.cpp`: map interactions
@@ -92,6 +92,9 @@ File structure:
   - `UIHelpers.cpp`: helps print UI smoothly
   - `Input.cpp`: handles player input
   - `Overworld.cpp`: the overworld map (movement, encounters, etc)
+
+- `data/`: storage files:
+  - `save.json`: game saves
 
 - `include/`: header files:
   - `controllers/`: controller classes:
