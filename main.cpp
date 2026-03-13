@@ -48,10 +48,10 @@ int main() {
     // initialize map and player for a new session
     GameSettings defaultSettings;
     OverworldMap map(defaultSettings.rows, defaultSettings.cols);
-    std::unique_ptr<Creature> playerCreature = nullptr;
+    std::unique_ptr<Creature> playerCreature;
 
     // try loading a saved game
-    bool loaded = loadOldGames(playerCreature, map);
+    bool loaded = playOldGames(playerCreature, map);
 
     // if not loaded, then initialize normally
     if (!loaded) {

@@ -48,8 +48,8 @@ void startGameIntro() {
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
 }
 
-// try loading old games and ask user if they want to load one
-bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
+// asking user if they want to play old games
+bool playOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
     std::vector<std::string> saves = GameStore::listSaves();
     if (saves.empty()) return false;
 
@@ -64,7 +64,8 @@ bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) 
     std::cin.ignore(); // discard newline
 
     if (choice > 0 && choice <= (int)saves.size()) {
-        if (GameStore::loadGame(saves[choice-1], *playerCreature, map)) {
+        bool loaded = GameStore::loadGame(saves[choice-1], playerCreature, map);
+        if (loaded) {
             std::cout << UIHelper::getSuccessStr("\nGame loaded successfully!");
             return true;
         } else {

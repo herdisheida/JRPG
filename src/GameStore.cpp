@@ -58,7 +58,7 @@ bool GameStore::saveGame(const std::string& saveName, const Creature& player, co
 
 
 // load a saved game
-bool GameStore::loadGame(const std::string& saveName, Creature& player, OverworldMap& map) {
+bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>& player, OverworldMap& map) {
     std::string filename = std::string(SAVE_FOLDER) + "/" + saveName + ".txt";
     std::ifstream file(filename);
     if (!file.is_open()) return false;
@@ -79,11 +79,10 @@ bool GameStore::loadGame(const std::string& saveName, Creature& player, Overworl
     tempPlayer->setName(name);
     tempPlayer->health().set(hp, maxHp);
 
-    player = *tempPlayer;
+    player = std::move(tempPlayer);
     map.deserialize(file);
     map.setPlayerPosition(row, col);
 
-    file.close();
     return true;
 }
 
