@@ -63,35 +63,35 @@ std::string UIHelper::center(const std::string& s, size_t width) {
 
 
 // get string input (max 15 chars, only letters and underscores)
-std::string UIHelper::getStringInput(const std::string& prompt, std::string& nameOfInput) {
-    std::cout << prompt << "\n> ";
+std::string UIHelper::getStringInput(const std::string& prompt, std::string nameOfInput) {
+    std::cout << '\n' << prompt << "\n> ";
     std::string input;
 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while (true) {
         std::getline(std::cin, input);
 
         if (input.empty()) {
-            std::cout << UIHelper::getErrorStr( nameOfInput + " cannot be empty.") << " Please enter a valid " << nameOfInput << ": ";
+            std::cout << UIHelper::getErrorStr('\n' + nameOfInput + " cannot be empty.") << " Please enter a valid " << nameOfInput << ". \n> ";
             continue;
         }
         if (input.length() >= 15) {
-            std::cout << UIHelper::getErrorStr(nameOfInput + " too long.") << " Please enter a " << nameOfInput << " with 15 characters or fewer: ";
+            std::cout << UIHelper::getErrorStr('\n' + nameOfInput + " too long.") << " Please enter a " << nameOfInput << " with 15 characters or fewer. \n> ";
             continue;
         }
         if (input.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") != std::string::npos) {
-            std::cout << UIHelper::getErrorStr(nameOfInput + " contains invalid characters.") << " Please use only letters or underscores: ";
+            std::cout << UIHelper::getErrorStr('\n' + nameOfInput + " contains invalid characters.") << " Please use only letters or underscores. \n> ";
             continue;
         }
 
         if (std::cin.fail()) {
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer issuse
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
         }
         break;
     }
-    
     return input;
 }
 

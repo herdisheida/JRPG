@@ -33,12 +33,10 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
         if (std::cin.fail()) {
             std::cin.clear();
-            std::cin.ignore(10000, '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // avoid buffering issues
             std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
         }
-
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear input buffer
 
         switch (choice) {
             case 1: return std::make_unique<Pikachu>();
@@ -55,8 +53,7 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
 // choose and set nickname for player creature
 void customizeCreature(Creature& creature) {
-    std::string nickname;    
-    UIHelper::getStringInput("\nGive " + creature.species() + " a nickname: ", nickname);
+    std::string nickname = UIHelper::getStringInput("Give " + creature.species() + " a nickname: ", "nickname");
 
     // convert nickname to uppercase
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
