@@ -39,6 +39,15 @@ class Health {
         void reset() {
             current_ = max_;
         }
-};
+
+
+        void set(int current, int max) {
+            max_ = max;
+            if (max_ < 1) { max_ = 1; }
+            current_ = current;
+            if (current_ > max_) { current_ = max_; }
+            if (current_ < 0) { current_ = 0; }
+        }
+    };
 
 #endif
