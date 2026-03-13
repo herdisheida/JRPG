@@ -71,7 +71,7 @@ void printCreatureSummary(const Creature& creature) {
     std::cout << "Health: " << creature.health().max() << " HP\n";
 
     // faint status
-    std::cout << (creature.isFainted() ? UIHelper::getColored("\nFainted\n", Color::YELLOW) : "");
+    std::cout << (creature.isFainted() ? UIHelper::getColored("    (Fainted)\n", Color::YELLOW) : "");
 
     // stats
     const Stats& stats = creature.stats();
