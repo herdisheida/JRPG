@@ -16,7 +16,30 @@
 #include "include/game/Input.h"
 
 #include "include/util/GameSettings.h"
+#include "include/game/GameStore.h"
 
+
+
+void quitGame(Creature* playerCreature, const OverworldMap& map) {
+    std::cout << "\n\nDo you want to save your game before quitting? (Y/N): ";
+    
+    char saveChoice;
+    std::cin >> saveChoice;
+    saveChoice = std::toupper(saveChoice);
+
+    if (saveChoice == 'Y') {
+        std::string filename;    
+        UIHelper::getStringInput("Enter filename: ", filename);
+
+        if (GameStore::saveGame(filename, *playerCreature, map)) {
+            std::cout << "\nGame saved successfully as \"" << filename << "\"!\n";
+        } else {
+            std::cout << "\nFailed to save game.\n";
+        }
+    }
+
+    std::cout << "Quitting game...\n";
+}
 
 
 int main() {
@@ -46,7 +69,7 @@ int main() {
         char input = getPlayerMove();
         if (input == '\0') continue;
     
-        if (input == 'q' || input == 'Q') { break; }
+        if (input == 'q' || input == 'Q') { quitGame(playerCreature.get(), map); break; }
         if (input == 'i' || input == 'I') { map.printInstructions(); continue; }
 
         if (!map.movePlayer(input)) { continue; } // if player can move he moves

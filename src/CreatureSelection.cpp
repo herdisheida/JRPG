@@ -58,31 +58,7 @@ void customizeCreature(Creature& creature) {
     std::cout << "\nGive " << creature.species() << " a nickname: ";
 
     std::string nickname;    
-    while (true) {
-        std::getline(std::cin, nickname);
-
-        if (nickname.empty()) {
-            std::cout << UIHelper::getErrorStr( "Nickname cannot be empty.") << " Please enter a valid nickname: ";
-            continue;
-        }
-        if (nickname.length() > 15) {
-            std::cout << UIHelper::getErrorStr("Nickname too long.") << " Please enter a nickname with 15 characters or fewer: ";
-            continue;
-        }
-        if (nickname.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") != std::string::npos) {
-            std::cout << UIHelper::getErrorStr("Nickname contains invalid characters.") << " Please use only letters or underscores: ";
-            continue;
-        }
-
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
-            continue;
-        }
-
-        break;
-    }
+    UIHelper::getStringInput("Enter nickname: ", nickname);
 
     // convert nickname to uppercase
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);

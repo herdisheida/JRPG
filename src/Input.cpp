@@ -46,6 +46,3 @@ void startGameIntro() {
     UIHelper::waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
 }
-
-
-    

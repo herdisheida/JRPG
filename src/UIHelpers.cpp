@@ -42,7 +42,7 @@ void UIHelper::printHealthBar(const Creature& creature, int offset) {
     std::cout << "\n\n";
 }
 
-
+// print string with offset
 void UIHelper::printWithOffset(const std::string& text, int offset) {
     std::istringstream in(text);
     std::string line;
@@ -59,6 +59,44 @@ std::string UIHelper::center(const std::string& s, size_t width) {
     size_t right = width - s.size() - left;
     return std::string(left, ' ') + s + std::string(right, ' ');
 }
+
+
+
+// get string input (max 15 chars, only letters and underscores)
+std::string UIHelper::getStringInput(const std::string& prompt, std::string& nameOfInput) {
+    std::cout << prompt << "\n> ";
+    std::string input;
+
+    while (true) {
+        std::getline(std::cin, input);
+
+        if (input.empty()) {
+            std::cout << UIHelper::getErrorStr( nameOfInput + " cannot be empty.") << " Please enter a valid " << nameOfInput << ": ";
+            continue;
+        }
+        if (input.length() >= 15) {
+            std::cout << UIHelper::getErrorStr(nameOfInput + " too long.") << " Please enter a " << nameOfInput << " with 15 characters or fewer: ";
+            continue;
+        }
+        if (input.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") != std::string::npos) {
+            std::cout << UIHelper::getErrorStr(nameOfInput + " contains invalid characters.") << " Please use only letters or underscores: ";
+            continue;
+        }
+
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
+            continue;
+        }
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // avoid buffering issues
+        break;
+    }
+    
+    return input;
+}
+
+
 
 
 // color helpers
