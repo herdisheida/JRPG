@@ -103,7 +103,11 @@ bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>&
 
     player = std::move(tempPlayer);
     map.deserialize(file);
+
+    std::cout << "DEBUG - Map deserialized.\n";
     enemyField.deserialize(file);
+
+    std::cout << "DEBUG - Enemy field deserialized.\n";
     map.setPlayerPosition(row, col);
 
     return true;

@@ -1,3 +1,0 @@
-LUCIO_save
-GINGER_save
-CAR_save

@@ -79,6 +79,7 @@ bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map, 
     // valid choice
     if (choice > 0 && choice <= (int)saves.size()) {
         bool loaded = GameStore::loadGame(saves[choice-1], playerCreature, map, enemyField);
+        
         if (loaded) {
             std::cout << UIHelper::getSuccessStr("\nGame loaded successfully!");
             return true;
