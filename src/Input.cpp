@@ -63,6 +63,13 @@ bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) 
     std::cin >> choice;
     std::cin.ignore(); // discard newline
 
+    // invalid choice
+    if (choice > (int)saves.size() || choice < 0) {
+        std::cout << UIHelper::getErrorStr("\nInvalid choice - " + std::to_string(choice) + ". ") << "Loading new game..." << "\n\n";
+        return false;
+    }
+
+    // valid choise
     if (choice > 0 && choice <= (int)saves.size()) {
         bool loaded = GameStore::loadGame(saves[choice-1], playerCreature, map);
         if (loaded) {
