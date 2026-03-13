@@ -188,6 +188,9 @@ void OverworldMap::print() const {
 
 // searilze the map to a file
 void OverworldMap::serialize(std::ofstream& file) const {
+    // save dimensions
+    file << rows_ << " " << cols_ << "\n";
+
     // save player position
     file << playerPos_.row << " " << playerPos_.col << "\n";
 
@@ -210,6 +213,9 @@ void OverworldMap::serialize(std::ofstream& file) const {
 
 // deserilaze the map from a file
 void OverworldMap::deserialize(std::ifstream& file) {
+    // load dimensions
+    file >> rows_ >> cols_;
+
     // load player position
     file >> playerPos_.row >> playerPos_.col;
 
@@ -240,4 +246,6 @@ void OverworldMap::deserialize(std::ifstream& file) {
         file >> pos.row >> pos.col;
         mysteryPositions_.insert(pos);
     }
+
+    file.ignore(); // consume newline at end
 }
