@@ -9,7 +9,7 @@ make
 ```
 
 2. Run:
-   _(for better experience -> large terminal window for ascii art and text)_
+   _[for better experience -> use a large terminal and i mean take up the whole screen ;D ]_
 
 ```
 ./run
