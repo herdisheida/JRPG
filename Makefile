@@ -13,8 +13,8 @@ SRC = main.cpp \
 	src/GameSettings.cpp \
 	src/Input.cpp \
 	src/OverworldMap.cpp \
-	src/UIHelpers.cpp
-
+	src/UIHelpers.cpp \
+	src/GameStore.cpp
 
 
 all: $(OUT)
