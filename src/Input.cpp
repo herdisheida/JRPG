@@ -57,7 +57,7 @@ bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) 
     for (size_t i = 0; i < saves.size(); ++i) {
         std::cout << "  " << (i+1) << ". " << saves[i] << "\n";
     }
-    std::cout << "Select a save to load or 0 to start new: ";
+    std::cout << "\nSelect a save to load or 0 to start new: ";
     
     int choice;
     std::cin >> choice;
