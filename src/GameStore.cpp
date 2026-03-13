@@ -1,6 +1,9 @@
+#include <iostream>
 #include <fstream>
-#include <string>
-
+#include <sstream>
+#include <sys/stat.h> // mkdir (mac)
+#include <sys/types.h>
+#include <memory>
 
 #include "../include/creatures/Creature.h"
 #include "../include/creatures/CreatureFactory.h"
@@ -8,61 +11,93 @@
 #include "../include/game/GameStore.h"
 
 
+// folder and index
+constexpr const char* SAVE_FOLDER = "saves";
+constexpr const char* INDEX_FILE = "saves/index.txt";
+
+// helper to make sure folder exists
+static void ensureSaveFolderExists() {
+#ifdef _WIN32
+    _mkdir(SAVE_FOLDER);
+#else
+    mkdir(SAVE_FOLDER, 0777);
+#endif
+}
+
 
 // save the game
-bool GameStore::saveGame(const std::string& filename, const Creature& player, const OverworldMap& map) {
+bool GameStore::saveGame(const std::string& saveName, const Creature& player, const OverworldMap& map) {
+    ensureSaveFolderExists();
+
+    std::string filename = std::string(SAVE_FOLDER) + "/" + saveName + ".txt";
     std::ofstream file(filename);
     if (!file.is_open()) return false;
 
+    // save player
     file << player.species() << "\n";
     file << player.name() << "\n";
     file << player.health().current() << "\n";
+    file << player.health().max() << "\n";
 
-    auto [x, y] = map.getPlayerPos();
-    file << x << " " << y << "\n";
+    auto pos = map.getPlayerPos();
+    file << pos.row << " " << pos.col << "\n";
 
+    // save map
     map.serialize(file);
 
     file.close();
+
+    // update index
+    std::ofstream index(INDEX_FILE, std::ios::app); // append
+    if (!index.is_open()) return false;
+    index << saveName << "\n";
+    index.close();
+
     return true;
 }
 
-// list all saved games
-std::vector<std::string> GameStore::listSaves() {
-    std::vector<std::string> saves;
-    std::ifstream file("saves.txt");
-    if (!file.is_open()) return saves;
-
-    std::string line;
-    while (std::getline(file, line)) {
-        if (!line.empty()) saves.push_back(line);
-    }
-    file.close();
-    return saves;
-}
 
 // load a saved game
-bool GameStore::loadGame(const std::string& filename, Creature& player, OverworldMap& map) {
+bool GameStore::loadGame(const std::string& saveName, Creature& player, OverworldMap& map) {
+    std::string filename = std::string(SAVE_FOLDER) + "/" + saveName + ".txt";
     std::ifstream file(filename);
     if (!file.is_open()) return false;
 
     std::string species, name;
-    int hp, x, y;
+    int hp, maxHp, row, col;
 
     std::getline(file, species);
     std::getline(file, name);
     file >> hp;
-    file >> x >> y;
-    file.ignore(); // ignore newline
+    file >> maxHp;
+    file >> row >> col;
+    file.ignore();
 
-    player = *CreatureFactory::create(species); // assumes you have this factory
-    player.setName(name);
-    player.health().set(hp, player.health().max());
+    auto tempPlayer = CreatureFactory::create(species);
+    if (!tempPlayer) return false;
 
+    tempPlayer->setName(name);
+    tempPlayer->health().set(hp, maxHp);
+
+    player = *tempPlayer;
     map.deserialize(file);
-    map.setPlayerPosition(x, y);
+    map.setPlayerPosition(row, col);
 
     file.close();
     return true;
 }
 
+
+// list all saved games
+std::vector<std::string> GameStore::listSaves() {
+    std::vector<std::string> saves;
+    std::ifstream index(INDEX_FILE);
+    if (!index.is_open()) return saves;
+
+    std::string line;
+    while (std::getline(index, line)) {
+        if (!line.empty()) saves.push_back(line);
+    }
+    index.close();
+    return saves;
+}

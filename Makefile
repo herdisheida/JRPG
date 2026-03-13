@@ -14,7 +14,8 @@ SRC = main.cpp \
 	src/Input.cpp \
 	src/OverworldMap.cpp \
 	src/UIHelpers.cpp \
-	src/GameStore.cpp
+	src/GameStore.cpp \
+	src/CreatureFactory.cpp \
 
 
 all: $(OUT)

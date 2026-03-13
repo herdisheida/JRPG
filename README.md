@@ -94,8 +94,10 @@ File structure:
   - `Overworld.cpp`: the overworld map (movement, encounters, etc)
   - `CreatureFactory.cpp`: create Creature
 
-- `data/`: storage files:
-  - `save.json`: game saves
+- `saves/`: storage files:
+  - `index.txt`: stores all save filenames
+  - `save1.txt`: game save
+  - `save2.txt`: another game save
 
 - `include/`: header files:
   - `controllers/`: controller classes:

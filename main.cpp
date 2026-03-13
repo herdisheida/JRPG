@@ -14,52 +14,80 @@
 #include "include/game/BattleEnd.h"
 #include "include/game/Encounters.h"
 #include "include/game/Input.h"
+#include "include/game/GameStore.h"
 
 #include "include/util/GameSettings.h"
-#include "include/game/GameStore.h"
+#include "include/util/UIHelpers.h"
 
 
 
 void quitGame(Creature* playerCreature, const OverworldMap& map) {
-    std::cout << "\n\nDo you want to save your game before quitting? (Y/N): ";
+    std::cout << "\n\nSave before quitting? (Y/N): ";
     
     char saveChoice;
     std::cin >> saveChoice;
     saveChoice = std::toupper(saveChoice);
 
     if (saveChoice == 'Y') {
-        std::string filename;    
-        UIHelper::getStringInput("Enter filename: ", filename);
+        std::string filename = playerCreature->name() + "_save";
 
         if (GameStore::saveGame(filename, *playerCreature, map)) {
-            std::cout << "\nGame saved successfully as \"" << filename << "\"!\n";
+            std::cout << UIHelper::getSuccessStr("Game saved successfully as <" + filename + "> !") << "\n";
         } else {
-            std::cout << "\nFailed to save game.\n";
+            std::cout << UIHelper::getErrorStr("Failed to save game.") << "\n";
         }
     }
-
     std::cout << "Quitting game...\n";
 }
+
 
 
 int main() {
     startGameIntro(); // prints intro and waits for Enter
 
-    // game setup
-    Difficulty difficulty = chooseDifficulty();
-    GameSettings settings = settingsForDifficulty(difficulty);
-    std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
+    // initialize map and player for a new session
+    GameSettings defaultSettings;
+    OverworldMap map(defaultSettings.rows, defaultSettings.cols);
+    std::unique_ptr<Creature> playerCreature = nullptr;
 
-    auto playerCreature = chooseCreature("Choose your creature:");
-    customizeCreature(*playerCreature);
+    // try loading a saved game
+    bool loaded = loadOldGames(playerCreature, map);
 
-    // initalize game
+    // if not loaded, then initialize normally
+    if (!loaded) {
+        // difficulty
+        Difficulty difficulty = chooseDifficulty();
+        GameSettings settings = settingsForDifficulty(difficulty);
+        std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
+
+        // player creature
+        playerCreature = chooseCreature("Choose your creature:");
+        customizeCreature(*playerCreature);
+
+        // initialize map properly
+        map = OverworldMap(settings.rows, settings.cols);
+        map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
+    }
+
+
+    EnemyField enemyField;
     PlayerController playerController;
     EnemyController enemyController;
-    // initalize overworld
-    OverworldMap map(settings.rows, settings.cols);
-    EnemyField enemyField;
-    map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
+    // -- game setup --
+    // Difficulty difficulty = chooseDifficulty();
+    // GameSettings settings = settingsForDifficulty(difficulty);
+    // std::cout << "\nDifficulty: " << difficultyToString(difficulty) << "\n\n";
+
+    // auto playerCreature = chooseCreature("Choose your creature:");
+    // customizeCreature(*playerCreature);
+
+    // // -- initalize game --
+    // PlayerController playerController;
+    // EnemyController enemyController;
+    // // -- initalize overworld --
+    // OverworldMap map(settings.rows, settings.cols);
+    // EnemyField enemyField;
+    // map.initialize(settings.wildCount, settings.heartCount, settings.mysteryCount);
 
 
     // main game loop - player moves around map and encounters wild creatures

@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "../overworld/OverworldMap.h"
+#include "../creatures/Creature.h"
+
+
 // get user input for move (has to be a single char in a line)
 char getPlayerMove();
 
@@ -11,7 +15,7 @@ char getPlayerMove();
 std::vector<std::string> introString();
 void startGameIntro();
 
-// user press enter to continue
-void waitForEnter(const std::string& prompt = "");
+// try loading old games
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map);
 
 #endif

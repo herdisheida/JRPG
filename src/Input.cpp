@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../include/game/Input.h"
 #include "../include/util/UIHelpers.h"
+#include "../include/game/GameStore.h"
 
 
 char getPlayerMove() {
@@ -45,4 +46,31 @@ void startGameIntro() {
 
     UIHelper::waitForEnter();
     std::cout << "\n\n\n\n\n\n\n"; // spacing after intro
+}
+
+// try loading old games and ask user if they want to load one
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
+    std::vector<std::string> saves = GameStore::listSaves();
+    if (saves.empty()) return false;
+
+    std::cout << "Saved games found:\n";
+    for (size_t i = 0; i < saves.size(); ++i) {
+        std::cout << "  " << (i+1) << ". " << saves[i] << "\n";
+    }
+    std::cout << "Select a save to load or 0 to start new: ";
+    
+    int choice;
+    std::cin >> choice;
+    std::cin.ignore(); // discard newline
+
+    if (choice > 0 && choice <= (int)saves.size()) {
+        if (GameStore::loadGame(saves[choice-1], *playerCreature, map)) {
+            std::cout << UIHelper::getSuccessStr("\nGame loaded successfully!");
+            return true;
+        } else {
+            std::cout << UIHelper::getErrorStr("\nFailed to load save.");
+        }
+    }
+    std::cout << "\n\n";
+    return false;
 }
