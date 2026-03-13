@@ -25,7 +25,9 @@ public:
             {                                                // power, accuracy, crit chance
                 Action("Healing Beam",   ActionKind::Heal,    35, HIGH_ACCURACY,      0         , DamageType::Magical),
                 Action("Slack Off",      ActionKind::Heal,    60, MEDIUM_ACCURACY,    0         , DamageType::Physical),
-                Action("Water Pulse",    ActionKind::Attack,   8, HIGH_ACCURACY,     10         , DamageType::Water)
+                Action("Water Pulse",    ActionKind::Attack,   8, HIGH_ACCURACY,     10         , DamageType::Water),
+                Action("Soothing Mist",  ActionKind::Status,   0, HIGH_ACCURACY,      0         , DamageType::Water, StatusEffect::Paralyze, 2)
+                
             },
             {
                 // weak to burst damage types
@@ -67,6 +69,7 @@ public:
                 Action("Thunderbolt",   ActionKind::Attack,  16, HIGH_ACCURACY,   15         , DamageType::Magical),
                 Action("Quick Attack",  ActionKind::Attack,  12, HIGH_ACCURACY,   10         , DamageType::Physical),
                 Action("Iron Tail",     ActionKind::Attack,  14, MEDIUM_ACCURACY, 12         , DamageType::Physical),
+                Action("Charge",        ActionKind::Heal,    20, HIGH_ACCURACY,    0         , DamageType::Magical),
             },
             {
                 // zero extreme weaknesses
@@ -105,6 +108,7 @@ public:
                 Action("Fire Fang",     ActionKind::Attack, 18, MEDIUM_ACCURACY, 10         , DamageType::Fire),
                 Action("Slash",         ActionKind::Attack, 14, HIGH_ACCURACY,   10         , DamageType::Physical),
                 Action("Fire Blitz",    ActionKind::Attack, 35, LOW_ACCURACY,    20         , DamageType::Fire),
+                Action("Roost",         ActionKind::Heal,   40, MEDIUM_ACCURACY, 0          , DamageType::Fire),
             },
             {
                 // exremeely resistant to physical, very weak to magic
@@ -143,7 +147,8 @@ public:
             {
                 Action("Swords Dance",  ActionKind::Attack, 15, LOW_ACCURACY,     5       , DamageType::Physical),
                 Action("Ice Punch",     ActionKind::Attack, 20, MEDIUM_ACCURACY,  15      , DamageType::Physical),
-                Action("Shadow Claw",   ActionKind::Attack, 22, HIGH_ACCURACY,    20      , DamageType::Physical)
+                Action("Shadow Claw",   ActionKind::Attack, 22, HIGH_ACCURACY,    20      , DamageType::Physical),
+                Action("Aura Strike",   ActionKind::Attack, 32, LOW_ACCURACY,     25      , DamageType::Physical)
             },
             {
                 // massive damage from everything
