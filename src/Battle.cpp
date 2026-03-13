@@ -110,7 +110,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
             int fleeChance = isPlayer ? 60 : 20;
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
-                msg = actor.name() + " successfully fled from battle!";
+                msg =  UIHelper::getSuccessStr(actor.name() + " successfully fled from battle!");
             } else {
                 msg = actor.name() + " tried to flee, " + UIHelper::getColored("but couldn't escape! ", Color::YELLOW);
             }
@@ -230,11 +230,13 @@ void Battle::run() {
     if (playerCreature_.isFainted()) {
         // Enemy wins
         std::string faintMsg = "\n" + playerCreature_.name() + " has fainted! ";
-        std::cout << std::string(MSG_OFFSET, ' ') << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "Find a heart to recover!\n";
+        faintMsg = std::string(MSG_OFFSET, ' ') + UIHelper::getColored(faintMsg, Color::BRIGHT_RED) + "Find a heart to recover!\n";
+        UIHelper::printWithOffset(faintMsg, MSG_OFFSET);
     }
     if (enemyCreature_.isFainted()) {
         // Player wins
         std::string faintMsg = "\n" + enemyCreature_.name() + " has fainted! ";
-        std::cout << std::string(MSG_OFFSET, ' ') << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "\n";
+        faintMsg = std::string(MSG_OFFSET, ' ') + UIHelper::getColored(faintMsg, Color::BRIGHT_RED) + "\n";
+        UIHelper::printWithOffset(faintMsg, MSG_OFFSET);
     }
 }
