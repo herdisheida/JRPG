@@ -55,10 +55,8 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
 
 // choose and set nickname for player creature
 void customizeCreature(Creature& creature) {
-    std::cout << "\nGive " << creature.species() << " a nickname: ";
-
     std::string nickname;    
-    UIHelper::getStringInput("Enter nickname: ", nickname);
+    UIHelper::getStringInput("\nGive " + creature.species() + " a nickname: ", nickname);
 
     // convert nickname to uppercase
     std::transform(nickname.begin(), nickname.end(), nickname.begin(), ::toupper);
