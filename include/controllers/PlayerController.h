@@ -12,73 +12,74 @@
 
 #include "../util/Colors.h"
 
+constexpr int ACTION_BOX_OFFSET = 20;
+constexpr size_t ACTION_BOX_WIDTH = 26;
 
 
 class PlayerController : public Controller {
     private:
-        std::string buildActionsTable(const std::vector<Action>& actions) const {
-            constexpr int numWidth = 4;      // width for numbering
-            constexpr int nameWidth = 20;    // width for action name
-            constexpr int effectWidth = 25;  // width for power/heal/status
-            constexpr int accWidth = 10;     // width for accuracy column
+        std::string buildActionsGrid(const std::vector<Action>& actions) {
+            if (actions.size() != 4) return "";
+
+            auto box1 = buildActionBox(actions[0], 1);
+            auto box2 = buildActionBox(actions[1], 2);
+            auto box3 = buildActionBox(actions[2], 3);
+            auto box4 = buildActionBox(actions[3], 4);
 
             std::ostringstream out;
 
-            // header
-            out << std::left
-                    << std::setw(numWidth) << "No."
-                    << std::setw(nameWidth) << "Name"
-                    << std::setw(effectWidth) << "Effect"
-                    << std::setw(accWidth) << "Accuracy"
-                    << "\n";
+            // first row
+            for (size_t i = 0; i < box1.size(); ++i)
+                out << box1[i] << "   " << box2[i] << "\n";
 
-            // separator
-            out << std::string(numWidth + nameWidth + effectWidth + accWidth, '-') << "\n";
+            out << "\n";
 
-            // actions
-            for (size_t i = 0; i < actions.size(); ++i) {
-                const auto& a = actions[i];
-                std::string effect;
-
-                if (a.kind == ActionKind::Attack) {
-                    effect = "Power " + std::to_string(a.power);
-                } else if (a.kind == ActionKind::Heal) {
-                    effect = "Heal " + std::to_string(a.power);
-                } else if (a.kind == ActionKind::Status) {
-                    effect = statusToString(a.statusEffect) + " " + std::to_string(a.statusDuration) + " turn";
-                }
-
-                out << std::left
-                        << std::setw(numWidth)     << (i + 1)
-                        << std::setw(nameWidth)    << a.name
-                        << std::setw(effectWidth)  << effect
-                        << std::setw(accWidth)     << (std::to_string(a.accuracy) + "%")
-                        << "\n";
-            }
-
-            // add Flee as last option
-            out << std::left
-                    << std::setw(numWidth) << (actions.size() + 1)
-                    << std::setw(nameWidth) << "Flee"
-                    << "\n";
+            // second row
+            for (size_t i = 0; i < box3.size(); ++i)
+                out << box3[i] << "   " << box4[i] << "\n";
 
             return out.str();
         }
 
-        void printActionOptions(const Creature& self) const {
-            constexpr int MSG_OFFSET = 0; // where action messages appear (between player and enemy)
-            const auto& actions = self.actions();
-            std::cout << "\n" << std::string(MSG_OFFSET, ' ') << "Choose an action:\n\n";
-            std::string actionsTable = buildActionsTable(actions);
-            UIHelper::printWithOffset(actionsTable, MSG_OFFSET);
+        std::vector<std::string> buildActionBox(const Action& a, int number, size_t width = ACTION_BOX_WIDTH) {
+            std::vector<std::string> lines;
+
+            std::string effect;
+
+            if      (a.kind == ActionKind::Attack)   effect = "Power: " + std::to_string(a.power);
+            else if (a.kind == ActionKind::Heal)     effect = "Heal: " + std::to_string(a.power);
+            else if (a.kind == ActionKind::Status)   effect = statusToString(a.statusEffect) + " " + std::to_string(a.statusDuration) + "t";
+            
+            std::string acc = "Acc: " + std::to_string(a.accuracy) + "%";
+
+            // helper to pad str to fit in ActionBox
+
+            lines.push_back("+"  + std::string(width - 2, '-')                                                    + "+");
+            lines.push_back("|"  + UIHelper::center(std::to_string(number) + ". " + a.name, width - 2)    + "|"); 
+            lines.push_back("|"  + UIHelper::center(effect, width - 2)                                        + "|");
+            lines.push_back("|"  + UIHelper::center(acc, width - 2)                                           + "|");
+            lines.push_back("+"  + std::string(width - 2, '-')                                                    + "+");
+
+            return lines;
         }
+
+        // helper to pad str to fit in ActionBox
+        std::string pad(const std::string& s, size_t width = ACTION_BOX_WIDTH) {
+            if (s.size() >= width)
+                return s.substr(0, width);
+            return s + std::string(width - s.size(), ' ');
+        }
+
 
     public:
         int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
-            printActionOptions(self);
-
+            // print action grid
+            std::cout << "\n" << std::string(ACTION_BOX_OFFSET, ' ') << "Choose an action:\n\n";
+            std::string grid = buildActionsGrid(self.actions());
+            UIHelper::printWithOffset(grid, ACTION_BOX_OFFSET);
+            
             int choice;
             while (true) {
                 std::cout << "> ";

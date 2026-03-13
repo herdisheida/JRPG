@@ -52,12 +52,16 @@ void UIHelper::printWithOffset(const std::string& text, int offset) {
     }
 }
 
-std::string UIHelper::getSpacer(int length) {
-    return std::string(length, '=');
+// center text in a field of given width
+std::string UIHelper::center(const std::string& s, size_t width) {
+    if (s.size() >= width) return s.substr(0, width);
+    size_t left = (width - s.size()) / 2;
+    size_t right = width - s.size() - left;
+    return std::string(left, ' ') + s + std::string(right, ' ');
 }
 
 
-
+// color helpers
 std::string UIHelper::getColored(const std::string& text, Color::Code color, int offset) {
     return std::string(offset, ' ') + Color::colorize(text, color);
 }

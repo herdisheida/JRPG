@@ -22,9 +22,8 @@ void printHealthBar(const Creature& creature, int offset);
 // print string with offset
 void printWithOffset(const std::string& text, int offset);
 
-// void print spacer '=' for prettyfactor
-std::string getSpacer(int length);
-
+// center text in a field of given width
+std::string center(const std::string& s, size_t width);
 
 // New colored versions
 std::string getColored(const std::string& text, Color::Code color, int offset = 0);
