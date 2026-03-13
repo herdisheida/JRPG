@@ -5,6 +5,7 @@
 
 #include "../include/game/CreatureSelection.h"
 #include "../include/creatures/CreatureType.h"
+#include "../include/creatures/CreatureFactory.h"
 
 
 
@@ -39,11 +40,11 @@ std::unique_ptr<Creature> chooseCreature(const std::string& prompt) {
         }
 
         switch (choice) {
-            case 1: return std::make_unique<Pikachu>();
-            case 2: return std::make_unique<Piplup>();
-            case 3: return std::make_unique<Charizard>();
-            case 4: return std::make_unique<Lucario>();
-            case 5: return std::make_unique<Gengar>();
+            case 1: return CreatureFactory::create("Pikachu");
+            case 2: return CreatureFactory::create("Piplup");
+            case 3: return CreatureFactory::create("Charizard");
+            case 4: return CreatureFactory::create("Lucario");
+            case 5: return CreatureFactory::create("Gengar");
             default:
                 std::cout << UIHelper::getErrorStr("Invalid choice.\n\n");
         }
