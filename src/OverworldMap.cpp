@@ -1,5 +1,7 @@
 #include <string>
 #include <iostream>
+#include <fstream>
+
 
 #include "../include/overworld/OverworldMap.h"
 #include "../include/util/UIHelpers.h"
@@ -35,7 +37,6 @@ void OverworldMap::initialize(int wildCount, int heartCount, int mysteryCount) {
             wildPositions_.insert(p);
         }
     }
-
     // place hearts
     while (static_cast<int>(heartPositions_.size()) < heartCount) {
         Position p{rowDist(rng_), colDist(rng_)};
@@ -44,7 +45,6 @@ void OverworldMap::initialize(int wildCount, int heartCount, int mysteryCount) {
             heartPositions_.insert(p);
         }
     }
-
     // place mysteries
     while (static_cast<int>(mysteryPositions_.size()) < mysteryCount) {
         Position p{rowDist(rng_), colDist(rng_)};
@@ -56,6 +56,8 @@ void OverworldMap::initialize(int wildCount, int heartCount, int mysteryCount) {
     }
 }
 
+
+// -- helpers --
 bool OverworldMap::isInside(int row, int col) const {
     return row >= 0 && row < rows_ && col >= 0 && col < cols_;
 }
@@ -102,6 +104,9 @@ void OverworldMap::movePlayerBack(char input) {
 
 
 
+
+// -- encounters --
+
 // wild enemy encounter funcs
 bool OverworldMap::hasEncounter() const {
     return wildPositions_.count(playerPos_) > 0;
@@ -137,6 +142,9 @@ bool OverworldMap::hasHeartsLeft() const {
     return !heartPositions_.empty();
 }
 
+
+// -- printing --
+
 void OverworldMap::printInstructions() const {
     std::cout << "\n\n============ Instructions ============\n";
     std::cout << "(Q) to quit\n";
@@ -170,5 +178,66 @@ void OverworldMap::print() const {
             }
         }
         std::cout << '\n';
+    }
+}
+
+
+
+
+// -- saving and loading game --
+
+// searilze the map to a file
+void OverworldMap::serialize(std::ofstream& file) const {
+    // save player position
+    file << playerPos_.row << " " << playerPos_.col << "\n";
+
+    // save wild positions
+    file << wildPositions_.size() << "\n";
+    for (auto& pos : wildPositions_) {
+        file << pos.row << " " << pos.col << "\n";
+    }
+    // save heart positions
+    file << heartPositions_.size() << "\n";
+    for (auto& pos : heartPositions_) {
+        file << pos.row << " " << pos.col << "\n";
+    }
+    // save mystery positions
+    file << mysteryPositions_.size() << "\n";
+    for (auto& pos : mysteryPositions_) {
+        file << pos.row << " " << pos.col << "\n";
+    }
+}
+
+// deserilaze the map from a file
+void OverworldMap::deserialize(std::ifstream& file) {
+    // load player position
+    file >> playerPos_.row >> playerPos_.col;
+
+    // load wild positions
+    size_t wildCount;
+    file >> wildCount;
+    wildPositions_.clear();
+    for (size_t i = 0; i < wildCount; ++i) {
+        Position pos;
+        file >> pos.row >> pos.col;
+        wildPositions_.insert(pos);
+    }
+    // load heart positions
+    size_t heartCount;
+    file >> heartCount;
+    heartPositions_.clear();
+    for (size_t i = 0; i < heartCount; ++i) {
+        Position pos;
+        file >> pos.row >> pos.col;
+        heartPositions_.insert(pos);
+    }
+    // load mystery positions
+    size_t mysteryCount;
+    file >> mysteryCount;
+    mysteryPositions_.clear();
+    for (size_t i = 0; i < mysteryCount; ++i) {
+        Position pos;
+        file >> pos.row >> pos.col;
+        mysteryPositions_.insert(pos);
     }
 }
