@@ -3,12 +3,14 @@
 #include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"
 #include "../include/util/Random.h"
+#include "../include/util/UIHelpers.h"
 
 
 const int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
 const int PLAYER_OFFSET = 10; // where player info appears (bottom left)
 const int PLAYER_HP_OFFSET = 3; // where player hp appears (bottom left)
-const int MSG_OFFSET = 0; // where action messages appear (between player and enemy)
+
+const int MSG_OFFSET = 20; // where action messages appear (between player and enemy) -- same as action box offset
 
 
 
@@ -40,11 +42,11 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
     // print previous action (enemy and player moves) message
     if (playerFirst) {
-        if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
-        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n\n";
+        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << UIHelper::center(p_msg, MSG_OFFSET);
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << UIHelper::center(e_msg, MSG_OFFSET) << "\n\n";
     } else {
-        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg;
-        if (!p_msg.empty() && !player.isFainted()) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg  << "\n\n";
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << UIHelper::center(e_msg, MSG_OFFSET);
+        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << UIHelper::center(p_msg, MSG_OFFSET)  << "\n\n";
     }
 }
 
