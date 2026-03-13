@@ -71,6 +71,7 @@ int main() {
     }
 
     // display user's creature
+    if (!playerCreature) { std::cerr << UIHelper::getErrorStr("Failed to initialize player creature.") << "\n"; return 1; }
     printCreatureSummary(*playerCreature);
 
     // init controllers
