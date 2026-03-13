@@ -6,11 +6,11 @@
 #include "../include/util/UIHelpers.h"
 
 
-const int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
-const int PLAYER_OFFSET = 10; // where player info appears (bottom left)
-const int PLAYER_HP_OFFSET = 3; // where player hp appears (bottom left)
+constexpr int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
+constexpr int PLAYER_OFFSET = 10; // where player info appears (bottom left)
+constexpr int PLAYER_HP_OFFSET = 3; // where player hp appears (bottom left)
 
-const int MSG_OFFSET = 20; // where action messages appear (between player and enemy) -- same as action box offset
+constexpr int MSG_OFFSET = 20; // where action messages appear (between player and enemy) -- same as action box offset
 
 
 
@@ -42,11 +42,11 @@ void Battle::printBattleScreen(const Creature& player, const Creature& enemy, co
 
     // print previous action (enemy and player moves) message
     if (playerFirst) {
-        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << UIHelper::center(p_msg, MSG_OFFSET);
-        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << UIHelper::center(e_msg, MSG_OFFSET) << "\n\n";
+        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg;
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg << "\n\n";
     } else {
-        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << UIHelper::center(e_msg, MSG_OFFSET);
-        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << UIHelper::center(p_msg, MSG_OFFSET)  << "\n\n";
+        if (!e_msg.empty() && !enemy.isFainted() && !fled_) std::cout << "\n" << std::string(MSG_OFFSET, ' ') << e_msg;
+        if (!p_msg.empty() && !player.isFainted())          std::cout << "\n" << std::string(MSG_OFFSET, ' ') << p_msg  << "\n\n";
     }
 }
 
@@ -230,11 +230,11 @@ void Battle::run() {
     if (playerCreature_.isFainted()) {
         // Enemy wins
         std::string faintMsg = "\n" + playerCreature_.name() + " has fainted! ";
-        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "Find a heart to recover!\n";
+        std::cout << std::string(MSG_OFFSET, ' ') << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "Find a heart to recover!\n";
     }
     if (enemyCreature_.isFainted()) {
         // Player wins
         std::string faintMsg = "\n" + enemyCreature_.name() + " has fainted! ";
-        std::cout << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "\n";
+        std::cout << std::string(MSG_OFFSET, ' ') << UIHelper::getColored(faintMsg, Color::BRIGHT_RED) << "\n";
     }
 }
