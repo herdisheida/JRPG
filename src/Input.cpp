@@ -49,7 +49,7 @@ void startGameIntro() {
 }
 
 // asking user if they want to play old games
-bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) {
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map, EnemyField& enemyField) {
     std::vector<std::string> saves = GameStore::listSaves();
     if (saves.empty()) return false;
 
@@ -78,7 +78,7 @@ bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map) 
 
     // valid choice
     if (choice > 0 && choice <= (int)saves.size()) {
-        bool loaded = GameStore::loadGame(saves[choice-1], playerCreature, map);
+        bool loaded = GameStore::loadGame(saves[choice-1], playerCreature, map, enemyField);
         if (loaded) {
             std::cout << UIHelper::getSuccessStr("\nGame loaded successfully!");
             return true;

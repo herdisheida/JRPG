@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../overworld/OverworldMap.h"
+#include "../overworld/EnemyField.h"
 #include "../creatures/Creature.h"
 
 
@@ -16,6 +17,6 @@ std::vector<std::string> introString();
 void startGameIntro();
 
 // try loading old games
-bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map);
+bool loadOldGames(std::unique_ptr<Creature>& playerCreature, OverworldMap& map, EnemyField& enemyField);
 
 #endif

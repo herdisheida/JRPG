@@ -21,7 +21,7 @@
 
 
 
-void quitGame(Creature* playerCreature, const OverworldMap& map) {
+void quitGame(Creature* playerCreature, const OverworldMap& map, EnemyField& enemyField) {
     std::cout << "\n\nSave before quitting? (Y/N): ";
     
     char saveChoice;
@@ -31,7 +31,7 @@ void quitGame(Creature* playerCreature, const OverworldMap& map) {
     if (saveChoice == 'Y') {
         std::string filename = playerCreature->name() + "_save";
 
-        if (GameStore::saveGame(filename, *playerCreature, map)) {
+        if (GameStore::saveGame(filename, *playerCreature, map, enemyField)) {
             std::cout << UIHelper::getSuccessStr("Game saved successfully as <" + filename + "> !") << "\n";
         } else {
             std::cout << UIHelper::getErrorStr("Failed to save game.") << "\n";
@@ -48,10 +48,11 @@ int main() {
     // initialize map and player for a new session
     GameSettings defaultSettings;
     OverworldMap map(defaultSettings.rows, defaultSettings.cols);
+    EnemyField enemyField;
     std::unique_ptr<Creature> playerCreature;
 
     // try to load old game, if user wants to
-    bool loaded = loadOldGames(playerCreature, map);
+    bool loaded = loadOldGames(playerCreature, map, enemyField);
 
     // if not loaded, then initialize normally
     if (!loaded) {
@@ -72,8 +73,7 @@ int main() {
     // display user's creature
     printCreatureSummary(*playerCreature);
 
-    // init controllers and fields
-    EnemyField enemyField;
+    // init controllers
     PlayerController playerController;
     EnemyController enemyController;
 
@@ -84,7 +84,7 @@ int main() {
         char input = getPlayerMove();
         if (input == '\0') continue;
     
-        if (input == 'q' || input == 'Q') { quitGame(playerCreature.get(), map); break; }
+        if (input == 'q' || input == 'Q') { quitGame(playerCreature.get(), map, enemyField); break; }
         if (input == 'i' || input == 'I') { map.printInstructions(); continue; }
 
         if (!map.movePlayer(input)) { continue; } // if player can move he moves
