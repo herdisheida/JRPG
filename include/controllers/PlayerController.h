@@ -49,6 +49,7 @@ class PlayerController : public Controller {
             if      (a.kind == ActionKind::Attack)   effect = "Power: " + std::to_string(a.power);
             else if (a.kind == ActionKind::Heal)     effect = "Heal: " + std::to_string(a.power);
             else if (a.kind == ActionKind::Status)   effect = statusToString(a.statusEffect) + " " + std::to_string(a.statusDuration) + "t";
+            else if (a.kind == ActionKind::Flee)     effect = "Flee";
             
             std::string acc = "Acc: " + std::to_string(a.accuracy) + "%";
 
@@ -70,16 +71,24 @@ class PlayerController : public Controller {
             return s + std::string(width - s.size(), ' ');
         }
 
+        // prints flee option below action grid
+        std::string buildFleeOption() {
+            std::string option = std::to_string(5) + ". Flee";
+            return option;
+        }
+
 
     public:
         int chooseAction(const Creature& self, const Creature& opponent) override {
             (void)opponent;
 
-            // print action grid
+            // print action options
             std::cout << "\n" << std::string(ACTION_BOX_OFFSET, ' ') << "Choose an action:\n\n";
             std::string grid = buildActionsGrid(self.actions());
             UIHelper::printWithOffset(grid, ACTION_BOX_OFFSET);
-            
+            std::cout << "\n" << std::string(ACTION_BOX_OFFSET, ' ') << buildFleeOption() << "\n";
+
+            // get player input
             int choice;
             while (true) {
                 std::cout << "> ";
