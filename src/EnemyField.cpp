@@ -1,4 +1,5 @@
 #include "../include/overworld/EnemyField.h"
+#include "../include/overworld/OverworldMap.h"
 #include "../include/util/Random.h"
 #include "../include/creatures/CreatureFactory.h"
 

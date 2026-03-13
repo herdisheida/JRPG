@@ -7,8 +7,8 @@
 #include <utility> // std::pair
 
 #include "../creatures/Creature.h"
-#include "OverworldMap.h"
 
+struct Position;
 
 // keep track of enemies currently on the map
 class EnemyField {

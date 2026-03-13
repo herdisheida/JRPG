@@ -25,7 +25,7 @@ static void ensureSaveFolderExists() {
 
 
 // save the game
-bool GameStore::saveGame(const std::string& saveName, const Creature& player, const OverworldMap& map) {
+bool GameStore::saveGame(const std::string& saveName, const Creature& player, const OverworldMap& map, const EnemyField& enemyField) {
     ensureSaveFolderExists();
 
     std::string filename = std::string(SAVE_FOLDER) + "/" + saveName + ".txt";
@@ -43,6 +43,7 @@ bool GameStore::saveGame(const std::string& saveName, const Creature& player, co
 
     // save map
     map.serialize(file);
+    enemyField.serialize(file);
 
     file.close();
 
@@ -79,7 +80,7 @@ void GameStore::updateSaveIndex(const std::string& saveName) {
 }
 
 // load a saved game
-bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>& player, OverworldMap& map) {
+bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>& player, OverworldMap& map, EnemyField& enemyField) {
     std::string filename = std::string(SAVE_FOLDER) + "/" + saveName + ".txt";
     std::ifstream file(filename);
     if (!file.is_open()) return false;
@@ -102,6 +103,7 @@ bool GameStore::loadGame(const std::string& saveName, std::unique_ptr<Creature>&
 
     player = std::move(tempPlayer);
     map.deserialize(file);
+    enemyField.deserialize(file);
     map.setPlayerPosition(row, col);
 
     return true;
