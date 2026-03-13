@@ -1,6 +1,6 @@
 #include "../include/overworld/EnemyField.h"
 #include "../include/util/Random.h"
-#include "../include/creatures/CreatureType.h"
+#include "../include/creatures/CreatureFactory.h"
 
 
 
@@ -32,18 +32,18 @@ Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos) {
 
     // create new random enemy
     int roll = Random::range(0, 4); // 5 possible creatures
-    std::unique_ptr<Creature> newEnemy;
+    std::string species;
 
     switch (roll) {
-        case 0: newEnemy  = std::make_unique<Pikachu>(); break;
-        case 1: newEnemy  = std::make_unique<Piplup>(); break;
-        case 2: newEnemy  = std::make_unique<Charizard>(); break;
-        case 3: newEnemy  = std::make_unique<Lucario>(); break;
-        default: newEnemy = std::make_unique<Gengar>(); break;
+        case 0: species = "Pikachu"; break;
+        case 1: species = "Piplup"; break;
+        case 2: species = "Charizard"; break;
+        case 3: species = "Lucario"; break;
+        default: species = "Gengar"; break;
     }
 
+    std::unique_ptr<Creature> newEnemy = CreatureFactory::create(species);
     enemy = newEnemy.get();
     field.addEnemyAt(pos, std::move(newEnemy));
     return enemy;
 }
-
