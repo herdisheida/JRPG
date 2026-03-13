@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/game/GameEnd.h"
+#include "../include/game/BattleEnd.h"
 #include "../include/util/UIHelpers.h"
 
 constexpr int gameEndOffset = 5;
@@ -39,7 +39,7 @@ void printLoseMsg() {
     UIHelper::printWithOffset("Better luck next time!", gameEndOffset);
 }
 
-bool handleGameEnd(const OverworldMap& map, const Creature& playerCreature) {
+bool handleBattleEnd(const OverworldMap& map, const Creature& playerCreature) {
 
     // win condition
     if (!map.hasWildsLeft()) {

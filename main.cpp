@@ -11,7 +11,7 @@
 #include "include/overworld/OverworldMap.h"
 
 #include "include/game/CreatureSelection.h"
-#include "include/game/GameEnd.h"
+#include "include/game/BattleEnd.h"
 #include "include/game/Encounters.h"
 #include "include/game/Input.h"
 
@@ -75,7 +75,7 @@ int main() {
         if (!map.movePlayer(input)) { continue; } // if player can move he moves
         
         handleEncounters(map, enemyField, playerCreature.get(), playerController, enemyController, input);
-        if (handleGameEnd(map, *playerCreature)) { break; }
+        if (handleBattleEnd(map, *playerCreature)) { break; }
 
     }
 }
