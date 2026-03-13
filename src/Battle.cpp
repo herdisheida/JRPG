@@ -107,7 +107,7 @@ std::string Battle::executeAction(Creature& actor, Creature& target, const Actio
         }
 
         case ActionKind::Flee: {
-            int fleeChance = isPlayer ? 60 : 20;
+            int fleeChance = isPlayer ? 60 : 10;
             if (Random::rollPercent(fleeChance)) {
                 fled_ = true;
                 msg =  UIHelper::getSuccessStr(actor.name() + " successfully fled from battle!");
