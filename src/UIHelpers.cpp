@@ -85,12 +85,9 @@ std::string UIHelper::getStringInput(const std::string& prompt, std::string& nam
 
         if (std::cin.fail()) {
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer issuse
             std::cout << UIHelper::getErrorStr("Invalid input.\n\n");
             continue;
-        } else {
-            // clear leftover newline before returning
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         break;
     }
