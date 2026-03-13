@@ -29,6 +29,10 @@ class EnemyField {
         // list all enemies on the field
         void listEnemies() const;
 
+        // save and load enemyField to file
+        void serialize(std::ofstream& file) const;
+        void deserialize(std::ifstream& file);
+
 };
 
 // get or create wild enemies (persisteent)

@@ -26,6 +26,34 @@ void EnemyField::removeFainted() {
 }
 
 
+void EnemyField::serialize(std::ofstream& file) const {
+    file << enemies_.size() << "\n";
+    for (const auto& [pos, enemy] : enemies_) {
+        file << pos.row << " " << pos.col << " " << enemy->species() << " " << enemy->health().current() << " " << enemy->health().max() << "\n";
+    }
+}
+
+void EnemyField::deserialize(std::ifstream& file) {
+    size_t count;
+    file >> count;
+
+    enemies_.clear();
+
+    for (size_t i = 0; i < count; ++i) {
+        Position pos;
+        std::string species;
+        int hp, maxHp;
+
+        file >> pos.row >> pos.col >> species >> hp >> maxHp;
+
+        auto enemy = CreatureFactory::create(species);
+        enemy->health().set(hp, maxHp);
+
+        enemies_[pos] = std::move(enemy);
+    }
+}
+
+
 Creature* getOrCreateRandomWildCreatureAt(EnemyField& field, Position pos) {
     Creature* enemy = field.getEnemyAt(pos);
     if (enemy) return enemy; // enemy already exists here
