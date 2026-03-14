@@ -16,9 +16,9 @@ constexpr const char* INDEX_FILE = "saves/index.txt";
 
 // helper to make sure folder exists
 static void ensureSaveFolderExists() {
-#ifdef _WIN32
+#ifdef _WIN32 // compiled w/ windows
     _mkdir(SAVE_FOLDER);
-#else
+#else // compiled w/ mac
     mkdir(SAVE_FOLDER, 0777);
 #endif
 }
