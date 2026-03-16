@@ -1,4 +1,5 @@
 # JRPG
+
 ---
 ## How to compile and run
 
@@ -21,6 +22,7 @@ make
 make clean
 ```
 
+---
 ## User guide for Players
 
 ### Introduction
@@ -127,7 +129,8 @@ During battle:
 When a player quits in the middle of the game, they have the option to save their current progress.
 The next time the game is started, the player is prompted to either load a previously saved game or start a new session.
 
-## For Programmers (Code Structure)
+---
+## Guide for Programmers (Code Structure)
 
 The program uses **inheritance** to create different types of creatures and controllers.
 
