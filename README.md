@@ -1,5 +1,5 @@
 # JRPG
-
+---
 ## How to compile and run
 
 1. Compile:
