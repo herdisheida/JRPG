@@ -8,6 +8,7 @@
 #include "../include/controllers/Controller.h"
 #include "../include/util/Random.h"
 #include "../include/util/UIHelpers.h"
+#include "../include/battle/Action.h"
 
 
 constexpr int ENEMY_OFFSET = 80; // where enemy info appears  (top right)
