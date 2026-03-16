@@ -1,5 +1,5 @@
 # JRPG
-
+---
 ## How to compile and run
 
 1. Compile:
@@ -40,6 +40,54 @@ You can choose which creature to battle with.
 | **Charizard** | Tank         | Physical attacks barely scratch it but magic destroys it |
 | **Lucario**   | Glass Cannon | Hits like a truck, dies like a fly                       |
 | **Gengar**    | Wizard       | Magic Damage and status effects                          |
+
+
+#### Action Types
+
+Creatures can perform different types of actions during battle:
+
+- **Attack**: deals damage to the opponent
+- **Special**: a attack with a special effect, such as inflicting a status condition (e.g. burn, freeze, paralysis)
+- **Heal**: restores the user's health
+- **Defend**: reduces the damage of the next incoming attack
+- **Flee**: attempts to escape the battle
+
+#### Creature Stats
+
+Each creature has the following stats:
+
+- **Health**: how much damage they can take before fainting (hp = 0)
+- **Attack**: increases damage dealt (critical hit chance)
+- **Defense**: reduces incoming damage
+- **Speed**: decides who moves first in a turn
+- **Action**: list of moves the creature can use (attack, heal, etc)
+- **Resistances**: how much damage it takes from certain Damage Types (effective, normal, resistant)
+
+#### Damage Types
+
+Attack (actions) can have different damage types, for example:
+
+- Fire
+- Water
+- Physical
+- Magical
+
+Creatures can have resistances to these types or be weak to them, which affects the damage they take.
+
+#### Damage Calculation
+
+Damage depends on several things:
+
+1.  Attacker's **Attack stats**
+2.  **Action Power scale**
+3.  Defender's **Defense stats**
+4.  Damage type **resistance**
+5.  Enemies **Defence stats** or **Defend Action**
+6.  Critical hits
+7.  A small random variation
+
+This makes battles less predictable and more interesting
+
 
 ### Overworld
 
@@ -137,50 +185,3 @@ File structure:
     - `Status.h`: defines status effects (poison, paralysis, etc)
     - `Type.h`: defines damage types (fire, water, etc)
     - `UIHelpers.h`: helps print UI smoothly
-
-
-### Creature Stats
-
-Each creature has the following stats:
-
-- **Health**: how much damage they can take before fainting (hp = 0)
-- **Attack**: increases damage dealt (critical hit chance)
-- **Defense**: reduces incoming damage
-- **Speed**: decides who moves first in a turn
-- **Action**: list of moves the creature can use (attack, heal, etc)
-- **Resistances**: how much damage it takes from certain Damage Types (effective, normal, resistant)
-
-### Action Types
-
-Creatures can perform different types of actions during battle:
-
-- **Attack**: deals damage to the opponent
-- **Special**: a attack with a special effect, such as inflicting a status condition (e.g. burn, freeze, paralysis)
-- **Heal**: restores the user's health
-- **Defend**: reduces the damage of the next incoming attack
-- **Flee**: attempts to escape the battle
-
-### Damage Types
-
-Attack (actions) can have different damage types, for example:
-
-- Fire
-- Water
-- Physical
-- Magical
-
-Creatures can have resistances to these types or be weak to them, which affects the damage they take.
-
-### Damage Calculation
-
-Damage depends on several things:
-
-1.  Attacker's **Attack stats**
-2.  **Action Power scale**
-3.  Defender's **Defense stats**
-4.  Damage type **resistance**
-5.  Enemies **Defence stats** or **Defend Action**
-6.  Critical hits
-7.  A small random variation
-
-This makes battles less predictable and more interesting
