@@ -3,11 +3,15 @@
 #include <sys/stat.h> // mkdir (mac)
 #include <sys/types.h>
 #include <memory>
+#include <string>
+#include <utility>
 
 #include "../include/creatures/Creature.h"
 #include "../include/creatures/CreatureFactory.h"
 #include "../include/overworld/OverworldMap.h"
 #include "../include/game/GameStore.h"
+#include "../include/overworld/EnemyField.h"
+#include "../include/util/Health.h"
 
 
 // folder and index

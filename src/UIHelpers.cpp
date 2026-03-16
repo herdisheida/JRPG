@@ -2,9 +2,15 @@
 #include <iomanip> // for std::setw
 #include <sstream>
 #include <string>
+#include <stddef.h>
+#include <iostream>
+#include <limits>
 
 #include "../include/creatures/Creature.h"
 #include "../include/util/UIHelpers.h"
+#include "../include/util/Colors.h"
+#include "../include/util/Health.h"
+#include "../include/util/Status.h"
 
 
 void UIHelper::waitForEnter(const std::string& prompt) {

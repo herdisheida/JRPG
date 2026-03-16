@@ -1,11 +1,10 @@
 #include <iostream>
 #include <memory>
+#include <string>
 #include <cctype>    // for ::toupper
-
 
 #include "include/controllers/EnemyController.h"
 #include "include/controllers/PlayerController.h"
-
 
 #include "include/overworld/EnemyField.h"
 #include "include/overworld/OverworldMap.h"

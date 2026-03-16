@@ -1,4 +1,9 @@
+#include <memory>
+
 #include "../include/creatures/CreatureFactory.h"
+#include "../include/creatures/CreatureType.h"
+#include "../include/creatures/Creature.h"
+
 
 std::unique_ptr<Creature> CreatureFactory::create(const std::string& species) {
     if (species == "Pikachu") return std::make_unique<Pikachu>();

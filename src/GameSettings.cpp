@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <string>
 
 #include "../include/util/GameSettings.h"
 #include "../include/util/UIHelpers.h"

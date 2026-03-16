@@ -1,4 +1,8 @@
 #include <iostream>
+#include <algorithm>
+#include <iostream>
+#include <random>
+#include <string>
 
 #include "../include/battle/Battle.h"
 #include "../include/controllers/Controller.h"

@@ -1,7 +1,12 @@
+#include <algorithm>
 #include <iostream>
+#include <string>
 
 #include "../include/game/Encounters.h"
 #include "../include/util/Random.h"
+#include "../include/util/Health.h"
+#include "../include/util/UIHelpers.h"
+
 
 
 // main encounter handler

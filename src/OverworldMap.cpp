@@ -1,6 +1,9 @@
+#include <stddef.h> // for size_t
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <random> // for
+#include <set>    // for set
 
 
 #include "../include/overworld/OverworldMap.h"

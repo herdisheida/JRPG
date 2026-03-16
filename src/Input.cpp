@@ -1,5 +1,11 @@
 
 #include <iostream>
+#include <stddef.h> // for size_t
+#include <limits>   // for numeric_limits
+#include <memory>   // for unique_ptr
+#include <string>   // for basic_string, string
+#include <vector>   // for vector
+
 #include "../include/game/Input.h"
 #include "../include/util/UIHelpers.h"
 #include "../include/game/GameStore.h"

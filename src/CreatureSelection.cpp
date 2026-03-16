@@ -1,11 +1,14 @@
 #include <iostream>
 #include <iomanip> // for std::setw
 #include <limits>
-
+#include <algorithm>
+#include <memory>
+#include <string>
 
 #include "../include/game/CreatureSelection.h"
 #include "../include/creatures/CreatureType.h"
 #include "../include/creatures/CreatureFactory.h"
+#include "../include/util/UIHelpers.h"
 
 
 

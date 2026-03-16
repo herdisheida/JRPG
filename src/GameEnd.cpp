@@ -1,7 +1,11 @@
 #include <iostream>
+#include <string>
 
 #include "../include/game/GameEnd.h"
 #include "../include/util/UIHelpers.h"
+#include "../include/creatures/Creature.h"
+#include "../include/overworld/OverworldMap.h"
+
 
 constexpr int gameEndOffset = 5;
 
